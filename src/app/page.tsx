@@ -15,9 +15,10 @@ import ourClientImg from '@/media/our clients img1.png'
 import Slider from "react-slick";
 import { useRef } from 'react'
 import VideoPlayer from './_components/video/video'
-import AOS from  'aos';
+import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import heroImg from "../media/heroImg.png"
 
 
 
@@ -87,12 +88,17 @@ const Home = () => {
   return (
     <>
 
-      <div className={styles.homeWrapper + " bg-black/40 bg-blend-overlay"}>
-        <div className={styles.hero + ' flex flex-col gap-4 justify-center items-start h-full mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
-          <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" >From Our Fields<br /> to Your Table</h1>
-          <p data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">Discover the beauty of eco-friendly farming and savor fresh,<br /> organic produce every day.</p>
-          <Button data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
+      <div className={styles.homeWrapper + " relative"}>
+        <Image src={heroImg} alt='hero img' className='h-[100vh] object-cover' />
+        <div className='absolute top-0 left-0 w-full h-full z-10 bg-black/30'>
+          <div className={styles.hero + ' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
+            <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" >From Our Fields<br /> to Your Table</h1>
+            <p data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">Discover the beauty of eco-friendly farming and savor fresh,<br /> organic produce every day.</p>
+            <Button data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
+          </div>
+
         </div>
+
       </div>
 
 

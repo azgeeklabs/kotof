@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
-.homeWrapper{
-    height: 100vh;
-    background-image: url('../media/heroImg.png');
-    background-position: center center;
-    background-size: cover;
-    overflow: hidden;
-}
+
 
 .homeWrapper .hero h1{
     font-family: "Mansalva", serif;

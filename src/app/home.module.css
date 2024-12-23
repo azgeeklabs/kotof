@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
 .homeWrapper{
     height: 100vh;
-    background-image: url('../../media/heroImg.png');
+    background-image: url('../media/heroImg.png');
     background-position: center center;
     background-size: cover;
     overflow: hidden;
@@ -23,8 +23,4 @@
     text-align: left;
     color: #fff;
     margin-bottom: 1.5rem;
-}
-
-.ourValuesCard{
-    background: linear-gradient(180deg, rgba(71, 197, 129, 0.47) -5.97%, rgba(0, 148, 68, 0.1) 49.05%, rgba(0, 148, 68, 0) 138.18%);
 }

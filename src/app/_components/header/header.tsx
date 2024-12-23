@@ -31,7 +31,7 @@ const Header = () => {
 
     return (
         <>
-            {isOpen && <div onClick={() => setIsOpen(!isOpen)} className='absolute left-0 top-0 h-full w-full z-[9998] backdrop-blur-sm '></div>}
+            {isOpen && <div onClick={() => setIsOpen(!isOpen)} className='fixed left-0 top-0 h-full w-full z-[9998] backdrop-blur-sm overflow-hidden'></div>}
             <div className={styles.top_header + " py-1"}>
                 <div className='flex justify-between max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
                     <ul className='flex justify-between gap-6 md:gap-2'>
@@ -50,8 +50,10 @@ const Header = () => {
             </div>
             <nav className={styles.navbar + " relative"}>
                 <div className='flex justify-between items-center py-2 max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
-                    <Image src={logo} alt='logo' />
-                    <ul className={`absolute flex top-[-42px] h-[100vh] w-[15rem] bg-[#00431F] z-[9999] px-6 py-16 flex-col justify-start lg:static lg:h-auto lg:w-auto lg:bg-transparent lg:z-0 lg:px-0 lg:py-0 lg:flex-row gap-6 transition-all duration-500 ${isOpen ? 'left-0' : 'left-[-15rem]'}`}>
+                    <Link href={"/"}>
+                    <Image src={logo} alt='logo' />                    
+                    </Link>
+                    <ul className={`fixed flex top-[0] h-[150vh] w-[15rem] bg-[#00431F] z-[9999] px-6 py-16 flex-col justify-start lg:static lg:h-auto lg:w-auto lg:bg-transparent lg:z-0 lg:px-0 lg:py-0 lg:flex-row gap-6 transition-all duration-500 ${isOpen ? 'left-0' : 'left-[-15rem]'}`}>
                         <li className='absolute top-4 right-4'>
                             <button className="w-8 h-8 relative group" onClick={() => setIsOpen(!isOpen)}>
                                 <div className={`absolute w-full h-0.5 bg-white top-1/2 rotate-45 transition-all duration-300 ${!isOpen && "rotate-[0deg]"}`}></div>

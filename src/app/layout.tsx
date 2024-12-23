@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "./_components/header/header";
 import Footer from "./_components/footer/footer";
 
+
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
 //   subsets: ["latin"],

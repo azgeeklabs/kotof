@@ -12,6 +12,10 @@
   font-family: "Outfit", serif;
 }
 
+body{
+  background: #fff;
+}
+
 .slick-track{
   display: flex !important;
   gap: 2rem;

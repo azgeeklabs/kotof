@@ -49,20 +49,20 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div 
-      className={`relative inline-block pr-4 min-w-32 ${className}`} 
+      className={`relative inline-block pr-4 min-w-36 ${className}`} 
       ref={dropdownRef}
     >
       {/* Dropdown Trigger */}
       <button
         type="button"
-        className="w-full px-4 py-2 text-left bg-white rounded-md focus:outline-none"
+        className="flex gap-4 justify-between items-center w-full px-2 py-2 text-left bg-white rounded-md focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={selectedOption ? 'text-black' : 'text-gray-500'}>
             {selectedOption?.img ? <Image src={selectedOption.img} alt='english' width={20} height={20} className='inline mr-2' /> : ''}
           {selectedOption?.option || placeholder?.option}
         </span>
-        <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+        <span className="pointer-events-none">
           <Image src={arrowButtom} alt="" className={isOpen ? "rotate-180" : "rotate-0"} />
         </span>
       </button>

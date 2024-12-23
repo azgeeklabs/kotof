@@ -1,13 +1,7 @@
 'use client'
 import React, { useState, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { 
-  Play, 
-  Pause, 
-  Volume2, 
-  VolumeX, 
-  Maximize,
-} from 'lucide-react';
+import { FaPause, FaPlay } from 'react-icons/fa';
 
 // Dynamically import ReactPlayer to avoid SSR issues
 const ReactPlayer = dynamic(() => import('react-player/lazy'), {
@@ -50,7 +44,6 @@ export function VideoPlayer({
   height = '100%',
   onReady,
   onStart,
-  onEnded,
   onError
 }: VideoPlayerProps) {
   // Refs
@@ -59,8 +52,9 @@ export function VideoPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // State
+  // const [playerState, setPlayerState] = useState<PlayerState>(true)
   const [playerState, setPlayerState] = useState<PlayerState>({
-    playing: true,
+    playing: false,
     volume: 1,
     muted: false,
     played: 0,
@@ -75,49 +69,16 @@ export function VideoPlayer({
     setPlayerState(prev => ({ ...prev, playing: !prev.playing }));
   }, []);
 
-  const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const volume = parseFloat(e.target.value);
-    setPlayerState(prev => ({ ...prev, volume, muted: volume === 0 }));
-  }, []);
 
-  const handleToggleMute = useCallback(() => {
-    setPlayerState(prev => ({ ...prev, muted: !prev.muted }));
-  }, []);
 
-  const handleProgress = useCallback((state: { played: number; loaded: number }) => {
-    setPlayerState(prev => ({ ...prev, ...state }));
-  }, []);
 
-  const handleDuration = useCallback((duration: number) => {
-    setPlayerState(prev => ({ ...prev, duration }));
-  }, []);
 
-  const handleFullscreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      containerRef.current?.requestFullscreen();
-      setPlayerState(prev => ({ ...prev, fullscreen: true }));
-    } else {
-      document.exitFullscreen();
-      setPlayerState(prev => ({ ...prev, fullscreen: false }));
-    }
-  }, []);
 
-  // Format time helper
-  const formatTime = (seconds: number) => {
-    const date = new Date(seconds * 1000);
-    const hh = date.getUTCHours();
-    const mm = date.getUTCMinutes();
-    const ss = date.getUTCSeconds().toString().padStart(2, '0');
-    if (hh) {
-      return `${hh}:${mm.toString().padStart(2, '0')}:${ss}`;
-    }
-    return `${mm}:${ss}`;
-  };
 
   return (
     <div 
       ref={containerRef}
-      className="relative w-full aspect-video bg-black rounded-lg overflow-hidden"
+      className="relative w-full  overflow-hidden"
     >
       <ReactPlayer
         ref={playerRef}
@@ -131,10 +92,8 @@ export function VideoPlayer({
         playbackRate={playerState.playbackRate}
         onReady={onReady}
         onStart={onStart}
-        onEnded={onEnded}
+        onEnded={()=>{setPlayerState(prev => ({ ...prev, playing: !prev.playing }))}}
         onError={onError}
-        onProgress={handleProgress}
-        onDuration={handleDuration}
         progressInterval={1000}
         config={{
           file: {
@@ -147,58 +106,16 @@ export function VideoPlayer({
 
       {/* Custom Controls */}
       {controls && (
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-          {/* Progress Bar */}
-          <div className="w-full h-1 bg-gray-600 rounded cursor-pointer mb-4">
-            <div 
-              className="h-full bg-blue-500 rounded"
-              style={{ width: `${playerState.played * 100}%` }}
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            {/* Play/Pause */}
+        <div className="absolute bottom-0 left-0 w-full h-full z-10 bg-black/40 p-4 flex flex-col items-center justify-center gap-8">
             <button 
               onClick={handlePlayPause}
-              className="text-white hover:text-blue-500 transition-colors"
+              className="text-black w-16 h-16 rounded-[50%] bg-[#fff] flex items-center justify-center"
             >
-              {playerState.playing ? <Pause size={24} /> : <Play size={24} />}
+              {playerState.playing ? <FaPause className='text-[24px]' /> :  <FaPlay className='text-[24px]' />}
             </button>
 
-            {/* Volume Controls */}
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={handleToggleMute}
-                className="text-white hover:text-blue-500 transition-colors"
-              >
-                {playerState.muted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-              </button>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.1}
-                value={playerState.muted ? 0 : playerState.volume}
-                onChange={handleVolumeChange}
-                className="w-20"
-              />
-            </div>
-
-            {/* Time Display */}
-            <div className="text-white text-sm">
-              {formatTime(playerState.played * playerState.duration)} / 
-              {formatTime(playerState.duration)}
-            </div>
-
-            {/* Fullscreen */}
-            <button 
-              onClick={handleFullscreen}
-              className="text-white hover:text-blue-500 transition-colors"
-            >
-              <Maximize size={24} />
-            </button>
+            <h4 className='text-[54px] text-[#FFFFFF] font-[600] text-center'>&quot;Discover How Quttouf Transforms <br/> Investments into Opportunities&quot;</h4>
           </div>
-        </div>
       )}
     </div>
   );

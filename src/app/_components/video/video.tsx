@@ -39,7 +39,6 @@ export function VideoPlayer({
   url,
   thumbnail,
   loop = false,
-  controls = true,
   width = '100%',
   height = '100%',
   onReady,
@@ -105,7 +104,7 @@ export function VideoPlayer({
       />
 
       {/* Custom Controls */}
-      {controls && (
+      {playerState.playing && (
         <div className="absolute bottom-0 left-0 w-full h-full z-10 bg-black/40 p-4 flex flex-col items-center justify-center gap-4 lg:gap-12">
             <button 
               onClick={handlePlayPause}

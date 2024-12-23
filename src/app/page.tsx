@@ -116,7 +116,7 @@ const Home = () => {
         <div className='flex flex-col lg:flex-row items-stretch gap-8'>
           <div data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className="relative w-full lg:w-1/2 h-auto">
             <Image src={mainBlogImg} alt='blog img' className='rounded-[8px] h-full w-full object-cover' />
-            <div className='flex flex-col justify-end gap-6 text-white absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/0 to-black/90 rounded-[8px] p-16'>
+            <div className='flex flex-col justify-end gap-6 text-white absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/0 to-black/90 rounded-[8px] p-8 md:p-16'>
               <h5 className='text-[28px] leading-[33px] font-bold'>Miscovery incommode earnestly commanded if.</h5>
               <p className='text-[17px]'>Seeing rather her you not esteem men settle genius excuse you age from. Comparison new ham melancholy.</p>
               <Link href={""} className='flex items-start w-fit gap-2 hover:gap-4 transition-all duration-300 leading-[14px] text-[14px]'>

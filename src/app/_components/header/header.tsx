@@ -51,9 +51,9 @@ const Header = () => {
             <nav className={styles.navbar + " relative"}>
                 <div className='flex justify-between items-center py-2 max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
                     <Link href={"/"}>
-                    <Image src={logo} alt='logo' />                    
+                    <Image src={logo} alt='logo' className='w-32 md:w-20' />                    
                     </Link>
-                    <ul className={`fixed flex top-[0] h-[150vh] w-[15rem] bg-[#00431F] z-[9999] px-6 py-16 flex-col justify-start lg:static lg:h-auto lg:w-auto lg:bg-transparent lg:z-0 lg:px-0 lg:py-0 lg:flex-row gap-6 transition-all duration-500 ${isOpen ? 'left-0' : 'left-[-15rem]'}`}>
+                    <ul className={`fixed flex top-[0] h-[100vh] w-[15rem] bg-[#00431F] z-[9999] px-6 py-16 flex-col justify-start lg:static lg:h-auto lg:w-auto lg:bg-transparent lg:z-0 lg:px-0 lg:py-0 lg:flex-row gap-6 transition-all duration-500 ${isOpen ? 'left-0' : 'left-[-15rem]'}`}>
                         <li className='absolute top-4 right-4'>
                             <button className="w-8 h-8 relative group" onClick={() => setIsOpen(!isOpen)}>
                                 <div className={`absolute w-full h-0.5 bg-white top-1/2 rotate-45 transition-all duration-300 ${!isOpen && "rotate-[0deg]"}`}></div>
@@ -68,7 +68,7 @@ const Header = () => {
                         <li><Link href="/contact-us" className='text-white lg:text-[#363636]'>Contact us</Link></li>
                     </ul>
 
-                    <div className='flex items-center gap-8'>
+                    <div className='flex items-center gap-4 md:gap-8'>
                         <Dropdown options={options} onSelect={handleSelect} placeholder={options[0]} selected={options[1]} />
                         <div className='hidden gap-4 lg:flex'>
                             <Button variant='ghost'>Sign Up</Button>

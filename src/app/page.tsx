@@ -110,7 +110,7 @@ const Home = () => {
       <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-32">
         <div className='text-center mb-10'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Blog</h6>
-          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
+          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[30px] md:text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
         </div>
 
         <div className='flex flex-col lg:flex-row items-stretch gap-8'>
@@ -150,7 +150,7 @@ const Home = () => {
       <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-32">
         <div className='text-center mb-12'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Values</h6>
-          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>Empowering Trust, Transparency, and Growth<br />in Every Step We Take.</h2>
+          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[30px] md:text-[40px] text-[#252525] font-[500]'>Empowering Trust, Transparency, and Growth<br />in Every Step We Take.</h2>
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
@@ -177,7 +177,7 @@ const Home = () => {
       <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-32">
         <div className='text-center mb-12'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Market</h6>
-          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
+          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[30px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
         </div>
 
         <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8'>
@@ -193,7 +193,7 @@ const Home = () => {
         <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
           <div className='text-center mb-12'>
             <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Team</h6>
-            <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
+            <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[30px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2'>
@@ -229,7 +229,7 @@ const Home = () => {
       <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-32">
         <div className='text-center mb-12'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our clients</h6>
-          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
+          <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[30px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
         </div>
 
         <div className=''>

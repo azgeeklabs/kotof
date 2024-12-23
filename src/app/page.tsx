@@ -26,7 +26,11 @@ const Home = () => {
 
 
   useEffect(() => {
-    AOS.init();
+    AOS.init({
+      disable: 'mobile', // Optionally disable on mobile
+      once: true,       // Whether animation should happen only once
+      mirror: false,
+    });
   }, []);
 
   // const [isLastSlide, setIsLastSlide] = useState(false);
@@ -89,7 +93,7 @@ const Home = () => {
     <>
 
       <div className={styles.homeWrapper + " relative"}>
-        <Image src={heroImg} alt='hero img' className='h-[65vh] md:h-[100vh] object-cover' />
+        <Image src={heroImg} alt='hero img' className='h-[65vh] md:h-[100vh] w-full object-cover' />
         <div className='absolute top-0 left-0 w-full h-full z-10 bg-black/30'>
           <div className={styles.hero + ' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
             <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className='text-[#fff] text-[50px] md:text-[80px] font-[400] leading-[35px] md:leading-[65px]' >From Our Fields<br /> to Your Table</h1>

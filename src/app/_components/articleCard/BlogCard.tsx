@@ -6,7 +6,7 @@ import Link from 'next/link';
 const BlogCard = () => {
   return (
     <>
-        <div className="max-w-sm overflow-hidden">
+        <div className="w-full overflow-hidden">
             <div className="relative h-52 mb-8">
                 <Image className="w-full h-full rounded-lg object-cover" src={blogImg} alt="Card image" />
                 <div className='absolute bottom-0 left-0 w-20 h-14 bg-[#F7C35F] text-[#04000B] text-[36px] flex items-center justify-center font-bold'>08</div>

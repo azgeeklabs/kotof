@@ -13,7 +13,7 @@ import ProductCard from './_components/productCard/ProductCard'
 import ourTeamImg from '@/media/our team img1.png'
 import ourClientImg from '@/media/our clients img1.png'
 import Slider from "react-slick";
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import VideoPlayer from './_components/video/video'
 import AOS from  'aos';
 import 'aos/dist/aos.css';
@@ -28,8 +28,8 @@ const Home = () => {
     AOS.init();
   }, []);
 
-  const [isLastSlide, setIsLastSlide] = useState(false);
-  const [isFirstSlide, setIsFirstSlide] = useState(true);
+  // const [isLastSlide, setIsLastSlide] = useState(false);
+  // const [isFirstSlide, setIsFirstSlide] = useState(true);
   const sliderRef = useRef<Slider | null>(null);
   const next = () => {
     sliderRef.current?.slickNext();
@@ -40,34 +40,48 @@ const Home = () => {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     arrows: false,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     centerPadding: "50px",
-    afterChange: (index: number) => {
-      // Update current slide after change
-      checkIfFirstSlide(index);
-      checkIfLastSlide(index);
-    },
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+        }
+      }
+    ],
+    // afterChange: (index: number) => {
+    //   // Update current slide after change
+    //   checkIfFirstSlide(index);
+    //   checkIfLastSlide(index);
+    // },
   };
 
   // Check if the current slide is the first slide
-  const checkIfFirstSlide = (index: number) => {
-    setIsFirstSlide(index === 0);
-  };
+  // const checkIfFirstSlide = (index: number) => {
+  //   setIsFirstSlide(index === 0);
+  // };
 
-  // Check if the current slide is the last slide
-  const checkIfLastSlide = (index: number) => {
-    if (sliderRef.current?.innerSlider?.list) {
-      const totalSlides = sliderRef.current.innerSlider.list.querySelectorAll(".slick-slide").length;
-      const slidesToScroll = settings.slidesToScroll;
-      const totalPages = Math.ceil(totalSlides / slidesToScroll);
-      const currentPage = Math.floor(index / slidesToScroll) + 3; // 1-based page number
-      setIsLastSlide(currentPage === totalPages);
-    }
-  };
+  // // Check if the current slide is the last slide
+  // const checkIfLastSlide = (index: number) => {
+  //   if (sliderRef.current?.innerSlider?.list) {
+  //     const totalSlides = sliderRef.current.innerSlider.list.querySelectorAll(".slick-slide").length;
+  //     const slidesToScroll = settings.slidesToScroll;
+  //     const totalPages = Math.ceil(totalSlides / slidesToScroll);
+  //     const currentPage = Math.floor(index / slidesToScroll) + 3; // 1-based page number
+  //     setIsLastSlide(currentPage === totalPages);
+  //   }
+  // };
 
 
   return (
@@ -99,9 +113,9 @@ const Home = () => {
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
         </div>
 
-        <div className='flex flex-col lg:flex-raw items-stretch gap-8'>
+        <div className='flex flex-col lg:flex-row items-stretch gap-8'>
           <div data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className="relative w-full lg:w-1/2 h-auto">
-            <Image src={mainBlogImg} alt='blog img' className='rounded-[8px] h-full w-auto object-cover' />
+            <Image src={mainBlogImg} alt='blog img' className='rounded-[8px] h-full w-full object-cover' />
             <div className='flex flex-col justify-end gap-6 text-white absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/0 to-black/90 rounded-[8px] p-16'>
               <h5 className='text-[28px] leading-[33px] font-bold'>Miscovery incommode earnestly commanded if.</h5>
               <p className='text-[17px]'>Seeing rather her you not esteem men settle genius excuse you age from. Comparison new ham melancholy.</p>
@@ -117,7 +131,7 @@ const Home = () => {
             <BlogCard />
           </div>
 
-          <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="400" className="w-full lg:w-1/4">
+          <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className="w-full lg:w-1/4">
             <BlogCard />
           </div>
         </div>
@@ -296,19 +310,19 @@ const Home = () => {
           <div className='w-full flex justify-center items-center gap-2 py-6'>
 
             <div
-              className={`w-10 h-10  flex justify-center items-center ${isFirstSlide ? '' : 'border-2 border-[#536728]'}`}
+              className={`w-10 h-10  flex justify-center items-center border-2 border-[#536728] cursor-pointer`}
               onClick={previous}
             >
               <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 2L1.5 8L7.5 14" stroke={isFirstSlide ? "#949494" : "#536728"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M7.5 2L1.5 8L7.5 14" stroke={"#536728"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
 
             </div><div
-              className={`w-10 h-10 flex justify-center items-center ${isLastSlide ? '' : 'border-2 border-[#536728]'}`}
+              className={`w-10 h-10 flex justify-center items-center border-2 border-[#536728] cursor-pointer`}
               onClick={next}
             >
               <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.5 14L7.5 8L1.5 2" stroke={isLastSlide ? "#949494" : "#536728"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M1.5 14L7.5 8L1.5 2" stroke={"#536728"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           </div>

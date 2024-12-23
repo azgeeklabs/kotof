@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
+.homeWrapper{
+    height: 100vh;
+    background-image: url('../../media/heroImg.png');
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.homeWrapper .hero h1{
+    font-family: "Mansalva", serif;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 65px;
+    text-align: left;
+    color: #fff;
+}
+
+.homeWrapper .hero p{
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 25px;
+    text-align: left;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.ourValuesCard{
+    background: linear-gradient(180deg, rgba(71, 197, 129, 0.47) -5.97%, rgba(0, 148, 68, 0.1) 49.05%, rgba(0, 148, 68, 0) 138.18%);
+}

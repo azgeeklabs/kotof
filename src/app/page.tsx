@@ -89,10 +89,10 @@ const Home = () => {
     <>
 
       <div className={styles.homeWrapper + " relative"}>
-        <Image src={heroImg} alt='hero img' className='h-[100vh] object-cover' />
+        <Image src={heroImg} alt='hero img' className='h-[65vh] md:h-[100vh] object-cover' />
         <div className='absolute top-0 left-0 w-full h-full z-10 bg-black/30'>
           <div className={styles.hero + ' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
-            <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" >From Our Fields<br /> to Your Table</h1>
+            <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className='text-[#fff] text-[50px] md:text-[80px] font-[400] leading-[35px] md:leading-[65px]' >From Our Fields<br /> to Your Table</h1>
             <p data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">Discover the beauty of eco-friendly farming and savor fresh,<br /> organic produce every day.</p>
             <Button data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
           </div>

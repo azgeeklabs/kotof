@@ -3,6 +3,7 @@ import Button from '../_components/button/Button'
 
 const contactUs = () => {
     return (
+        <>
         <div className='max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
             <div className='py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16'>
                 <div className='flex flex-col gap-12'>
@@ -97,6 +98,10 @@ const contactUs = () => {
                 </div>
             </div>
         </div>
+        <div className='w-full'>
+        <iframe width={"100%"} height={300} frameBorder={0} scrolling="no" marginHeight={0} marginWidth={0} id="gmap_canvas" src="https://maps.google.com/maps?width=980&amp;height=300&amp;hl=en&amp;q=51%20Oakley%20Close%20,%20Isleworth,%20TW7%204HY,%20United%20Kingdom%20Isleworth+()&amp;t=p&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+        </div>
+        </>
     )
 }
 

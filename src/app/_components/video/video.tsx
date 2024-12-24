@@ -105,7 +105,7 @@ export function VideoPlayer({
 
       {/* Custom Controls */}
       {!playerState.playing && (
-        <div className="absolute bottom-0 left-0 w-full h-full z-10 bg-black/40 p-4 flex flex-col items-center justify-center gap-4 lg:gap-12">
+        <div className="absolute bottom-0 left-0 w-full h-full z-10 bg-black/40 p-3 flex flex-col items-center justify-center gap-4 lg:gap-12">
             <button 
               onClick={handlePlayPause}
               className="text-black w-16 h-16 rounded-[50%] bg-[#fff] flex items-center justify-center"
@@ -113,7 +113,7 @@ export function VideoPlayer({
               {playerState.playing ? <FaPause className='text-[24px]' /> :  <FaPlay className='text-[24px]' />}
             </button>
 
-            <h4 className='text-[28px] leading-[40px] lg:text-[54px] lg:leading-[70px] text-[#FFFFFF] font-[600] text-center'>&quot;Discover How Quttouf Transforms <br/> Investments into Opportunities&quot;</h4>
+            <h4 className='text-[22px] leading-[30px] lg:text-[54px] lg:leading-[70px] text-[#FFFFFF] font-[600] text-center'>&quot;Discover How Quttouf Transforms <br/> Investments into Opportunities&quot;</h4>
           </div>
       )}
     </div>

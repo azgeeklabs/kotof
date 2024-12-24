@@ -69,7 +69,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
       {/* Dropdown Options */}
       {isOpen && (
-        <ul className="flex flex-col justify-start items-start gap-0 absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg overflow-y-auto">
+        <ul className="flex flex-col justify-start items-start gap-0 absolute z-[9999] mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg overflow-y-auto">
           {options.map((option, index) => (
             <li
               key={index}

@@ -21,3 +21,7 @@ body{
   display: flex !important;
   gap: 2rem;
 }
+
+.ourteam-slider .slick-track{
+  display: inline-block !important;
+}

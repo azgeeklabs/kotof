@@ -51,7 +51,7 @@ const Header = () => {
             <nav className={styles.navbar + " relative"}>
                 <div className='flex justify-between items-center py-2 max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
                     <Link href={"/"}>
-                    <Image src={logo} alt='logo' className='w-32 md:w-20' />                    
+                    <Image src={logo} alt='logo' className='w-20 md:w-32' />                    
                     </Link>
                     <ul className={`fixed flex top-[0] h-[100vh] w-[15rem] bg-[#00431F] z-[9999] px-6 py-16 flex-col justify-start lg:static lg:h-auto lg:w-auto lg:bg-transparent lg:z-0 lg:px-0 lg:py-0 lg:flex-row gap-6 transition-all duration-500 ${isOpen ? 'left-0' : 'left-[-15rem]'}`}>
                         <li className='absolute top-4 right-4'>

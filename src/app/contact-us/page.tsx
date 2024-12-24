@@ -4,10 +4,10 @@ import Button from '../_components/button/Button'
 const contactUs = () => {
     return (
         <div className='max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
-            <div className='py-32 grid grid-col-1 md:grid-cols-2 gap-16'>
+            <div className='py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16'>
                 <div className='flex flex-col gap-12'>
                     <div>
-                        <h4 className='text-[52px] text-[#000] font-[600] mb-6'>Get In Touch</h4>
+                        <h4 className='text-[42px] md:text-[52px] text-[#000] font-[600] mb-6'>Get In Touch</h4>
                         <p className='text-[16px] text-[#939393] font-[400] leading-[30px]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took .</p>
                     </div>
                     <div className=' flex flex-col gap-6'>
@@ -80,7 +80,7 @@ const contactUs = () => {
                 </div>
                 <div className='rounded-[12px] bg-[#F4F8ED] p-8 flex flex-col justify-center'>
                     <p className='text-[#31A13A] text-[16px] font-[500] mb-4'>have a question ?</p>
-                    <h2 className='text-[#000] text-[50px] font-[600] mb-10'>Send us a massage</h2>
+                    <h2 className='text-[#000] text-[40px] md:text-[50px] font-[600] mb-10'>Send us a massage</h2>
                     <form action="" className='w-full flex flex-col gap-4'>
                         <input type="text" name="" id="" placeholder='Name' className='w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]' />
                         <div className='grid grid-col-1 md:grid-cols-2 gap-4'>

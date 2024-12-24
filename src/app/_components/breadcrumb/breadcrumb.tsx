@@ -28,8 +28,8 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     };
 
     return (
-        <nav className="relative w-full">
-            <Image src={breadcrumbImg} alt='breadcrumb img' className='' />
+        <nav className="relative w-full h-[30vh] md:h-[50vh]">
+            <Image src={breadcrumbImg} alt='breadcrumb img' className='object-cover h-full' />
             <div className='absolute top-0 left-0 w-full h-full bg-[#1f1e1740] flex flex-col items-center justify-center gap-4'>
                 <div className='flex items-center justify-center space-x-2'>
                     <Link
@@ -57,7 +57,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                         </React.Fragment>
                     ))}
                 </div>
-                <h5 className='text-[50px] font-[800] leading-[60px] text-[#fff]'>{items[items.length - 1].label}</h5>
+                <h5 className='text-[28px] font-[600] leading-[30px] lg:text-[50px] lg:font-[800] lg:leading-[60px] text-[#fff]'>{items[items.length - 1].label}</h5>
             </div>
         </nav>
     );

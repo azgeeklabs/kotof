@@ -72,8 +72,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 onClick={() => onPageChange(pageNumber)}
                 className={
                     isActive
-                        ? 'h-[60px] w-[60px] rounded-[50%] border-2 border-[#009444] p-2 flex items-center justify-center bg-[#009444] text-white'
-                        : 'h-[60px] w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444]'
+                        ? 'h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#009444] p-2 flex items-center justify-center bg-[#009444] text-white text-[14px] lg:text-[16px]'
+                        : 'h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] text-[14px] lg:text-[16px]'
                 }
             >
                 {pageNumber}
@@ -86,7 +86,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="h-[60px] w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] disabled:hidden "
+                className="h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] disabled:hidden "
             >
                 <BiChevronLeft className="w-6 h-6" />
             </button>
@@ -98,7 +98,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="h-[60px] w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] disabled:hidden"
+                className="h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] disabled:hidden"
             >
                 <BiChevronRight className="w-6 h-6" />
             </button>

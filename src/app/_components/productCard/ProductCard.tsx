@@ -1,11 +1,17 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import Button from '../button/Button'
 import userImg from "../../../media/user img.png";
 import Image from 'next/image';
+import Modal from '../modal/Modal';
 
 const ProductCard = () => {
+
+    const [isOpen, setIsOpen] = useState<boolean>(true)
+
     return (
-        <div className='relative px-6 pb-6 pt-10 rounded-[20px] bg-gradient-to-t from-[#F4F8ED] to-[#F4F8ED00] w-full mt-16'>
+        <>
+                <div className='relative px-6 pb-6 pt-10 rounded-[20px] bg-gradient-to-t from-[#F4F8ED] to-[#F4F8ED00] w-full mt-16'>
             <div className='bg-[#F4F8ED] rounded-[50%] w-24 h-24 flex items-center justify-center absolute top-[-3rem] left-2'>
                 <Image src={userImg} alt='user'width={50} height={50} />
             </div>
@@ -19,9 +25,15 @@ const ProductCard = () => {
             </ul>
             <div className='grid grid-cols-2 gap-6'>
                 <Button variant='outline' className='w-full'>Show Details</Button>
-                <Button className='w-full'>Buy Now</Button>
+                <Button className='w-full' onClick={()=>{setIsOpen(true)}}>Buy Now</Button>
             </div>
         </div>
+
+        <Modal isOpen={isOpen} onClose={()=>{setIsOpen(false)}} title='title'>
+        <div>test</div>
+      </Modal>
+        </>
+
     )
 }
 

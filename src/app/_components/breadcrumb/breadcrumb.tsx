@@ -12,20 +12,11 @@ interface BreadcrumbItem {
 
 interface BreadcrumbProps {
     items?: BreadcrumbItem[];
-    onNavigate?: (href: string) => void;
 }
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({
-    items = [],
-    onNavigate
+    items = []
 }) => {
-    const handleClick = (
-        e: React.MouseEvent<HTMLAnchorElement>,
-        href: string
-    ): void => {
-        e.preventDefault();
-        onNavigate?.(href);
-    };
 
     return (
         <nav className="relative w-full h-[30vh] md:h-[50vh]">
@@ -34,7 +25,6 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                 <div className='flex items-center justify-center space-x-2'>
                     <Link
                         href="/"
-                        onClick={(e) => handleClick(e, "/")}
                         className="flex items-center text-[#FFFFFFB2]"
                     >
                         Home
@@ -48,7 +38,6 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                             ) : (
                                 <Link
                                     href={item.href}
-                                    onClick={(e) => handleClick(e, item.href)}
                                     className="text-[#FFFFFFB2]"
                                 >
                                     {item.label}

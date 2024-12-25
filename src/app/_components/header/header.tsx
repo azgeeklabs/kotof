@@ -60,7 +60,7 @@ const Header = () => {
                                 <div className={`absolute w-full h-0.5 bg-white top-1/2 -rotate-45 transition-all duration-300 ${!isOpen && "-rotate-[0deg]"}`}></div>
                             </button>
                         </li>
-                        <li><Link href="/home" className='text-white lg:text-[#363636]'>Home</Link></li>
+                        <li><Link href="/" className='text-white lg:text-[#363636]'>Home</Link></li>
                         <li><Link href="/market" className='text-white lg:text-[#363636]'>Market</Link></li>
                         <li><Link href="/our-projects" className='text-white lg:text-[#363636]'>Our Project</Link></li>
                         <li><Link href="/news&articles" className='text-white lg:text-[#363636]'>News & Articles</Link></li>

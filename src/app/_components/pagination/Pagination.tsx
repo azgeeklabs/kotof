@@ -11,11 +11,15 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({
+
     currentPage,
+
     totalPages,
     onPageChange,
     siblingCount = 1,
+
 }) => {
+
     const range = (start: number, end: number) => {
         const length = end - start + 1;
         return Array.from({ length }, (_, i) => start + i);

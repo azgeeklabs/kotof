@@ -35,7 +35,7 @@ const page = () => {
           <BlogCard />
 
         </div>
-        <Pagination currentPage={First} totalPages={5} onPageChange={(t) => setFirst(t)} />
+        <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
 
 
       </div>

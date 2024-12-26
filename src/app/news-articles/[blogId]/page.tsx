@@ -5,22 +5,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import BlogCard from '@/app/_components/articleCard/BlogCard'
 
-interface Props {
-  params: {
-    id: string
-  }
-}
 
-const page = async ({ params }: Props) => {
+type PageParams = Promise<{ blogId: string}>;
 
+const page = async({ params }: { params: PageParams }) => {
 
-  const { id } = await params
+  const { blogId } = await params
+  
+
   return (
     <>
       <Breadcrumb
         items={[
-          { label: 'News & Articles', href: '/news&articles' },
-          { label: id, href: `/news&articles/${id}` },
+          { label: 'News & Articles', href: '/news-articles' },
+          { label: blogId, href: `/news-articles/${blogId}` },
         ]}
       />
 
@@ -128,11 +126,11 @@ const page = async ({ params }: Props) => {
         </div>
       </div>
 
-
-
-
     </>
   )
 }
 
 export default page
+
+
+

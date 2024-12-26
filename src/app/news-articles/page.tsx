@@ -14,7 +14,7 @@ const page = () => {
     <>
       <Breadcrumb
         items={[
-          { label: 'News & Articles', href: '/news&articles' },
+          { label: 'News & Articles', href: '/news-articles' },
         ]}
       />
 

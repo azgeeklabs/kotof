@@ -63,7 +63,7 @@ const Header = () => {
                         <li><Link href="/" className='text-white lg:text-[#363636]'>Home</Link></li>
                         <li><Link href="/market" className='text-white lg:text-[#363636]'>Market</Link></li>
                         <li><Link href="/our-projects" className='text-white lg:text-[#363636]'>Our Project</Link></li>
-                        <li><Link href="/news&articles" className='text-white lg:text-[#363636]'>News & Articles</Link></li>
+                        <li><Link href="/news-articles" className='text-white lg:text-[#363636]'>News & Articles</Link></li>
                         <li><Link href="/partners" className='text-white lg:text-[#363636]'>Partners</Link></li>
                         <li><Link href="/contact-us" className='text-white lg:text-[#363636]'>Contact us</Link></li>
                     </ul>

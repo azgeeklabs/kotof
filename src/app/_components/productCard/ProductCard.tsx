@@ -7,7 +7,7 @@ import Modal from '../modal/Modal';
 
 const ProductCard = () => {
 
-    const [isOpen, setIsOpen] = useState<boolean>(true)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     return (
         <>

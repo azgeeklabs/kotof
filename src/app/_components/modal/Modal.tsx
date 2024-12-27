@@ -53,14 +53,14 @@ const Modal: React.FC<ModalProps> = ({
       {/* Modal */}
       <div
         ref={modalRef}
-        className={`relative z-50 w-full max-w-3xl rounded-lg bg-white p-4 shadow-xl 
+        className={`relative z-50 w-[90%] max-w-3xl rounded-lg bg-white p-4 shadow-xl 
           transition-all duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
           ${className}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           {title && (
-            <h2 className="text-[24px] font-[600] text-[#17181B]">
+            <h2 className="text-[18px] lg:text-[24px] font-[600] text-[#17181B]">
               {title}
             </h2>
           )}

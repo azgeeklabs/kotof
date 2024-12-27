@@ -1,7 +1,6 @@
 'use client'
 import React from 'react';
 import Link from 'next/link';
-import { FiChevronRight } from 'react-icons/fi';
 import Image from 'next/image';
 import breadcrumbImg from "@/media/breadcrumb_bg.png"
 
@@ -32,7 +31,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
 
                     {items.map((item, index) => (
                         <React.Fragment key={index}>
-                            <FiChevronRight className="w-4 h-4 text-[#FFFFFFB2]" />
+                            <span className='text-[#FFFFFFB2]'>/</span>
                             {index === items.length - 1 ? (
                                 <span className="font-medium text-[#FFFFFFB2]">{item.label}</span>
                             ) : (

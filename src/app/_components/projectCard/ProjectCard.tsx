@@ -8,9 +8,7 @@ const ProjectCard = () => {
   return (
     <>
       <div className="w-full overflow-hidden">
-        <div className="relative h-96 ">
           <Image className="w-full rounded-lg object-cover mb-2 lg:mb-4" src={ProjectImg} alt="Card image" />
-        </div>
         <div className="py-2">
           <h2 className="text-[24px] lg:text-[28px] font-[500] mb-2 lg:mb-3 text-[#121212]">Bringing food production back</h2>
           <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">Vivamus accumsan diam eget ultricies auctor. Proin iaculis metus.</p>

@@ -9,7 +9,6 @@ import img4 from '@/media/facebook-icon.png'
 import img5 from '@/media/linkedIn-icon.png'
 import logo from '@/media/logo.png'
 import Link from 'next/link'
-import Button from '../button/Button'
 import Dropdown from '../dropdown/Dropdown'
 import englishFlag from '../../../media/englishFlag.png'
 import arabicFlag from '../../../media/arabicFlag.png'
@@ -70,9 +69,9 @@ const Header = () => {
 
                     <div className='flex items-center gap-4 md:gap-8'>
                         <Dropdown options={options} onSelect={handleSelect} placeholder={options[0]} selected={options[1]} />
-                        <div className='hidden gap-4 lg:flex'>
-                            <Button variant='ghost'>Sign Up</Button>
-                            <Button >Login</Button>
+                        <div className='hidden gap-4 lg:flex lg:items-center'>
+                            <Link href="/auth/signup" className='text-[14px] font-[500] rounded-[4px] bg-white '>Sign Up</Link>
+                            <Link href="/auth/signin" className='px-4 py-2 text-sm md:text-base rounded-[8px] bg-[#009444] text-white hover:bg-[#00431F] duration-200'>Login</Link>
                         </div>
                         <button className={styles.toggleMenu + ` flex lg:hidden `} onClick={() => setIsOpen(!isOpen)}><Image src={menuIcon} alt='menu icon' /></button>
                     </div>

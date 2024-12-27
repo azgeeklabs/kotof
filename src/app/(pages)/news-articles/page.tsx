@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import Breadcrumb from '../_components/breadcrumb/breadcrumb'
-import Pagination from '../_components/pagination/Pagination'
-import BlogCard from '../_components/articleCard/BlogCard'
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
+import Pagination from '@/app/_components/pagination/Pagination'
+import BlogCard from '@/app/_components/articleCard/BlogCard'
 
 
 const page = () => {

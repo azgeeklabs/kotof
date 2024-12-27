@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import Breadcrumb from '../_components/breadcrumb/breadcrumb'
-import Pagination from '../_components/pagination/Pagination'
-import SectorCard from '../_components/sectorCard/SectorCard'
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
+import Pagination from '@/app/_components/pagination/Pagination'
+import ProjectCard from '@/app/_components/projectCard/ProjectCard'
 
 
 const page = () => {
@@ -12,7 +12,7 @@ const page = () => {
     <>
     <Breadcrumb
       items={[
-        { label: 'Sectors', href: '/sectors' },
+        { label: 'Our Projects', href: '/our-projects' },
       ]}
     />
 
@@ -24,10 +24,12 @@ const page = () => {
       </div>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
-        <SectorCard/>
-        <SectorCard/>
-        <SectorCard/>
-        <SectorCard/>
+
+        <ProjectCard/>
+        <ProjectCard/>
+        <ProjectCard/>
+        <ProjectCard/>
+
       </div>
       <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
 

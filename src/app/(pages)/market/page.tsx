@@ -1,9 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import Breadcrumb from '../_components/breadcrumb/breadcrumb'
-import Tabs from '../_components/tabs/Tabs'
-import ProductCard from '../_components/productCard/ProductCard'
-import Pagination from '../_components/pagination/Pagination'
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
+import Tabs from '@/app/_components/tabs/Tabs'
+import ProductCard from '@/app/_components/productCard/ProductCard'
+import Pagination from '@/app/_components/pagination/Pagination'
 
 const RenderProducts = () => {
 

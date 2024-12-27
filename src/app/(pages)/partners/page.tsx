@@ -1,7 +1,7 @@
 import React from 'react'
-import Breadcrumb from '../_components/breadcrumb/breadcrumb'
-import Out_team from '../_components/home_components/Out_team'
-import Our_client from '../_components/home_components/Our_client'
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
+import Out_team from '@/app/_components/home_components/Out_team'
+import Our_client from '@/app/_components/home_components/Our_client'
 
 const page = () => {
   return (

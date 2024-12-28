@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "@/app/_components/header/header";
 import Footer from "@/app/_components/footer/footer";
 import { usePathname } from 'next/navigation'
+import { DirectionProvider } from '@/app/_contexts/DirectionContext';
+
 
 
 
@@ -23,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <DirectionProvider>
         {!pathname.startsWith('/auth') && <Header/>}
         {children}
         {!pathname.startsWith('/auth') && <Footer/>}
+        </DirectionProvider>
       </body>
     </html>
   );

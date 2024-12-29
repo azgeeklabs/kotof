@@ -20,7 +20,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
     return (
         <nav className="relative w-full h-[30vh] md:h-[50vh]">
             <Image src={breadcrumbImg} alt='breadcrumb img' className='object-cover h-full w-full' />
-            <div className='absolute top-0 left-0 w-full h-full bg-[#1f1e1740] flex flex-col items-center justify-center gap-4'>
+            <div className='absolute top-0 ltr:left-0 rtl:right-0 w-full h-full bg-[#1f1e1740] flex flex-col items-center justify-center gap-4'>
                 <div className='flex items-center justify-center space-x-2'>
                     <Link
                         href="/"

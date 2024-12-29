@@ -101,7 +101,8 @@ const PriceInput: React.FC<PriceInputProps> = ({
             <div className="relative">
                 {currency && <span className={`
           absolute 
-          right-3 
+          ltr:right-3
+          rtl:left-3 
           top-1/2 
           -translate-y-1/2 
           text-[16px]

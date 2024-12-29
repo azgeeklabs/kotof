@@ -12,8 +12,8 @@ const page = () => {
         ]}
       />
 
-      <Out_team />
 
+      <Out_team />
       <Our_client />
 
 

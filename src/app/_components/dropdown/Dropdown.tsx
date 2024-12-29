@@ -9,7 +9,7 @@ interface DropdownProps {
   options: {option:string,img?:string | StaticImageData}[];
   onSelect?: (selected: {option:string,img?:string | StaticImageData}) => void;
   placeholder?: {option:string,img?:StaticImageData};
-  selected?: {option:string,img?:StaticImageData};
+  selected?: {option:string,img?: string|StaticImageData};
   className?: string;
 }
 
@@ -49,7 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div 
-      className={`relative inline-block pr-4 min-w-36 ${className}`} 
+      className={`relative inline-block ltr:pr-4 rtl:pl-4 min-w-36 ${className}`} 
       ref={dropdownRef}
     >
       {/* Dropdown Trigger */}
@@ -59,7 +59,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={selectedOption ? 'text-black' : 'text-gray-500'}>
-            {selectedOption?.img ? <Image src={selectedOption.img} alt='english' width={20} height={20} className='inline mr-2' /> : ''}
+            {selectedOption?.img ? <Image src={selectedOption.img} alt='english' width={20} height={20} className='inline ltr:mr-2 rtl:ml-2' /> : ''}
           {selectedOption?.option || placeholder?.option}
         </span>
         <span className="pointer-events-none">

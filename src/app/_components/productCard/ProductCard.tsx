@@ -11,7 +11,7 @@ const ProductCard = () => {
 
     return (
         <>
-                <div className='relative px-6 pb-6 pt-10 rounded-[20px] bg-gradient-to-t from-[#F4F8ED] to-[#F4F8ED00] w-full mt-16'>
+            <div className='relative px-6 pb-6 pt-10 rounded-[20px] bg-gradient-to-t from-[#F4F8ED] to-[#F4F8ED00] w-full mt-16'>
             <div className='bg-[#F4F8ED] rounded-[50%] w-24 h-24 flex items-center justify-center absolute top-[-3rem] left-2'>
                 <Image src={userImg} alt='user'width={50} height={50} />
             </div>
@@ -29,8 +29,14 @@ const ProductCard = () => {
             </div>
         </div>
 
-        <Modal isOpen={isOpen} onClose={()=>{setIsOpen(false)}} title='title'>
-        <div>test</div>
+        <Modal isOpen={isOpen} onClose={()=>{setIsOpen(false)}} title='Submitting an offer'>
+            <ul className='flex flex-col gap-3 text-[#525252] text-[18px] font-[400]'>
+                <li>You must be a member of the Qutoof community.  </li>
+                <li>You must be a member of the Qutoof community.  </li>
+                <li>You must be a member of the Qutoof community.  </li>
+            </ul>
+
+
       </Modal>
         </>
 

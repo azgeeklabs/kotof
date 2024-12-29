@@ -17,11 +17,13 @@ import { useEffect } from 'react';
 import heroImg from "../media/heroImg.png"
 import Out_team from './_components/home_components/Out_team'
 import Our_client from './_components/home_components/Our_client'
+import { useRouter } from 'next/navigation'
 
 
 
 const Home = () => {
 
+    const router = useRouter();
 
   useEffect(() => {
     AOS.init({
@@ -31,25 +33,6 @@ const Home = () => {
     });
   }, []);
 
-  // const [isLastSlide, setIsLastSlide] = useState(false);
-  // const [isFirstSlide, setIsFirstSlide] = useState(true);
-
-
-  // Check if the current slide is the first slide
-  // const checkIfFirstSlide = (index: number) => {
-  //   setIsFirstSlide(index === 0);
-  // };
-
-  // // Check if the current slide is the last slide
-  // const checkIfLastSlide = (index: number) => {
-  //   if (sliderRef.current?.innerSlider?.list) {
-  //     const totalSlides = sliderRef.current.innerSlider.list.querySelectorAll(".slick-slide").length;
-  //     const slidesToScroll = settings.slidesToScroll;
-  //     const totalPages = Math.ceil(totalSlides / slidesToScroll);
-  //     const currentPage = Math.floor(index / slidesToScroll) + 3; // 1-based page number
-  //     setIsLastSlide(currentPage === totalPages);
-  //   }
-  // };
 
 
   return (
@@ -61,7 +44,7 @@ const Home = () => {
           <div className={styles.hero + ' h-full flex flex-col gap-4 justify-center items-start mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'}>
             <h1 data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" className='text-[#fff] text-[50px] md:text-[80px] font-[400] leading-[35px] md:leading-[65px]' >From Our Fields<br /> to Your Table</h1>
             <p data-aos="fade-right" data-aos-duration="500" data-aos-delay="300">Discover the beauty of eco-friendly farming and savor fresh,<br /> organic produce every day.</p>
-            <Button data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
+            <Button className='px-4' data-aos="fade-right" data-aos-duration="500" data-aos-delay="600" data-aos-offset="0">Discover more</Button>
           </div>
 
         </div>
@@ -146,13 +129,13 @@ const Home = () => {
 
 
 
-      <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32">
+      <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32 flex flex-col items-center">
         <div className='text-center mb-12'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Market</h6>
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
         </div>
 
-        <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='w-full grid grid-cols-1 md:grid-cols-3 gap-8 mb-6'>
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -160,6 +143,9 @@ const Home = () => {
           <ProductCard />
           <ProductCard />
         </div>
+
+        <Button className='px-8 mx-auto'  onClick={()=> router.push("/market")} >View All</Button>
+
       </div>
 
 

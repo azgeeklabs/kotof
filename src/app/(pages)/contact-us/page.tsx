@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from '../_components/button/Button'
-import Breadcrumb from '../_components/breadcrumb/breadcrumb'
+import Button from '@/app/_components/button/Button'
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
 
 const contactUs = () => {
     return (

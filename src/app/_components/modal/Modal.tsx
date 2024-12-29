@@ -48,32 +48,32 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/50 transition-opacity" />
-      
+      <div className="fixed inset-0 backdrop-blur-sm bg-black/30 transition-opacity" />
+
       {/* Modal */}
       <div
         ref={modalRef}
-        className={`relative z-50 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl 
+        className={`relative z-50 w-[90%] max-w-3xl rounded-lg bg-white p-4 shadow-xl 
           transition-all duration-200 ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}
           ${className}`}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           {title && (
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-[18px] lg:text-[24px] font-[600] text-[#17181B]">
               {title}
             </h2>
           )}
           <button
             onClick={onClose}
-            className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+            className="rounded-[4px] p-2 text-[#292D32] hover:bg-[#F4F5F6]"
           >
             <CgClose size={20} />
           </button>
         </div>
 
         {/* Content */}
-        <div className="max-h-[calc(100vh-10rem)] overflow-y-auto">
+        <div className="max-h-[calc(100vh-10rem)] overflow-y-auto custom-scrollbar">
           {children}
         </div>
       </div>

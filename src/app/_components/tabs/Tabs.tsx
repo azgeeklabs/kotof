@@ -19,15 +19,15 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultTab, className = '' }) => {
   return (
     <div className={`w-full ${className}`}>
       {/* Tab Headers */}
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-end">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`p-5 text-[16px] font-[600] leading-[24px] transition-colors duration-200
+            className={`p-2 md:p-5 text-[12px] md:text-[16px] font-[600] leading-[24px] border-b-[3px] transition-colors duration-200
               ${activeTab === tab.id
-                ? 'border-b-[3px] border-[#009444] text-[#009444]'
-                : 'text-[#949494] hover:text-[#009444]'
+                ? 'border-[#009444] text-[#009444]'
+                : 'border-[#fff] text-[#949494] hover:text-[#009444]'
               }
             `}
           >

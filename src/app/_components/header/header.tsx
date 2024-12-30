@@ -70,7 +70,7 @@ const Header = () => {
                         <li><Link href="/news-articles" className='text-white lg:text-[#363636]'>News & Articles</Link></li>
                         <li><Link href="/partners" className='text-white lg:text-[#363636]'>Partners</Link></li>
                         <li><Link href="/contact-us" className='text-white lg:text-[#363636]'>Contact us</Link></li>
-                        <li className="absolute bottom-4 left-0 w-full flex flex-col justify-center gap-4 p-8">
+                        <li className="absolute lg:static bottom-4 left-0 w-full flex flex-col justify-center gap-4 p-8">
                             <Link href="/auth/signup" className='block lg:hidden px-4 py-2 text-[14px] text-center font-[500] rounded-[8px] bg-white '>Sign Up</Link>
                             <Link href="/auth/signin" className='block lg:hidden px-4 py-2 text-sm text-center md:text-base rounded-[8px] bg-[#009444] text-white hover:bg-[#00431F] duration-200'>Login</Link>
                         </li>

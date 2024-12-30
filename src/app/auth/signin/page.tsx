@@ -40,15 +40,19 @@ const page = () => {
             </span>
             <input type={passwordVisible ? "text" : "password"} name="password" id="password" placeholder='Enter your passwordh' className='w-full px-4 py-2 mb-1 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]' />
           </div>
-          <div className='flex gap-2'>
-            <input type="checkbox" name="rememberMe" id="rememberMe" className='accent-[#009444] w-4' />
-            <label htmlFor="rememberMe" className='text-[#A2A1A8] text-[14px] leading-[20px] font-[400]'>Remember Me</label>
+          <div className='flex justify-between items-center gap-4'>
+            <div className='flex gap-2'>
+              <input type="checkbox" name="rememberMe" id="rememberMe" className='accent-[#009444] w-4' />
+              <label htmlFor="rememberMe" className='text-[#A2A1A8] text-[14px] leading-[20px] font-[400]'>Remember Me</label>
+            </div>
+            <Link href="/auth/forget-password" className='text-[#009444]'>Forget password?</Link>
           </div>
         </div>
 
 
-        <Button className='w-full mb-3' onClick={()=> router.push("/")}>Login</Button>
+        <Button className='w-full mb-3' onClick={() => router.push("/")}>Login</Button>
         <p className='text-center text-[#656C77] text-[16px] font-[400]'>Don&apos;t have an account? <Link href="/auth/signup" className='text-[#009444]'>sign up</Link> </p>
+
       </div>
     </>
   )

@@ -57,9 +57,9 @@ const Home = () => {
           <Image data-aos="zoom-out" data-aos-duration="500" data-aos-delay="0" src={contactUs} alt='contact us' />
         </div>
         <div className=' flex flex-col gap-8'>
-          <h6 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px] pl-4 border-l-[3px] border-[#E5EDD3]'>About Quttouf</h6>
-          <h2 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[28px] md:text-[40px] text-[#252525] font-bold pl-4'>Committed to <br />Sustainable Farming</h2>
-          <p data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[18px] text-[#656565] leading-[30px] pl-4 border-l-[3px] border-[#E5EDD3]'>We are a company dedicated to sustainable agriculture, providing fresh, organic products directly from the farm to your table. Since our founding, we have been committed to offering the best agricultural solutions while preserving the environment and promoting sustainability. We believe that quality comes from nature, and we ensure that every product we deliver is a testament to excellence and care.</p>
+          <h6 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px] ltr:pl-4 ltr:border-l-[3px] rtl:pr-4 rtl:border-r-[3px] border-[#E5EDD3]'>About Quttouf</h6>
+          <h2 data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[28px] md:text-[40px] text-[#252525] font-bold ltr:pl-4 rtl:pr-4'>Committed to <br />Sustainable Farming</h2>
+          <p data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='text-[18px] text-[#656565] leading-[30px] ltr:pl-4 ltr:border-l-[3px] rtl:pr-4 rtl:border-r-[3px] border-[#E5EDD3]'>We are a company dedicated to sustainable agriculture, providing fresh, organic products directly from the farm to your table. Since our founding, we have been committed to offering the best agricultural solutions while preserving the environment and promoting sustainability. We believe that quality comes from nature, and we ensure that every product we deliver is a testament to excellence and care.</p>
         </div>
       </div>
 

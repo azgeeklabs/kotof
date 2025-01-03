@@ -122,7 +122,7 @@ const Our_client = () => {
           </div>
         </div>
       </Slider>
-      <div className='w-full flex justify-center items-center gap-2 py-6'>
+      <div className='w-full flex justify-center items-center gap-2 py-6' dir='ltr'>
 
         <div
           className={`w-10 h-10  flex justify-center items-center border-2 border-[#536728] cursor-pointer`}
@@ -132,7 +132,8 @@ const Our_client = () => {
             <path d="M7.5 2L1.5 8L7.5 14" stroke={"#536728"} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
 
-        </div><div
+        </div>
+        <div
           className={`w-10 h-10 flex justify-center items-center border-2 border-[#536728] cursor-pointer`}
           onClick={next1}
         >

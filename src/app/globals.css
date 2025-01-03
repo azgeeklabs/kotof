@@ -42,6 +42,6 @@ body{
   gap: 2rem;
 }
 
-.ourteam-slider .slick-track{
-  display: inline-block !important;
+.ourteam-slider .slick-track , .SectorImgsPreview .slick-track{
+  gap:0;
 }

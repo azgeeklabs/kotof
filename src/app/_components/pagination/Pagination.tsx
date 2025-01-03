@@ -89,7 +89,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] "
+                className="rtl:rotate-180 h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444] "
             >
                 <BiChevronLeft className="w-6 h-6" />
             </button>
@@ -101,7 +101,7 @@ const Pagination: React.FC<PaginationProps> = ({
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444]"
+                className="rtl:rotate-180 h-[40px] w-[40px] lg:h-[60px] lg:w-[60px] rounded-[50%] border-2 border-[#F1F1F1] p-2 flex items-center justify-center text-[#009444]"
             >
                 <BiChevronRight className="w-6 h-6" />
             </button>

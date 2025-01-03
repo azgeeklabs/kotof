@@ -17,7 +17,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultTab, className = '' }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || tabs[0]?.id);
 
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`${className}`}>
       {/* Tab Headers */}
       <div className="flex justify-center items-end">
         {tabs.map((tab) => (
@@ -37,7 +37,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultTab, className = '' }) => {
       </div>
       
       {/* Tab Content */}
-      <div className="py-8">
+      <div className="py-8 w-full">
         {tabs.map((tab) => (
           <div
             key={tab.id}

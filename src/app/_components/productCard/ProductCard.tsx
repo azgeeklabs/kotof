@@ -5,6 +5,7 @@ import userImg from "../../../media/user img.png";
 import Image from 'next/image';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
+import { useRouter } from 'next/navigation';
 
 interface AppProps {
     defaultPrice?: number;
@@ -17,6 +18,8 @@ const ProductCard = ({ defaultPrice }: AppProps) => {
     const handlePriceChange = (value: number): void => {
         console.log('Price value:', value);
     };
+
+    const router = useRouter()
 
     return (
         <>
@@ -33,7 +36,7 @@ const ProductCard = ({ defaultPrice }: AppProps) => {
                     <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
                 </ul>
                 <div className='grid grid-cols-2 gap-6'>
-                    <Button variant='outline' className='w-full'>Show Details</Button>
+                    <Button variant='outline' className='w-full' onClick={()=>router.push('/sectors/1')}>Show Details</Button>
                     <Button className='w-full' onClick={() => { setIsOpen(true) }}>Buy Now</Button>
                 </div>
             </div>

@@ -26,7 +26,7 @@ const RenderProducts = () => {
   )
 }
 
-const page = () => {
+const MarketPage = () => {
 
   const tabs = [
     {
@@ -73,4 +73,4 @@ const page = () => {
   )
 }
 
-export default page
+export default MarketPage

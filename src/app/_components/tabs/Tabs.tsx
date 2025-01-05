@@ -19,7 +19,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, defaultTab, className = '' }) => {
   return (
     <div className={`${className}`}>
       {/* Tab Headers */}
-      <div className="flex justify-center items-end">
+      <div className="flex justify-center items-end border-b border-[#F1F1F1]">
         {tabs.map((tab) => (
           <button
             key={tab.id}

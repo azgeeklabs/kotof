@@ -3,7 +3,7 @@ import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
 import Out_team from '@/app/_components/home_components/Out_team'
 import Our_client from '@/app/_components/home_components/Our_client'
 
-const page = () => {
+const PartnersPage = () => {
   return (
     <>
       <Breadcrumb
@@ -21,4 +21,4 @@ const page = () => {
   )
 }
 
-export default page
+export default PartnersPage

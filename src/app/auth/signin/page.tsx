@@ -9,12 +9,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 
 
-const page = () => {
+const SignInPage = () => {
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   return (
@@ -58,4 +56,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignInPage

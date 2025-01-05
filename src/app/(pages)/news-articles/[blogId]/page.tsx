@@ -6,9 +6,9 @@ import Link from 'next/link'
 import BlogCard from '@/app/_components/articleCard/BlogCard'
 
 
-type PageParams = Promise<{ blogId: string}>;
+type BlogDetailsPageParams = Promise<{ blogId: string}>;
 
-const page = async({ params }: { params: PageParams }) => {
+const BlogDetailsPage = async({ params }: { params: BlogDetailsPageParams }) => {
 
   const { blogId } = await params
   
@@ -130,7 +130,7 @@ const page = async({ params }: { params: PageParams }) => {
   )
 }
 
-export default page
+export default BlogDetailsPage
 
 
 

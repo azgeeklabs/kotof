@@ -34,7 +34,7 @@ const images = [
 
 
 type PageParams = Promise<{ sectorId: string }>;
-const page = async ({ params }: { params: PageParams }) => {
+const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
 
     const { sectorId } = await params
 
@@ -55,7 +55,6 @@ const page = async ({ params }: { params: PageParams }) => {
                         <h3 className='text-[#121212] text-[28px] font-[500] mb-2'>Palm cultivation project</h3>
                         <span className='flex items-center gap-2 text-[24px] pb-6 mb-6 border-b border-[#F1F1F1]'><FaStar className='text-yellow-500' /> 4.5 </span>
                         <p className='text-[#444444] text-[14px] font-[400] leading-[28px] mb-8'>Triple superphosphate Ca(H2PO4)2 TSP is soluble in water, preferably mixed with farm manure application, but can not be mixed with alkaline material to produce insoluble calcium phosphate and reduced fertility. It can be used as basic fertilizer, top dressing or mixed with composite (mixed) fertilizer .</p>
-
                         <ul className='grid grid-cols-1 lg:grid-cols-2 gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
                             <li className='flex items-center gap-3'>
                                 <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
@@ -139,7 +138,7 @@ const page = async ({ params }: { params: PageParams }) => {
                             </li>
                         </ul>
 
-                        <div className='grid grid-cols-2 gap-4'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <Button variant='outline' className='space-x-6 text-[#16151C] h-14 w-full border-[#DBDBDB] hover:bg-white hover:text-[#16151C]'>
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className='ltr:mr-2 rtl:ml-2'>
                                     <path d="M24.0999 2.07227L29.6639 7.87227V29.9283H8.87891V30.0003H29.7349V7.94527L24.0999 2.07227Z" fill="#909090" />
@@ -167,7 +166,7 @@ const page = async ({ params }: { params: PageParams }) => {
                 <Tabs
                     tabs={tabs}
                     defaultTab="tab1"
-                    className="w-1/2 flex flex-col justify-start items-start mb-16"
+                    className="w-full lg:w-1/2 flex flex-col justify-start items-start mb-16"
                 />
 
                 <div className='text-center mb-10'>
@@ -187,4 +186,4 @@ const page = async ({ params }: { params: PageParams }) => {
     );
 };
 
-export default page
+export default SectorDetailsPage

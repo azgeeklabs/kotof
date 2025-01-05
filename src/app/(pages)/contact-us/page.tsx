@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '@/app/_components/button/Button'
 import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
 
-const contactUs = () => {
+const contactUsPage = () => {
     return (
         <>
             <Breadcrumb
@@ -111,4 +111,4 @@ const contactUs = () => {
     )
 }
 
-export default contactUs
+export default contactUsPage

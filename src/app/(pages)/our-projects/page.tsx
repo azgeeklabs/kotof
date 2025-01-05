@@ -5,8 +5,7 @@ import Pagination from '@/app/_components/pagination/Pagination'
 import ProjectCard from '@/app/_components/projectCard/ProjectCard'
 
 
-const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const OurProjectsPage = () => {
   const [First, setFirst] = useState<number>(1)
   return (
     <>
@@ -45,4 +44,4 @@ const page = () => {
   )
 }
 
-export default page
+export default OurProjectsPage

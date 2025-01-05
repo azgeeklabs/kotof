@@ -6,12 +6,10 @@ import Button from '@/app/_components/button/Button'
 import Link from 'next/link'
 
 
-const page = () => {
+const SignUpPage = () => {
 
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [files, setFiles] = useState<File[]>([]);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -127,4 +125,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SignUpPage

@@ -36,20 +36,20 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
     centerMode: false,
     focusOnSelect: true,
     asNavFor: undefined, // This will be linked to main slider
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-        }
-      }
-    ]
+    // responsive: [
+    //   {
+    //     breakpoint: 768,
+    //     settings: {
+    //       slidesToShow: 3,
+    //     }
+    //   },
+    //   {
+    //     breakpoint: 480,
+    //     settings: {
+    //       slidesToShow: 3,
+    //     }
+    //   }
+    // ]
   };
 
   // Create refs for the sliders
@@ -66,14 +66,14 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
           asNavFor={navSlider || undefined}
         >
           {images.map((image, index) => (
-            <div key={index} className="relative h-[600px]">
+            <div key={index} className="relative h-[400px] lg:h-[600px]">
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
                 className="object-cover rounded-[4px]"
                 priority={index === 0}
-              />
+            />
             </div>
           ))}
         </Slider>

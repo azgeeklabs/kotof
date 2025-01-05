@@ -5,8 +5,8 @@ import Pagination from '@/app/_components/pagination/Pagination'
 import SectorCard from '@/app/_components/sectorCard/SectorCard'
 
 
-const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const SectorsPage = () => {
+  
   const [First, setFirst] = useState<number>(1)
   return (
     <>
@@ -43,4 +43,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SectorsPage

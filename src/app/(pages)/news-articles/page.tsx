@@ -5,8 +5,7 @@ import Pagination from '@/app/_components/pagination/Pagination'
 import BlogCard from '@/app/_components/articleCard/BlogCard'
 
 
-const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const NewsAndArticlesPage = () => {
   const [First, setFirst] = useState<number>(1)
 
 
@@ -44,4 +43,4 @@ const page = () => {
   )
 }
 
-export default page
+export default NewsAndArticlesPage

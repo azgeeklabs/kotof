@@ -7,6 +7,11 @@ import Button from '../_components/button/Button'
 import IntlTelInput from "intl-tel-input/react";
 import ImageUpload from './imageUploud'
 import Link from 'next/link'
+import Pagination from '../_components/pagination/Pagination'
+import userImg from '@/media/our clients img1.png'
+import { IoLogoWhatsapp } from 'react-icons/io'
+import Modal from '../_components/modal/Modal'
+import PriceInput from '../_components/amountInput/AmountInput'
 
 
 const RenderPrfileInfo = () => {
@@ -425,11 +430,65 @@ const RenderWalletAndInvestments = () => {
 
 const RenderTransactionManagement = () => {
 
+    const [activeTab, setActiveTab] = useState("ListedForSale");
+
+    const TransactionManagementTabs = [
+        {
+            id: 'ListedForSale',
+            label: 'Listed for Sale',
+            content: RenderListedForSale
+        },
+        {
+            id: 'PurchaseRequests',
+            label: 'Purchase Requests',
+            content: RenderPurchaseRequests
+        },
+        {
+            id: 'CurrentlyOwned',
+            label: 'Currently Owned',
+            content: RenderCurrentlyOwned
+        },
+        {
+            id: 'AwaitingApproval',
+            label: 'Awaiting Approval',
+            content: RenderAwaitingApproval
+        },
+        {
+            id: 'Sold',
+            label: 'Sold',
+            content: RenderSold
+        }
+    ];
+
     return (
         <>
-            <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
-                tap1
+            <div className='flex flex-row justify-start bg-white rounded-t-[9px] h-full mb-6'>
+                {TransactionManagementTabs.map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`border-b-2 px-5 md:p-4 md:px-6 text-[12px] md:text-[16px] text-start font-[600] leading-[24px] transition-colors duration-200
+                        ${activeTab === tab.id
+                                ? 'border-[#009444] text-[#009444]'
+                                : ' border-[#fff] text-[#8E98A8] hover:text-[#009444]'
+                            }
+                    `}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
             </div>
+
+            <div className='flex flex-row lg:flex-col justify-start gap-6'>
+                {TransactionManagementTabs.map((tab) => (
+                    <div
+                        key={tab.id}
+                        className={`${activeTab === tab.id ? 'block' : 'hidden'}`}>
+                        {tab.content()}
+                    </div>
+                ))}
+            </div>
+
         </>
     )
 
@@ -486,6 +545,555 @@ const RenderwithdrawMoney = () => {
         </>
     )
 }
+
+// =============== Transaction Management ==================
+
+
+const RenderListedForSale = () => {
+    const [First, setFirst] = useState<number>(1)
+
+    return (
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='col-span-3'>
+                    <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
+const RenderPurchaseRequests = () => {
+
+    const [First, setFirst] = useState<number>(1)
+
+    return (
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between mb-8'>
+                        <div className='flex items-center gap-2'>
+                            <Image src={userImg} alt='user profile' className='w-12 h-12 rounded-[50%]' />
+                            <p className='text-[#17181B] text-[18px] font-[500]'>Amira Ali</p>
+                        </div>
+                        <a href='' className='flex items-center justify-center w-12 h-12 rounded-[50%] bg-[#E2F7E5]'>
+                            <IoLogoWhatsapp className='text-[24px] text-[#47C756]' />
+                        </a>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='grid grid-cols-2 gap-6'>
+                        <Button variant='destructive' className='w-full h-12'>Refuse</Button>
+                        <Button className='w-full h-12'>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='col-span-3'>
+                    <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
+const RenderCurrentlyOwned = () => {
+    const [First, setFirst] = useState<number>(1);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+
+    return (
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                    <div className='w-full flex justify-center'>
+                        <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>Accept</Button>
+                    </div>
+                </div>
+
+                <div className='col-span-3'>
+                    <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+                </div>
+            </div>
+
+            <Modal isOpen={isOpen} onClose={() => { setIsOpen(false) }} title='Offer Submission Details' className='max-w-lg p-8'>
+                <div className='space-y-6 pb-8 mb-8 border-b border-[#F1F1F1]' >
+                    <div className='space-y-1'>
+                        <label htmlFor="email" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Number Shares</label>
+                        <PriceInput />
+                    </div>
+                    <div className='space-y-1'>
+                        <label htmlFor="username" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Asking Price</label>
+                        <PriceInput currency='EGP' />
+                    </div>
+                </div>
+
+                <div className='w-full flex justify-end gap-4'>
+                    <Button variant='ghost' className='w-28 h-12 border border-[#E4E6EA] rounded-[8px] text-[#32363D]' onClick={() => { setIsOpen(false) }}>Cancel</Button>
+                    <Button className='w-28 h-12' onClick={() => { setIsOpen(true) }}>confirm</Button>
+                </div>
+            </Modal>
+        </>
+    )
+}
+
+const RenderAwaitingApproval = () => {
+    const [First, setFirst] = useState<number>(1)
+
+    return (
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+                
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
+                        <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
+                        <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
+                    </div>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='col-span-3'>
+                    <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
+const RenderSold = () => {
+    const [First, setFirst] = useState<number>(1)
+
+    return (
+        <>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='col-span-3'>
+                    <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
 
 
 const ProfilePage = () => {

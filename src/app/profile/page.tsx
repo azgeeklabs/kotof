@@ -64,8 +64,8 @@ const RenderPrfileInfo = () => {
 
     return (
         <>
-            <form action="" className='grid grid-cols-1 md:grid-cols-2 gap-5 p-8 bg-white rounded-[16px]'>
-                <div className='space-y-1 col-span-2'>
+            <form action="" className='space-y-6 lg:grid lg:grid-cols-2 gap-5 p-8 bg-white rounded-[16px]'>
+                <div className='space-y-1 lg:col-span-2'>
                     <ImageUpload
                         maxSizeInMB={5}
                         onImageUpload={handleImageUpload}
@@ -213,21 +213,21 @@ const RenderWalletAndInvestments = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 md:grid-cols-5 gap-6 '>
-                <div className='col-span-3 p-8 bg-white rounded-[16px]'>
-                    <div className='flex items-center justify-between gap-4 pb-6 mb-6 border-b border-[#F1F1F1] '>
+            <div className='grid grid-cols-1 md:grid-cols-5 gap-6 px-4 lg:px-0 '>
+                <div className='col-span-5 lg:col-span-3 p-4 lg:p-8 bg-white rounded-[16px]'>
+                    <div className='flex flex-col lg:flex-row items-center justify-between gap-4 pb-6 mb-6 border-b border-[#F1F1F1] '>
                         <p className='text-[#17181B] text-[20px] font-[500] flex items-center gap-2'><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.74 22.75H6.26C3.77 22.75 1.75 20.73 1.75 18.24V11.51C1.75 9.02001 3.77 7 6.26 7H17.74C20.23 7 22.25 9.02001 22.25 11.51V12.95C22.25 13.36 21.91 13.7 21.5 13.7H19.48C19.13 13.7 18.81 13.83 18.58 14.07L18.57 14.08C18.29 14.35 18.16 14.72 18.19 15.1C18.25 15.76 18.88 16.29 19.6 16.29H21.5C21.91 16.29 22.25 16.63 22.25 17.04V18.23C22.25 20.73 20.23 22.75 17.74 22.75ZM6.26 8.5C4.6 8.5 3.25 9.85001 3.25 11.51V18.24C3.25 19.9 4.6 21.25 6.26 21.25H17.74C19.4 21.25 20.75 19.9 20.75 18.24V17.8H19.6C18.09 17.8 16.81 16.68 16.69 15.24C16.61 14.42 16.91 13.61 17.51 13.02C18.03 12.49 18.73 12.2 19.48 12.2H20.75V11.51C20.75 9.85001 19.4 8.5 17.74 8.5H6.26Z" fill="#252525" />
                             <path d="M2.5 13.16C2.09 13.16 1.75 12.82 1.75 12.41V7.84006C1.75 6.35006 2.69 5.00001 4.08 4.47001L12.02 1.47001C12.84 1.16001 13.75 1.27005 14.46 1.77005C15.18 2.27005 15.6 3.08005 15.6 3.95005V7.75003C15.6 8.16003 15.26 8.50003 14.85 8.50003C14.44 8.50003 14.1 8.16003 14.1 7.75003V3.95005C14.1 3.57005 13.92 3.22003 13.6 3.00003C13.28 2.78003 12.9 2.73003 12.54 2.87003L4.6 5.87003C3.79 6.18003 3.24 6.97006 3.24 7.84006V12.41C3.25 12.83 2.91 13.16 2.5 13.16Z" fill="#252525" />
                             <path d="M19.6 17.7999C18.09 17.7999 16.81 16.6799 16.69 15.2399C16.61 14.4099 16.91 13.5999 17.51 13.0099C18.02 12.4899 18.72 12.2 19.47 12.2H21.55C22.54 12.23 23.3 13.0099 23.3 13.9699V16.03C23.3 16.99 22.54 17.7699 21.58 17.7999H19.6ZM21.53 13.7H19.48C19.13 13.7 18.81 13.8299 18.58 14.0699C18.29 14.3499 18.15 14.7299 18.19 15.1099C18.25 15.7699 18.88 16.2999 19.6 16.2999H21.56C21.69 16.2999 21.81 16.18 21.81 16.03V13.9699C21.81 13.8199 21.69 13.71 21.53 13.7Z" fill="#252525" />
                             <path d="M14 12.75H7C6.59 12.75 6.25 12.41 6.25 12C6.25 11.59 6.59 11.25 7 11.25H14C14.41 11.25 14.75 11.59 14.75 12C14.75 12.41 14.41 12.75 14 12.75Z" fill="#252525" />
                         </svg>  Wallet Details</p>
-                        <div className='flex items-center gap-4'>
+                        <div className='flex items-center gap-2 lg:gap-4 w-full lg:w-auto'>
                             {WalletTabs.map((tab) => (
                                 <Button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`flex items-center gap-2 px-4
+                                    className={`w-1/2 lg:w-auto flex items-center gap-2 px-2 lg:px-4
                                     ${activeTab === tab.id
                                             ? ''
                                             : 'opacity-60'
@@ -278,7 +278,7 @@ const RenderWalletAndInvestments = () => {
                     </div>
                     <Button className='w-full h-12'>Confirm</Button> */}
                 </div>
-                <div className='col-span-2 p-8 bg-white rounded-[16px]'>
+                <div className='col-span-5 lg:col-span-2 p-4 lg:p-8 bg-white rounded-[16px]'>
                     <div className='flex items-center justify-between gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
                         <p className='text-[#17181B] text-[20px] font-[500] flex items-center gap-2'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -398,7 +398,7 @@ const RenderWalletAndInvestments = () => {
                         </div>
                     </div>
                 </div>
-                <div className='col-span-5 p-8 bg-white rounded-[16px]'>
+                <div className='col-span-5 p-4 lg:p-8 bg-white rounded-[16px]'>
                     <p className='text-[#17181B] text-[20px] font-[500] flex items-center gap-2 pb-6 mb-6 border-b border-[#F1F1F1]'><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.74 22.75H6.26C3.77 22.75 1.75 20.73 1.75 18.24V11.51C1.75 9.02001 3.77 7 6.26 7H17.74C20.23 7 22.25 9.02001 22.25 11.51V12.95C22.25 13.36 21.91 13.7 21.5 13.7H19.48C19.13 13.7 18.81 13.83 18.58 14.07L18.57 14.08C18.29 14.35 18.16 14.72 18.19 15.1C18.25 15.76 18.88 16.29 19.6 16.29H21.5C21.91 16.29 22.25 16.63 22.25 17.04V18.23C22.25 20.73 20.23 22.75 17.74 22.75ZM6.26 8.5C4.6 8.5 3.25 9.85001 3.25 11.51V18.24C3.25 19.9 4.6 21.25 6.26 21.25H17.74C19.4 21.25 20.75 19.9 20.75 18.24V17.8H19.6C18.09 17.8 16.81 16.68 16.69 15.24C16.61 14.42 16.91 13.61 17.51 13.02C18.03 12.49 18.73 12.2 19.48 12.2H20.75V11.51C20.75 9.85001 19.4 8.5 17.74 8.5H6.26Z" fill="#252525" />
                         <path d="M2.5 13.16C2.09 13.16 1.75 12.82 1.75 12.41V7.84006C1.75 6.35006 2.69 5.00001 4.08 4.47001L12.02 1.47001C12.84 1.16001 13.75 1.27005 14.46 1.77005C15.18 2.27005 15.6 3.08005 15.6 3.95005V7.75003C15.6 8.16003 15.26 8.50003 14.85 8.50003C14.44 8.50003 14.1 8.16003 14.1 7.75003V3.95005C14.1 3.57005 13.92 3.22003 13.6 3.00003C13.28 2.78003 12.9 2.73003 12.54 2.87003L4.6 5.87003C3.79 6.18003 3.24 6.97006 3.24 7.84006V12.41C3.25 12.83 2.91 13.16 2.5 13.16Z" fill="#252525" />
@@ -462,12 +462,12 @@ const RenderTransactionManagement = () => {
 
     return (
         <>
-            <div className='flex flex-row justify-start bg-white rounded-t-[9px] h-full mb-6'>
+            <div className='flex flex-row justify-center bg-white lg:rounded-[9px] h-full mb-6'>
                 {TransactionManagementTabs.map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`border-b-2 px-5 md:p-4 md:px-6 text-[12px] md:text-[16px] text-start font-[600] leading-[24px] transition-colors duration-200
+                        className={`border-b-2 px-2 lg:px-5 py-3 lg:py-4 text-[10px] lg:text-[16px] text-center lg:text-start font-[600] leading-[18px] lgleading-[24px] transition-colors duration-200
                         ${activeTab === tab.id
                                 ? 'border-[#009444] text-[#009444]'
                                 : ' border-[#fff] text-[#8E98A8] hover:text-[#009444]'
@@ -479,11 +479,11 @@ const RenderTransactionManagement = () => {
                 ))}
             </div>
 
-            <div className='flex flex-row lg:flex-col justify-start gap-6'>
+            <div className='flex flex-row lg:flex-col lg:justify-start w-full gap-6 px-6 lg:px-0'>
                 {TransactionManagementTabs.map((tab) => (
                     <div
                         key={tab.id}
-                        className={`${activeTab === tab.id ? 'block' : 'hidden'}`}>
+                        className={`${activeTab === tab.id ? 'block w-full' : 'hidden'}`}>
                         {tab.content()}
                     </div>
                 ))}
@@ -554,18 +554,8 @@ const RenderListedForSale = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
-                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
-                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
-                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
-                    </ul>
-                </div>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+            <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -576,7 +566,7 @@ const RenderListedForSale = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -587,7 +577,7 @@ const RenderListedForSale = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -598,7 +588,7 @@ const RenderListedForSale = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -609,7 +599,18 @@ const RenderListedForSale = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
+                    <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
+                    <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
+                    <ul className='flex flex-col gap-4 w-full'>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
+                        <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
+                    </ul>
+                </div>
+
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -629,6 +630,7 @@ const RenderListedForSale = () => {
         </>
     )
 }
+
 
 const RenderPurchaseRequests = () => {
 
@@ -636,8 +638,8 @@ const RenderPurchaseRequests = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+            <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -661,7 +663,7 @@ const RenderPurchaseRequests = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -685,7 +687,7 @@ const RenderPurchaseRequests = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -709,7 +711,7 @@ const RenderPurchaseRequests = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -732,7 +734,7 @@ const RenderPurchaseRequests = () => {
                         <Button className='w-full h-12'>Accept</Button>
                     </div>
                 </div>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -755,7 +757,7 @@ const RenderPurchaseRequests = () => {
                         <Button className='w-full h-12'>Accept</Button>
                     </div>
                 </div>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -788,6 +790,7 @@ const RenderPurchaseRequests = () => {
         </>
     )
 }
+
 
 const RenderCurrentlyOwned = () => {
     const [First, setFirst] = useState<number>(1);
@@ -796,8 +799,8 @@ const RenderCurrentlyOwned = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+            <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -811,7 +814,7 @@ const RenderCurrentlyOwned = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -825,7 +828,7 @@ const RenderCurrentlyOwned = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -839,7 +842,7 @@ const RenderCurrentlyOwned = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -853,7 +856,7 @@ const RenderCurrentlyOwned = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -867,7 +870,7 @@ const RenderCurrentlyOwned = () => {
                     </div>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full mb-8'>
@@ -912,15 +915,15 @@ const RenderAwaitingApproval = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+            <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -928,14 +931,14 @@ const RenderAwaitingApproval = () => {
                     </ul>
                 </div>
                 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -943,14 +946,14 @@ const RenderAwaitingApproval = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -958,14 +961,14 @@ const RenderAwaitingApproval = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -973,14 +976,14 @@ const RenderAwaitingApproval = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -988,14 +991,14 @@ const RenderAwaitingApproval = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <div className='flex items-center justify-between pb-8 mb-8 border-b border-[#F1F1F1]'>
                         <p className='text-[18px] text-[#17181B] font-[500]'>Sale Transaction</p>
                         <span className='text-[12px] text-[#FF8600] font-[400] px-2 py-1 bg-[#FF860014] rounded-[5px]'>Pending</span>
                     </div>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
@@ -1018,18 +1021,20 @@ const RenderSold = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+            <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
+
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
-                    <ul className='flex flex-col gap-4 w-full mb-8'>
+                    <ul className='flex flex-col gap-4 w-full'>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>sector</span><span className='text-[16px] text-[#000] font-[600]'>20</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span><span className='text-[16px] text-[#000] font-[600]'>1000</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>4,500</span></li>
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>9,500</span></li>
                     </ul>
                 </div>
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -1040,7 +1045,7 @@ const RenderSold = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -1051,7 +1056,7 @@ const RenderSold = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -1062,7 +1067,7 @@ const RenderSold = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -1073,7 +1078,7 @@ const RenderSold = () => {
                     </ul>
                 </div>
 
-                <div className='px-6 py-8 rounded-[20px] bg-[#fff] w-full'>
+                <div className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>22/4/2023</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>Agricultural land</h6>
                     <ul className='flex flex-col gap-4 w-full'>
@@ -1098,7 +1103,7 @@ const RenderSold = () => {
 
 const ProfilePage = () => {
 
-    const [activeTab, setActiveTab] = useState("PrfileInfo");
+    const [activeTab, setActiveTab] = useState("TransactionManagement");
 
     const MainTabs = [
         {
@@ -1124,7 +1129,7 @@ const ProfilePage = () => {
 
     return (
         <>
-            <div className='relative mb-[150px] lg:mb-[250px] bg-white'>
+            <div className='relative mb-[100px] lg:mb-[250px] bg-white'>
                 <Image src={coverImg} alt='profile cover' className='h-[120px] lg:h-[360px] w-full object-cover' />
                 <div className="absolute z-10 bottom-0 left-[50%] translate-x-[-50%] translate-y-[60%] w-full flex items-end  gap-6 lg:gap-12 mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
                     <Image src={UserImg} alt='profile cover' className='h-[120px] w-[120px] lg:h-[280px] lg:w-[280px] object-cover rounded-[50%] border-[4px] border-white' />
@@ -1135,26 +1140,21 @@ const ProfilePage = () => {
                 </div>
             </div>
 
-            <div className='flex bg-[#c8c8c854] pt-[2px] pb-16'>
-                <div className="w-1/5 pb-6 h-auto">
-                    <div className='flex flex-row lg:flex-col justify-start gap-6 px-6 py-16 bg-white rounded-ee-[16px] h-full'>
+            <div className='flex flex-col lg:flex-row bg-[#c8c8c854] pt-[2px] pb-16'>
+                <div className="w-full lg:w-1/5 lg:pb-6 h-auto">
+                    <div className='flex flex-row lg:flex-col justify-start gap-6 px-6 py-6 lg:py-16 bg-white rounded-ee-[16px] h-full'>
                         {MainTabs.map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-2 md:p-3 md:px-6 w-full rounded-[8px] text-[12px] md:text-[16px] text-start font-[500] leading-[24px] transition-colors duration-200
-              ${activeTab === tab.id
-                                        ? 'bg-[#009444] text-[#fff]'
-                                        : ' text-[#656565] hover:text-[#009444]'
-                                    }
-                    `}
-                            >
+                                className={`px-2 lg:px-6 py-3 w-full rounded-[8px] text-[12px] md:text-[16px] text-center lg:text-start font-[500] leading-[20px] lg:leading-[24px] transition-colors duration-200
+                                ${activeTab === tab.id ? 'bg-[#009444] text-[#fff]' : ' text-[#656565] hover:text-[#009444]' } `} >
                                 {tab.label}
                             </button>
                         ))}
                     </div>
                 </div>
-                <div className="w-4/5 p-6">
+                <div className="w-full lg:w-4/5 lg:p-6">
                     {MainTabs.map((tab) => (
                         <div
                             key={tab.id}

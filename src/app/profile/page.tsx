@@ -1147,7 +1147,7 @@ const ProfilePage = () => {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`px-2 lg:px-6 py-3 w-full rounded-[8px] text-[12px] md:text-[16px] text-center lg:text-start font-[500] leading-[20px] lg:leading-[24px] transition-colors duration-200
+                                className={`px-2 lg:px-4 py-3 w-full rounded-[8px] text-[12px] md:text-[16px] text-center lg:text-start font-[500] leading-[20px] lg:leading-[24px] transition-colors duration-200
                                 ${activeTab === tab.id ? 'bg-[#009444] text-[#fff]' : ' text-[#656565] hover:text-[#009444]' } `} >
                                 {tab.label}
                             </button>

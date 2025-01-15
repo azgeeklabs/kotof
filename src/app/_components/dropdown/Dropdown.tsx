@@ -58,7 +58,7 @@ const Dropdown: React.FC<DropdownProps> = ({
         className="flex gap-4 justify-between items-center w-full px-2 py-2 text-left bg-white rounded-md focus:outline-none"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={selectedOption ? 'text-black' : 'text-gray-500'}>
+        <span className={selectedOption ? 'text-black flex gap-2' : 'text-gray-500 flex gap-2'}>
             {selectedOption?.img ? <Image src={selectedOption.img} alt='english' width={20} height={20} className='inline ltr:mr-2 rtl:ml-2' /> : ''}
           {selectedOption?.option || placeholder?.option}
         </span>

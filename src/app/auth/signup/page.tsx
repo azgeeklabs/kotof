@@ -1,56 +1,148 @@
 'use client'
 import Image from 'next/image'
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 import logo from '@/media/logo.png'
 import Button from '@/app/_components/button/Button'
 import Link from 'next/link'
-
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import { useUser } from '@/app/_contexts/userContext'
 
 const SignUpPage = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const router = useRouter();
+  const { updateUser } = useUser();
+
+  // Validation schema
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .required('Username is required')
+      .min(3, 'Username must be at least 3 characters'),
+    email: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+    country_code: Yup.string()
+      .required('country is required')
+      .min(1, 'country must be at least 3 characters'),
+    phone: Yup.number()
+      .required('number is required')
+      .min(5, 'number must be at least 3 characters'),
+    nationality_id: Yup.string()
+      .required('nationality is required')
+      .min(1, 'nationality must be at least 3 characters'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(8, 'Password must be at least 8 characters'),
+    rePassword: Yup.string()
+      .required('Please confirm your password')
+      .oneOf([Yup.ref('password')], 'Passwords must match'),
+    national_id: Yup.string()
+      .required('National ID is required'),
+    files: Yup.array()
+      .min(1, 'At least one image is required')
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      email: '',
+      country_code: '',
+      phone: '',
+      nationality_id: '',
+      password: '',
+      rePassword: '',
+      national_id: '',
+      files: [] as File[]
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const formData = new FormData()
+        formData.append('username', values.username)
+        formData.append('email', values.email)
+        formData.append('country_code', values.country_code)
+        formData.append('phone', values.phone)
+        formData.append('nationality_id', values.nationality_id)
+        formData.append('password', values.password)
+        formData.append('national_id', values.national_id)
+
+        // Append each file to formData
+        values.files.forEach((file) => {
+          formData.append(`national_id_image`, file)
+        })
+        console.log(formData);
+
+        const response = await fetch("https://test.jiovanilibya.org/api/user/register", {
+          method: 'POST',
+          body: formData,
+        })
+
+        const data = await response.json()
 
 
-  const [files, setFiles] = useState<File[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+        if (response.ok) {
+          console.log(data);
+          toast.success(data.message)
+          localStorage.setItem('token', JSON.stringify(data.data.access_token)); // Save token to localStorage
+          localStorage.setItem('userInfo', JSON.stringify(data.data.user)); // Save User to localStorage
+          updateUser(data.data.user)
+          router.push('/'); // Redirect to home on successful login
+
+          // throw new Error('Signup failed')
+
+        }
+
+        // Handle successful signup
+
+        console.log('Signup successful:', data)
+        // Add your redirect or success handling here
+      } catch (error) {
+        console.error('Signup error:', error)
+        // Handle error appropriately
+      }
+    },
+  })
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
+    event.preventDefault()
+    event.stopPropagation()
+  }
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault()
+    event.stopPropagation()
 
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    const imageFiles = droppedFiles.filter(file => file.type.startsWith('image/'));
+    const droppedFiles = Array.from(event.dataTransfer.files)
+    const imageFiles = droppedFiles.filter(file => file.type.startsWith('image/'))
 
     if (imageFiles.length > 0) {
-      setFiles([...files, ...imageFiles]);
+      formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
     } else {
-      alert('Only image files are allowed!');
+      alert('Only image files are allowed!')
     }
-  };
+  }
 
   const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files);
-      const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'));
+      const selectedFiles = Array.from(event.target.files)
+      const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'))
 
       if (imageFiles.length > 0) {
-        setFiles([...files, ...imageFiles]);
+        formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
       } else {
-        alert('Only image files are allowed!');
+        alert('Only image files are allowed!')
       }
     }
-  };
+  }
 
   const handleClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click();
+      fileInputRef.current.click()
     }
-  };
-
-
+  }
 
   return (
     <div>
@@ -58,31 +150,117 @@ const SignUpPage = () => {
         <Image src={logo} alt='welcome img' />
         <div className='space-y-2'>
           <h2 className='text-[#17181B] text-[24px] font-[600]'>Welcome Back</h2>
-          <p className='text-[#656C77] text-[16px] font-[400]'>Enter your email and password to login. </p>
+          <p className='text-[#656C77] text-[16px] font-[400]'>Enter your email and password to login.</p>
         </div>
       </div>
 
-      <form action="">
+      <form onSubmit={formik.handleSubmit}>
         <div className='space-y-1 mb-4'>
           <label htmlFor="username" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>User name</label>
-          <input type="text" name="username" id="username" placeholder='Enter name' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
+          <input
+            type="text"
+            id="username"
+            {...formik.getFieldProps('username')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.username && formik.errors.username && (
+            <div className="text-red-500 text-sm">{formik.errors.username}</div>
+          )}
         </div>
+
         <div className='space-y-1 mb-4'>
           <label htmlFor="email" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Email address</label>
-          <input type="email" name="email" id="email" placeholder='Enter your email' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
+          <input
+            type="email"
+            id="email"
+            {...formik.getFieldProps('email')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div className="text-red-500 text-sm">{formik.errors.email}</div>
+          )}
         </div>
+        {/* ================================ */}
+        <div className='space-y-1 mb-4'>
+          <label htmlFor="country_code" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Country</label>
+          <input
+            type="text"
+            id="country_code"
+            {...formik.getFieldProps('country_code')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.country_code && formik.errors.country_code && (
+            <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
+          )}
+        </div>
+
+        <div className='space-y-1 mb-4'>
+          <label htmlFor="phone" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Phone Number</label>
+          <input
+            type="text"
+            id="phone"
+            {...formik.getFieldProps('phone')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.phone && formik.errors.phone && (
+            <div className="text-red-500 text-sm">{formik.errors.phone}</div>
+          )}
+        </div>
+
+        <div className='space-y-1 mb-4'>
+          <label htmlFor="nationality_id" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Nationality</label>
+          <input
+            type="text"
+            id="nationality_id"
+            {...formik.getFieldProps('nationality_id')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.nationality_id && formik.errors.nationality_id && (
+            <div className="text-red-500 text-sm">{formik.errors.nationality_id}</div>
+          )}
+        </div>
+
+        {/* ============================================= */}
+
         <div className='space-y-1 mb-4'>
           <label htmlFor="password" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Password</label>
-          <input type="password" name="password" id="password" placeholder='Enter your password' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
+          <input
+            type="password"
+            id="password"
+            {...formik.getFieldProps('password')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.password && formik.errors.password && (
+            <div className="text-red-500 text-sm">{formik.errors.password}</div>
+          )}
         </div>
+
         <div className='space-y-1 mb-4'>
           <label htmlFor="rePassword" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Confirm Password</label>
-          <input type="password" name="rePassword" id="rePassword" placeholder='Confirm your password' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
+          <input
+            type="password"
+            id="rePassword"
+            {...formik.getFieldProps('rePassword')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.rePassword && formik.errors.rePassword && (
+            <div className="text-red-500 text-sm">{formik.errors.rePassword}</div>
+          )}
         </div>
+
         <div className='space-y-1 mb-4'>
-          <label htmlFor="nationalID" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>National ID</label>
-          <input type="text" name="nationalID" id="nationalID" placeholder='Enter your id' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
+          <label htmlFor="national_id" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>National ID</label>
+          <input
+            type="text"
+            id="national_id"
+            {...formik.getFieldProps('national_id')}
+            className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
+          />
+          {formik.touched.national_id && formik.errors.national_id && (
+            <div className="text-red-500 text-sm">{formik.errors.national_id}</div>
+          )}
         </div>
+
         <div className='space-y-1 mb-8'>
           <label htmlFor="imgId" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Image ID</label>
           <div>
@@ -90,7 +268,7 @@ const SignUpPage = () => {
               className="border-[1px] border-dashed border-[#009444] rounded-lg p-6 text-center cursor-pointer hover:bg-gray-100"
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              onClick={handleClick} // Makes the dropzone clickable
+              onClick={handleClick}
             >
               <div className='flex justify-center items-center mx-auto mb-2 w-8 h-8 rounded-[10px] bg-[#009444]'>
                 <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -103,23 +281,30 @@ const SignUpPage = () => {
                 type="file"
                 multiple
                 accept=".jpeg, .jpg, .pdf"
-                ref={fileInputRef} // Reference to the hidden input
+                ref={fileInputRef}
                 onChange={handleFileInputChange}
                 className="hidden"
               />
             </div>
             <ul className="mt-4 text-sm text-gray-700">
-              {files.length > 0 &&
-                files.map((file, index) => (
-                  <li key={index} className="border p-2 rounded mb-2">
-                    {file.name}
-                  </li>
-                ))}
+              {formik.values.files.map((file, index) => (
+                <li key={index} className="border p-2 rounded mb-2">
+                  {file.name}
+                </li>
+              ))}
             </ul>
+            {formik.touched.files && formik.errors.files && (
+              <div className="text-red-500 text-sm">{formik.errors.files.toString()}</div>
+            )}
           </div>
         </div>
-        <Button className='w-full mb-3'>Sign Up</Button>
-        <p className='text-center text-[#656C77] text-[16px] font-[400]'>Don&apos;t have an account? <Link href="/auth/signin" className='text-[#009444]'>Log In</Link> </p>
+
+        <Button type="submit" className='w-full mb-3' disabled={formik.isSubmitting}>
+          {formik.isSubmitting ? 'Signing up...' : 'Sign Up'}
+        </Button>
+        <p className='text-center text-[#656C77] text-[16px] font-[400]'>
+          Don&apos;t have an account? <Link href="/auth/signin" className='text-[#009444]'>Log In</Link>
+        </p>
       </form>
     </div>
   )

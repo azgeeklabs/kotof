@@ -26,6 +26,8 @@ const Home = () => {
 
     const router = useRouter();
 
+    
+
   useEffect(() => {
     AOS.init({
       disable: "mobile",
@@ -34,7 +36,7 @@ const Home = () => {
     });
   }, []);
 
-
+  
 
   return (
     <>

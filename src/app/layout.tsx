@@ -7,6 +7,8 @@ import Header from "@/app/_components/header/header";
 import Footer from "@/app/_components/footer/footer";
 import { usePathname } from 'next/navigation'
 import { DirectionProvider } from '@/app/_contexts/DirectionContext';
+import { Toaster } from "react-hot-toast";
+import { UserProvider } from "./_contexts/userContext";
 
 
 
@@ -17,19 +19,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
 
   const pathname = usePathname()
   console.log(pathname);
-  
+
 
   return (
     <html lang="en">
       <body>
         <DirectionProvider>
-        {!pathname.startsWith('/auth') && <Header/>}
-        {children}
-        {!pathname.startsWith('/auth') && <Footer/>}
+          <UserProvider>
+            {!pathname.startsWith('/auth') && <Header />}
+            {children}
+            {!pathname.startsWith('/auth') && <Footer />}
+            <Toaster />
+          </UserProvider>
         </DirectionProvider>
       </body>
     </html>

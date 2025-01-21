@@ -1,14 +1,22 @@
 "use client"
 import Image from 'next/image';
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-slick';
 import ourTeamImg from '@/media/our team img1.png'
-import { useDirection } from '@/app/_contexts/DirectionContext';
+
+interface ITeam {
+  id?: number,
+  name?: string,
+  title?: string,
+  content?: string,
+  image?: string,
+  created_at: string
+}
 
 
 const Out_team = () => {
 
-  const { direction } = useDirection();
+  // const { direction } = useDirection();
 
 
   const sliderRef2 = useRef<Slider | null>(null);
@@ -18,6 +26,26 @@ const Out_team = () => {
   const previous2 = () => {
     sliderRef2.current?.slickPrev();
   };
+
+  const [data, setData] = useState<ITeam[] | undefined>();
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await fetch('https://test.jiovanilibya.org/api/user/teams');
+              const result = await response.json();
+              setData(result.data);
+              console.log(result.data[0]);
+
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          }
+      };
+
+      fetchData();
+  }, []); // Empty dependency array ensures this runs only once after the component mounts
+
+
 
   const settings2 = {
     dots: false,
@@ -38,59 +66,25 @@ const Out_team = () => {
         </div>
 
         <Slider ref={sliderRef2} {...settings2} className='ourteam-slider'>
-          <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6' dir={direction}>
+          {data && data.map(data => <div key={data.id}>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
               <Image src={ourTeamImg} alt='our team' className='rounded-[8px]' />
               <div className='flex flex-col justify-between'>
                 <div>
-                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8'>We are a company dedicated to sustainable agriculture, providing fresh, organic products directly from the farm to your table. Since our founding, we have been committed to offering the best agricultural solutions while preserving the environment and promoting sustainability.</p>
-                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>Alex Adam</h6>
-                  <span className='text-[#656565] text-[20px] font-[400]'>Employee at quatof</span>
+                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8 line-clamp-[9]'>{data? data?.content : "" }</p>
+                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>{data? data?.name : "" }</h6>
+                  <span className='text-[#656565] text-[20px] font-[400]'>{data? data?.title : "" }</span>
                 </div>
 
                 <div className='flex items-center justify-between'>
-                  <span>01 / 06</span>
+                  <span>{data ? (new Date(data.created_at as string).getMonth() + 1).toString().padStart(2, '0') : ""} / {data ? new Date(data.created_at as string).getFullYear():""}</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 '  dir={direction}>
-              <Image data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" src={ourTeamImg} alt='our team' className='rounded-[8px]' />
-              <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='flex flex-col justify-between'>
-                <div>
-                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8'>We are a company dedicated to sustainable agriculture, providing fresh, organic products directly from the farm to your table. Since our founding, we have been committed to offering the best agricultural solutions while preserving the environment and promoting sustainability. We believe that quality comes from nature, and we ensure that every product we deliver
-                    is a testament to excellence and care.</p>
-                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>Alex Adam</h6>
-                  <span className='text-[#656565] text-[20px] font-[400]'>Employee at quatof</span>
-                </div>
-
-                <div className='flex items-center justify-between'>
-                  <span>01 / 06</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 '  dir={direction}>
-              <Image data-aos="fade-right" data-aos-duration="500" data-aos-delay="0" src={ourTeamImg} alt='our team' className='rounded-[8px]' />
-              <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className='flex flex-col justify-between'>
-                <div>
-                  <p className='text-[20px] md:text-[24px] font-[400] text-[#363636] mb-8'>We are a company dedicated to sustainable agriculture, providing fresh, organic products directly from the farm to your table. Since our founding, we have been committed to offering the best agricultural solutions while preserving the environment and promoting sustainability. We believe that quality comes from nature, and we ensure that every product we deliver
-                    is a testament to excellence and care.</p>
-                  <h6 className='text-[32px] font-[500] text-[#252525] mb-4'>Alex Adam</h6>
-                  <span className='text-[#656565] text-[20px] font-[400]'>Employee at quatof</span>
-                </div>
-
-                <div className='flex items-center justify-between'>
-                  <span>01 / 06</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div>)}
         </Slider>
 
-        <div className='flex gap-2 absolute bottom-0 ltr:right-0 rtl:left-0'>
+        <div className='flex gap-2 absolute bottom-0 right-0'>
           <span className='rtl:rotate-180 w-12 h-12 bg-[#E5EDD3]  flex justify-center items-center' onClick={previous2}>
             <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7.5 2L1.5 8L7.5 14" stroke="#949494" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />

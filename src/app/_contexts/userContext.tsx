@@ -50,7 +50,7 @@ export const useUser = () => {
 export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<UserState>(() => {
         try {
-            const savedUser = localStorage.getItem('userInfo');
+            const savedUser = typeof window !== 'undefined' && localStorage.getItem('userInfo');
             return savedUser ? JSON.parse(savedUser) : undefined;
         } catch (error) {
             console.error('Error parsing user info from localStorage:', error);

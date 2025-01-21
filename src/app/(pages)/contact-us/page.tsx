@@ -1,8 +1,66 @@
-import React from 'react'
-import Button from '@/app/_components/button/Button'
-import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
+"use client"
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import Button from '@/app/_components/button/Button';
+import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb';
+import toast from 'react-hot-toast';
 
-const contactUsPage = () => {
+// Define the form values interface
+interface FormValues {
+    full_name: string;
+    email: string;
+    phone: string; // Make it required for Formik compatibility
+    message: string;
+}
+
+const ContactUsPage: React.FC = () => {
+    // Validation schema using Yup
+    const validationSchema = Yup.object({
+        full_name: Yup.string().required('full name is required'),
+        email: Yup.string().email('Invalid email address').required('Email is required'),
+        phone: Yup.string().required('Phone is required'),
+        message: Yup.string().required('Message is required'),
+    });
+
+    // Form submit handler
+    const handleSubmit = async (
+        values: FormValues,
+        { setSubmitting, resetForm }: FormikHelpers<FormValues>
+    ) => {
+        try {
+            // Create a FormData object
+            const formData = new FormData();
+            formData.append('full_name', values.full_name);
+            formData.append('email', values.email);
+            formData.append('phone', values.phone); // Ensure phone is always a string
+            formData.append('message', values.message);
+
+            // Send the FormData to the API
+            const response = await fetch('https://test.jiovanilibya.org/api/user/contact-us', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json()
+            console.log(data);
+            
+
+            if (!response.ok) {
+                throw new Error('Failed to send message');
+            }
+
+            toast.success(data.message)
+            resetForm();
+        } catch (error) {
+            console.log(error);
+
+            alert('An error occurred. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <>
             <Breadcrumb
@@ -10,8 +68,10 @@ const contactUsPage = () => {
                     { label: 'Contact Us', href: '/contact-us' },
                 ]}
             />
-            <div className='max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl'>
-                <div className='py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16'>
+            <div className="max-w-[90%] mx-auto sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl">
+                <div className="py-20 md:py-32 grid grid-col-1 md:grid-cols-2 gap-16">
+
+
                     <div className='flex flex-col gap-12'>
                         <div>
                             <h4 className='text-[42px] md:text-[52px] text-[#000] font-[600] mb-6'>Get In Touch</h4>
@@ -85,30 +145,105 @@ const contactUsPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='rounded-[12px] bg-[#F4F8ED] p-8 flex flex-col justify-center'>
-                        <p className='text-[#31A13A] text-[16px] font-[500] mb-4'>have a question ?</p>
-                        <h2 className='text-[#000] text-[40px] md:text-[50px] font-[600] mb-10'>Send us a massage</h2>
-                        <form action="" className='w-full flex flex-col gap-4'>
-                            <input type="text" name="" id="" placeholder='Name' className='w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]' />
-                            <div className='grid grid-col-1 md:grid-cols-2 gap-4'>
-                                <input type="email" name="" id="" placeholder='Email*' className='w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]' />
-                                <input type="tel" name="" id="" placeholder='Phone' className='w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]' />
-                            </div>
-                            <textarea rows={6} name="" id="" placeholder='Tell Us About Project *' className='resize-none w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]' />
-                            <Button className='flex items-center gap-2 w-full md:w-[50%]'>
-                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.4726 0.724609C16.7603 0.569661 17.037 0.591797 17.3027 0.791016C17.5904 0.968099 17.7122 1.22266 17.6679 1.55469L15.2773 15.8984C15.233 16.1419 15.0891 16.3301 14.8456 16.4629C14.6243 16.5957 14.4029 16.6068 14.1816 16.4961L10.0312 14.7695L7.90618 17.3262C7.68482 17.6139 7.39706 17.6914 7.0429 17.5586C6.68873 17.4479 6.51165 17.2044 6.51165 16.8281V14.1387L14.5136 4.41016C14.58 4.29948 14.5689 4.21094 14.4804 4.14453C14.3919 4.05599 14.3033 4.04492 14.2148 4.11133L4.68547 12.5117L1.16594 11.0508C0.856047 10.918 0.690032 10.6855 0.667896 10.3535C0.645761 10.0215 0.778573 9.77799 1.06633 9.62305L16.4726 0.724609Z" fill="white" />
-                                </svg> <span className='text-[16px] font-[700]'>Get in Touch</span>
-                            </Button>
-                        </form>
+
+                    <div className="rounded-[12px] bg-[#F4F8ED] p-8 flex flex-col justify-center">
+                        <p className="text-[#31A13A] text-[16px] font-[500] mb-4">Have a question?</p>
+                        <h2 className="text-[#000] text-[40px] md:text-[50px] font-[600] mb-10">Send us a message</h2>
+                        <Formik
+                            initialValues={{
+                                full_name: '',
+                                email: '',
+                                phone: '', // Explicitly set as an empty string
+                                message: ''
+                            }}
+                            validationSchema={validationSchema}
+                            onSubmit={handleSubmit}
+                        >
+                            {({ isSubmitting }) => (
+                                <Form className="w-full flex flex-col gap-4">
+                                    <div>
+                                        <Field
+                                            type="text"
+                                            name="full_name"
+                                            placeholder="Full Name*"
+                                            className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
+                                        />
+                                        <ErrorMessage name="full_name" component="div" className="text-red-500 text-sm mt-1" />
+                                    </div>
+
+                                    <div className="grid grid-col-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <Field
+                                                type="email"
+                                                name="email"
+                                                placeholder="Email*"
+                                                className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
+                                            />
+                                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
+                                        </div>
+                                        <div>
+                                            <Field
+                                                type="tel"
+                                                name="phone"
+                                                placeholder="Phone*"
+                                                className="w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
+                                            />
+                                            <ErrorMessage name="phone" component="div" className="text-red-500 text-sm mt-1" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Field
+                                            as="textarea"
+                                            rows={6}
+                                            name="message"
+                                            placeholder="Tell Us About Project *"
+                                            className="resize-none w-full border-0 bg-white text-[14px] font-[400] rounded-[4px] p-4 outline-none ring-0 text-[#000] placeholder:text-[#6C757D]"
+                                        />
+                                        <ErrorMessage name="message" component="div" className="text-red-500 text-sm mt-1" />
+                                    </div>
+
+                                    <Button
+                                        type="submit"
+                                        className="flex items-center gap-2 w-full md:w-[50%]"
+                                        disabled={isSubmitting}
+                                    >
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 18 18"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M16.4726 0.724609C16.7603 0.569661 17.037 0.591797 17.3027 0.791016C17.5904 0.968099 17.7122 1.22266 17.6679 1.55469L15.2773 15.8984C15.233 16.1419 15.0891 16.3301 14.8456 16.4629C14.6243 16.5957 14.4029 16.6068 14.1816 16.4961L10.0312 14.7695L7.90618 17.3262C7.68482 17.6139 7.39706 17.6914 7.0429 17.5586C6.68873 17.4479 6.51165 17.2044 6.51165 16.8281V14.1387L14.5136 4.41016C14.58 4.29948 14.5689 4.21094 14.4804 4.14453C14.3919 4.05599 14.3033 4.04492 14.2148 4.11133L4.68547 12.5117L1.16594 11.0508C0.856047 10.918 0.690032 10.6855 0.667896 10.3535C0.645761 10.0215 0.778573 9.77799 1.06633 9.62305L16.4726 0.724609Z"
+                                                fill="white"
+                                            />
+                                        </svg>
+                                        <span className="text-[16px] font-[700]">
+                                            {isSubmitting ? 'Submitting...' : 'Get in Touch'}
+                                        </span>
+                                    </Button>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
                 </div>
             </div>
-            <div className='w-full'>
-                <iframe width={"100%"} height={300} frameBorder={0} scrolling="no" marginHeight={0} marginWidth={0} id="gmap_canvas" src="https://maps.google.com/maps?width=980&amp;height=300&amp;hl=en&amp;q=51%20Oakley%20Close%20,%20Isleworth,%20TW7%204HY,%20United%20Kingdom%20Isleworth+()&amp;t=p&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+            <div className="w-full">
+                <iframe
+                    width={"100%"}
+                    height={300}
+                    frameBorder={0}
+                    scrolling="no"
+                    marginHeight={0}
+                    marginWidth={0}
+                    id="gmap_canvas"
+                    src="https://maps.google.com/maps?width=980&amp;height=300&amp;hl=en&amp;q=51%20Oakley%20Close%20,%20Isleworth,%20TW7%204HY,%20United%20Kingdom%20Isleworth+()&amp;t=p&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                ></iframe>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default contactUsPage
+export default ContactUsPage;

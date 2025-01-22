@@ -9,7 +9,7 @@ import { FaStar } from 'react-icons/fa';
 import Button from '@/app/_components/button/Button';
 import Tabs from '@/app/_components/tabs/Tabs';
 import tabs from './sectorDetailsTabs'
-import SectorCard from '@/app/_components/sectorCard/SectorCard'
+// import SectorCard from '@/app/_components/sectorCard/SectorCard'
 
 const images = [
     {
@@ -175,8 +175,8 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
 
-                    <SectorCard />
-                    <SectorCard />
+                    {/* <SectorCard />
+                    <SectorCard /> */}
 
                 </div>
             </div>

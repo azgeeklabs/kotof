@@ -1,18 +1,36 @@
 "use client"
-import Image from 'next/image'
 import React, { useState } from 'react'
-import ProjectImg from "@/media/project_img.png";
 import Link from 'next/link';
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
 
 
-interface AppProps {
-  defaultPrice?: number;
+interface ISectorCardProps {
+  SectorInfo: {
+    id: number,
+    title: string,
+    description: string,
+    land_area: number,
+    company_shares: number,
+    total_shares: number,
+    share_price: number,
+    total_shares_price: number,
+    media:string[],
+    project: {
+      id: number,
+      title: string,
+      description: string,
+      image: string,
+      pdf: string,
+      created_at: string
+    }
+    created_at: string
+  }
+
 }
 
-const SectorCard = ({ defaultPrice }: AppProps) => {
+const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -23,38 +41,35 @@ const SectorCard = ({ defaultPrice }: AppProps) => {
   return (
     <>
       <div className="w-full overflow-hidden">
-        <Image className="w-full rounded-lg object-cover mb-2 lg:mb-4" src={ProjectImg} alt="Card image" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="w-full rounded-lg object-cover mb-2 lg:mb-4" src={SectorInfo?.project.image} alt="Card image" />
         <div className="py-3">
-          <h2 className="text-[24px] lg:text-[28px] font-[500] mb-3 text-[#121212]">Bringing food production back</h2>
-          <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">Vivamus accumsan diam eget ultricies auctor. Proin iaculis metus.</p>
+          <h2 className="text-[24px] lg:text-[28px] font-[500] mb-3 text-[#121212]">{SectorInfo.title}</h2>
+          <p className="text-[#525252] text-[16px] lg:text-[20px] mb-4 line-clamp-3">{SectorInfo.description}</p>
           <ul className='grid grid-cols-2 mb-8'>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>land area:</span>
+              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.land_area} m</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of total shares:</span>
+              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.total_shares}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>share price:</span>
+              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.share_price}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of company shares:</span>
+              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.company_shares}</span>
             </li>
             <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
-            </li>
-            <li className='flex items-center gap-2'>
-              <span className='text-[#656565] text-[14px] lg:text-[18px]'>number of acres:</span>
-              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>120 Acre</span>
+              <span className='text-[#656565] text-[14px] lg:text-[18px]'>total shares price:</span>
+              <span className='text-[#121212] text-[14px] lg:text-[18px] font-[500]'>{SectorInfo.total_shares_price}</span>
             </li>
           </ul>
           <div className='flex items-center justify-between'>
-            <Link href={"/sectors/1"} className='flex items-start w-fit gap-2 hover:gap-4 transition-all duration-300 leading-[27px] text-[14px] lg:text-[18px] text-[#009444]'>
+            <Link href={`/sectors/${SectorInfo.id}`} className='flex items-start w-fit gap-2 hover:gap-4 transition-all duration-300 leading-[27px] text-[14px] lg:text-[18px] text-[#009444]'>
               SHOW DETAILS <svg className='rtl:rotate-180' width="14" height="27" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.19531 1.37341L5.82422 0.771851C5.95182 0.644246 6.10677 0.580444 6.28906 0.580444C6.47135 0.580444 6.6263 0.644246 6.75391 0.771851L12.0586 6.07654C12.1862 6.20414 12.25 6.35909 12.25 6.54138C12.25 6.72367 12.1862 6.87862 12.0586 7.00623L6.75391 12.3109C6.6263 12.4385 6.47135 12.5023 6.28906 12.5023C6.10677 12.5023 5.95182 12.4385 5.82422 12.3109L5.19531 11.7094C5.06771 11.5817 5.00391 11.4268 5.00391 11.2445C5.02214 11.0622 5.09505 10.9073 5.22266 10.7797L8.50391 7.63513H0.65625C0.473958 7.63513 0.31901 7.57133 0.191406 7.44373C0.0638021 7.31612 0 7.16117 0 6.97888V6.10388C0 5.92159 0.0638021 5.76664 0.191406 5.63904C0.31901 5.51143 0.473958 5.44763 0.65625 5.44763H8.50391L5.22266 2.3031C5.09505 2.1755 5.02214 2.02055 5.00391 1.83826C5.00391 1.65597 5.06771 1.50102 5.19531 1.37341Z" fill="#009444" />
               </svg>
@@ -78,7 +93,7 @@ const SectorCard = ({ defaultPrice }: AppProps) => {
             maxValue={100000000}
             minValue={0}
             onChange={handlePriceChange}
-            initialValue={defaultPrice?.toString()}
+            initialValue={""}
             placeholder="Enter amount"
             label='I present an offer'
             currency='EGP'
@@ -87,7 +102,7 @@ const SectorCard = ({ defaultPrice }: AppProps) => {
             maxValue={100000000}
             minValue={0}
             onChange={handlePriceChange}
-            initialValue={defaultPrice?.toString()}
+            initialValue={""}
             placeholder="Enter amount"
             label='Number of shares'
           />

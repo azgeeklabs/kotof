@@ -1,15 +1,14 @@
-"use server"
-import img1 from '@/media/our blog img 1.png'
-import img2 from '@/media/our clients img1.png'
-import img3 from '@/media/our team img1.png'
-import img4 from '@/media/sector img 1.png'
+"use client"
+import React, { useEffect, useState } from 'react'
 import ImageSlider from './slider';
 import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb';
 import { FaStar } from 'react-icons/fa';
 import Button from '@/app/_components/button/Button';
+import img1 from '@/media/our blog img 1.png'
+import img2 from '@/media/our clients img1.png'
+import img3 from '@/media/our team img1.png'
+import img4 from '@/media/sector img 1.png'
 import Tabs from '@/app/_components/tabs/Tabs';
-import tabs from './sectorDetailsTabs'
-// import SectorCard from '@/app/_components/sectorCard/SectorCard'
 
 const images = [
     {
@@ -32,12 +31,65 @@ const images = [
 
 
 
+interface Iprops {
+    sectorId: number
+}
 
-type PageParams = Promise<{ sectorId: string }>;
-const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
+interface ISector {
+    id: number,
+    title: string,
+    description: string,
+    land_area: number,
+    company_shares: number,
+    total_shares: number,
+    share_price: number,
+    total_shares_price: number,
+    company_rate: number,
+    launch_start: string,
+    construction_start: string,
+    construction_end: string,
+    production_start: string,
+    media: string[],
+    project: {
+        id: number,
+        title: string,
+        description: string,
+        image: string,
+        pdf: string,
+        created_at: string
+    }
+    created_at: string
+}
 
-    const { sectorId } = await params
+const SectorDetails = ({ sectorId }: Iprops) => {
 
+    const [data, setData] = useState<ISector>();
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors/${sectorId}`);
+                const result = await response.json();
+                setData(result.data);
+                console.log(result.data);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [sectorId]); // Empty dependency array ensures this runs only once after the component mounts
+
+
+    const handleDownload = (pdfLink: string) => {
+        const link = document.createElement('a'); // Create a temporary link element
+        link.href = pdfLink; // Path to the PDF in the public folder
+        link.download = pdfLink; // Name of the downloaded file
+        link.target = "_blank"
+        link.click(); // Trigger the click event
+    };
 
 
     return (
@@ -52,9 +104,9 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12'>
                     <ImageSlider images={images} />
                     <div>
-                        <h3 className='text-[#121212] text-[28px] font-[500] mb-2'>Palm cultivation project</h3>
-                        <span className='flex items-center gap-2 text-[24px] pb-6 mb-6 border-b border-[#F1F1F1]'><FaStar className='text-yellow-500' /> 4.5 </span>
-                        <p className='text-[#444444] text-[14px] font-[400] leading-[28px] mb-8'>Triple superphosphate Ca(H2PO4)2 TSP is soluble in water, preferably mixed with farm manure application, but can not be mixed with alkaline material to produce insoluble calcium phosphate and reduced fertility. It can be used as basic fertilizer, top dressing or mixed with composite (mixed) fertilizer .</p>
+                        <h3 className='text-[#121212] text-[28px] font-[500] mb-2'>{data?.title}</h3>
+                        <span className='flex items-center gap-2 text-[24px] pb-6 mb-6 border-b border-[#F1F1F1]'><FaStar className='text-yellow-500' />{data?.company_rate}</span>
+                        <p className='text-[#444444] text-[14px] font-[400] leading-[28px] mb-8'>{data?.description}</p>
                         <ul className='grid grid-cols-1 lg:grid-cols-2 gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
                             <li className='flex items-center gap-3'>
                                 <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
@@ -66,7 +118,7 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Land area</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>120 Acre</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.land_area} m</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -76,8 +128,8 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                     </svg>
                                 </span>
                                 <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Number of shares available</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>80 shares</p>
+                                    <span className='text-[#656565] text-[14px] font-[400]'>Number of company shares</span>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.company_shares}</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -91,7 +143,7 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Offered by the company</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>800 shares</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_shares}</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -105,22 +157,7 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Share price</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>120 EGP</p>
-                                </div>
-                            </li>
-                            <li className='flex items-center gap-3'>
-                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
-                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M10.5007 2.33325C7.44398 2.33325 4.95898 4.81825 4.95898 7.87492C4.95898 10.8733 7.30398 13.2999 10.3607 13.4049C10.454 13.3933 10.5473 13.3933 10.6173 13.4049C10.6407 13.4049 10.6523 13.4049 10.6756 13.4049C10.6873 13.4049 10.6873 13.4049 10.699 13.4049C13.6856 13.2999 16.0306 10.8733 16.0423 7.87492C16.0423 4.81825 13.5573 2.33325 10.5007 2.33325Z" fill="#009444" />
-                                        <path d="M16.4271 16.5084C13.1721 14.3384 7.86378 14.3384 4.58544 16.5084C3.10378 17.5 2.28711 18.8417 2.28711 20.2767C2.28711 21.7117 3.10378 23.0417 4.57378 24.0217C6.20711 25.1184 8.35378 25.6667 10.5004 25.6667C12.6471 25.6667 14.7938 25.1184 16.4271 24.0217C17.8971 23.03 18.7138 21.7 18.7138 20.2534C18.7021 18.8184 17.8971 17.4884 16.4271 16.5084Z" fill="#009444" />
-                                        <path d="M23.3209 8.56337C23.5076 10.8267 21.8976 12.81 19.6693 13.0784C19.6576 13.0784 19.6576 13.0784 19.6459 13.0784H19.6109C19.5409 13.0784 19.4709 13.0784 19.4126 13.1017C18.2809 13.16 17.2426 12.7984 16.4609 12.1334C17.6626 11.06 18.3509 9.45003 18.2109 7.70003C18.1293 6.75503 17.8026 5.8917 17.3126 5.1567C17.7559 4.93504 18.2693 4.79504 18.7943 4.74837C21.0809 4.55004 23.1226 6.25337 23.3209 8.56337Z" fill="#009444" />
-                                        <path d="M25.6556 19.3549C25.5623 20.4866 24.8389 21.4666 23.6256 22.1316C22.4589 22.7732 20.9889 23.0766 19.5306 23.0416C20.3706 22.2832 20.8606 21.3382 20.9539 20.3349C21.0706 18.8882 20.3823 17.4999 19.0056 16.3916C18.2239 15.7732 17.3139 15.2832 16.3223 14.9216C18.9006 14.1749 22.1439 14.6766 24.1389 16.2866C25.2123 17.1499 25.7606 18.2349 25.6556 19.3549Z" fill="#009444" />
-                                    </svg>
-
-                                </span>
-                                <div className='flex flex-col'>
-                                    <span className='text-[#656565] text-[14px] font-[400]'>Participants</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>40 person</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.share_price} EGP</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -133,13 +170,14 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_shares_price} EGP</p>
                                 </div>
                             </li>
                         </ul>
 
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                            <Button variant='outline' className='space-x-6 text-[#16151C] h-14 w-full border-[#DBDBDB] hover:bg-white hover:text-[#16151C]'>
+                            <button className='space-x-6 text-[#16151C] h-14 w-full border border-[#DBDBDB] hover:bg-[#dbdbdb99] duration-300 hover:text-[#16151C] flex items-center justify-center rounded-[8px]'
+                                onClick={() => handleDownload(data ? data?.project?.pdf : "")}>
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className='ltr:mr-2 rtl:ml-2'>
                                     <path d="M24.0999 2.07227L29.6639 7.87227V29.9283H8.87891V30.0003H29.7349V7.94527L24.0999 2.07227Z" fill="#909090" />
                                     <path d="M24.0316 2H8.80859V29.928H29.6646V7.873L24.0316 2Z" fill="#F4F4F4" />
@@ -157,14 +195,118 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
                                     <path d="M11.9998 15.1072C11.8098 15.1072 11.6198 15.0466 11.4698 14.9169L8.11984 12.0204C7.82984 11.7696 7.82984 11.3546 8.11984 11.1038C8.40984 10.8531 8.88984 10.8531 9.17984 11.1038L11.9998 13.5421L14.8198 11.1038C15.1098 10.8531 15.5898 10.8531 15.8798 11.1038C16.1698 11.3546 16.1698 11.7696 15.8798 12.0204L12.5298 14.9169C12.3798 15.0466 12.1898 15.1072 11.9998 15.1072Z" fill="#16151C" />
                                 </svg>
 
-                            </Button>
+                            </button>
                             <Button className='h-14 w-full'>Buy Now</Button>
                         </div>
                     </div>
                 </div>
 
                 <Tabs
-                    tabs={tabs}
+                    tabs={[
+                        {
+                            id: 'tab1',
+                            label: 'Project schedule',
+                            content: () => {
+                                return (
+                                    <ul className='list-disc w-full lg:w-2/3'>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.launch_start}</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.construction_start}</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction End Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.construction_end}</span></li>
+                                        <li className='flex items-center justify-between text-[#656565]'>Production Start Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.production_start}</span></li>
+                                    </ul>
+                                )
+                            }
+
+                        },
+                        {
+                            id: 'tab2',
+                            label: 'Stage owners',
+                            content: () => {
+                                return (
+                                    <ul className='list-disc w-full lg:w-2/3'>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
+                                            <div className="flex items-center gap-2">
+                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
+                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
+                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
+                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
+                                                    </svg>
+                                                </span>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
+                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
+                                                </div>
+                                            </div>
+                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
+                                        </li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
+                                            <div className="flex items-center gap-2">
+                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
+                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
+                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
+                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
+                                                    </svg>
+                                                </span>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
+                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
+                                                </div>
+                                            </div>
+                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
+                                        </li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>
+                                            <div className="flex items-center gap-2">
+                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
+                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
+                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
+                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
+                                                    </svg>
+                                                </span>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
+                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
+                                                </div>
+                                            </div>
+                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
+                                        </li>
+                                        <li className='flex items-center justify-between'>
+                                            <div className="flex items-center gap-2">
+                                                <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
+                                                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M14.875 18.5733H15.6333C16.3917 18.5733 17.0217 17.8966 17.0217 17.08C17.0217 16.065 16.66 15.8666 16.065 15.6566L14.8867 15.2483V18.5733H14.875Z" fill="#009444" />
+                                                        <path d="M13.9657 2.21657C7.52573 2.23991 2.31073 7.47824 2.33406 13.9182C2.3574 20.3582 7.59573 25.5732 14.0357 25.5499C20.4757 25.5266 25.6907 20.2882 25.6674 13.8482C25.6441 7.40824 20.4057 2.20491 13.9657 2.21657ZM16.6374 13.9999C17.5474 14.3149 18.7724 14.9916 18.7724 17.0799C18.7724 18.8766 17.3607 20.3232 15.6341 20.3232H14.8757V20.9999C14.8757 21.4782 14.4791 21.8749 14.0007 21.8749C13.5224 21.8749 13.1257 21.4782 13.1257 20.9999V20.3232H12.7057C10.7924 20.3232 9.24073 18.7132 9.24073 16.7299C9.24073 16.2516 9.6374 15.8549 10.1157 15.8549C10.5941 15.8549 10.9907 16.2516 10.9907 16.7299C10.9907 17.7449 11.7607 18.5732 12.7057 18.5732H13.1257V14.6299L11.3641 13.9999C10.4541 13.6849 9.22906 13.0082 9.22906 10.9199C9.22906 9.12324 10.6407 7.67657 12.3674 7.67657H13.1257V6.99991C13.1257 6.52157 13.5224 6.12491 14.0007 6.12491C14.4791 6.12491 14.8757 6.52157 14.8757 6.99991V7.67657H15.2957C17.2091 7.67657 18.7607 9.28657 18.7607 11.2699C18.7607 11.7482 18.3641 12.1449 17.8857 12.1449C17.4074 12.1449 17.0107 11.7482 17.0107 11.2699C17.0107 10.2549 16.2407 9.42657 15.2957 9.42657H14.8757V13.3699L16.6374 13.9999Z" fill="#009444" />
+                                                        <path d="M10.9902 10.9318C10.9902 11.9468 11.3519 12.1451 11.9469 12.3551L13.1252 12.7634V9.42676H12.3669C11.6086 9.42676 10.9902 10.1034 10.9902 10.9318Z" fill="#009444" />
+                                                    </svg>
+                                                </span>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
+                                                    <p className='text-[#000] text-[18px] font-[500]'>230,000 EGP</p>
+                                                </div>
+                                            </div>
+                                            <span className='text-[#121212] text-[16px] font-[400]'>60%</span>
+                                        </li>
+                                    </ul>
+                                )
+                            }
+                        },
+                        {
+                            id: 'tab3',
+                            label: 'Company review',
+                            content: () => {
+                                return (
+                                    <ul className='list-disc w-full lg:w-2/3'>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
+                                        <li className='flex items-center justify-between text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>1 / 8 / 2025</span></li>
+                                    </ul>
+                                )
+                            }
+                        }
+                    ]}
                     defaultTab="tab1"
                     className="w-full lg:w-1/2 flex flex-col justify-start items-start mb-16"
                 />
@@ -182,8 +324,7 @@ const SectorDetailsPage = async ({ params }: { params: PageParams }) => {
             </div>
 
         </>
+    )
+}
 
-    );
-};
-
-export default SectorDetailsPage
+export default SectorDetails

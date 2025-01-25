@@ -26,35 +26,35 @@ interface ISector {
     created_at: string
 }
 
+const ShowSectors = ({projectId}:{projectId:number}) => {
+    
+      const [data, setData] = useState<ISector[]>();
+      const [totalPages, setTotalPages] = useState<number>();
+      const [CurrentPage, setCurrentPage] = useState<number>(1)
+    
 
-const SectorsPage = () => {
-
-  const [data, setData] = useState<ISector[]>();
-  const [totalPages, setTotalPages] = useState<number>();
-  const [CurrentPage, setCurrentPage] = useState<number>(1)
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/sectors');
-        const result = await response.json();
-        setData(result.data);
-        setTotalPages(result?.pages)
-        setCurrentPage(result?.current_page)
-
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array ensures this runs only once after the component mounts
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors?filter[project_id]=${projectId}`);
+            const result = await response.json();
+            setData(result.data);
+            setTotalPages(result?.pages)
+            setCurrentPage(result?.current_page)
+    
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, [projectId]); // Empty dependency array ensures this runs only once after the component mounts
+    
 
 
   return (
     <>
-      <Breadcrumb
+          <Breadcrumb
         items={[
           { label: 'Sectors', href: '/sectors' },
         ]}
@@ -76,12 +76,8 @@ const SectorsPage = () => {
       </div>
 
 
-
-
-
-
     </>
   )
 }
 
-export default SectorsPage
+export default ShowSectors

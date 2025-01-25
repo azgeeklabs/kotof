@@ -16,13 +16,15 @@ import menuIcon from '@/media/menuIcon.png'
 import { useDirection } from '@/app/_contexts/DirectionContext';
 import { useUser } from '@/app/_contexts/userContext'
 
+const options = [{ option: "Arabic", img: arabicFlag }, { option: "English", img: englishFlag }];
 
 const Header = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const { direction, toggleDirection } = useDirection();
-          const { user } = useUser();
-    
+    const { user } = useUser();
+
+
 
     const handleSelect = (selected: {
         option: string;
@@ -32,7 +34,6 @@ const Header = () => {
         console.log('Selected:', selected);
     };
 
-    const options = [{ option: "Arabic", img: arabicFlag }, { option: "English", img: englishFlag }];
     console.log(direction);
 
 
@@ -80,7 +81,7 @@ const Header = () => {
                     </ul>
 
                     <div className='flex items-center gap-4 md:gap-8'>
-                        <Dropdown options={options} onSelect={handleSelect} placeholder={options[0]} selected={direction == 'rtl' ? options[0] : options[1]} />
+                        <Dropdown options={options} onSelect={handleSelect} placeholder={direction == 'rtl' ? options[0] : options[1]} selected={direction == 'rtl' ? options[0] : options[1]} />
                         {user ? <Link href="/profile" className='text-[14px] font-[500] rounded-[4px] bg-white '>Hi, {user.username}</Link> : <div className='hidden gap-4 lg:flex lg:items-center'>
                             <Link href="/auth/signup" className='text-[14px] font-[500] rounded-[4px] bg-white '>Sign Up</Link>
                             <Link href="/auth/signin" className='px-4 py-2 text-sm md:text-base rounded-[8px] bg-[#009444] text-white hover:bg-[#00431F] duration-200'>Login</Link>

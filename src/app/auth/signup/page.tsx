@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React, { useRef } from 'react'
+// import React, { useRef } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import logo from '@/media/logo.png'
@@ -9,70 +9,98 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@/app/_contexts/userContext'
+import { useEffect, useState } from 'react'
+
+
+interface ICountry {
+  id: number;
+  name: string;
+  phone_code: string;
+}
 
 const SignUpPage = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  // const fileInputRef = useRef<HTMLInputElement>(null)
 
   const router = useRouter();
   const { updateUser } = useUser();
+
+
+ const [countries, setCountries] = useState<ICountry[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://test.jiovanilibya.org/api/user/countries");
+        const result = await response.json();
+        setCountries(result);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
 
   // Validation schema
   const validationSchema = Yup.object({
     username: Yup.string()
       .required('Username is required')
       .min(3, 'Username must be at least 3 characters'),
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    country_code: Yup.string()
+    // email: Yup.string()
+    //   .email('Invalid email address')
+    //   .required('Email is required'),
+    country_code: Yup.number()
       .required('country is required')
       .min(1, 'country must be at least 3 characters'),
     phone: Yup.number()
       .required('number is required')
       .min(5, 'number must be at least 3 characters'),
-    nationality_id: Yup.string()
-      .required('nationality is required')
-      .min(1, 'nationality must be at least 3 characters'),
+    // nationality_id: Yup.string()
+    //   .required('nationality is required')
+    //   .min(1, 'nationality must be at least 3 characters'),
     password: Yup.string()
       .required('Password is required')
       .min(8, 'Password must be at least 8 characters'),
-    rePassword: Yup.string()
+    password_confirmation: Yup.string()
       .required('Please confirm your password')
       .oneOf([Yup.ref('password')], 'Passwords must match'),
-    national_id: Yup.string()
-      .required('National ID is required'),
-    files: Yup.array()
-      .min(1, 'At least one image is required')
+    // national_id: Yup.string()
+    //   .required('National ID is required'),
+    // files: Yup.array()
+    //   .min(1, 'At least one image is required')
   })
 
   const formik = useFormik({
     initialValues: {
       username: '',
-      email: '',
+      // email: '',
       country_code: '',
       phone: '',
-      nationality_id: '',
+      // nationality_id: '',
       password: '',
-      rePassword: '',
-      national_id: '',
-      files: [] as File[]
+      password_confirmation: '',
+      // national_id: '',
+      // files: [] as File[]
     },
     validationSchema,
     onSubmit: async (values) => {
       try {
         const formData = new FormData()
         formData.append('username', values.username)
-        formData.append('email', values.email)
+        // formData.append('email', values.email)
         formData.append('country_code', values.country_code)
         formData.append('phone', values.phone)
-        formData.append('nationality_id', values.nationality_id)
+        // formData.append('nationality_id', values.nationality_id)
         formData.append('password', values.password)
-        formData.append('national_id', values.national_id)
+        formData.append('password_confirmation', values.password_confirmation)
+        // formData.append('national_id', values.national_id)
 
         // Append each file to formData
-        values.files.forEach((file) => {
-          formData.append(`national_id_image`, file)
-        })
+        // values.files.forEach((file) => {
+        //   formData.append(`national_id_image`, file)
+        // })
         console.log(formData);
 
         const response = await fetch("https://test.jiovanilibya.org/api/user/register", {
@@ -106,43 +134,43 @@ const SignUpPage = () => {
     },
   })
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    event.stopPropagation()
-  }
+  // const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+  //   event.preventDefault()
+  //   event.stopPropagation()
+  // }
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    event.stopPropagation()
+  // const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+  //   event.preventDefault()
+  //   event.stopPropagation()
 
-    const droppedFiles = Array.from(event.dataTransfer.files)
-    const imageFiles = droppedFiles.filter(file => file.type.startsWith('image/'))
+  //   const droppedFiles = Array.from(event.dataTransfer.files)
+  //   const imageFiles = droppedFiles.filter(file => file.type.startsWith('image/'))
 
-    if (imageFiles.length > 0) {
-      formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
-    } else {
-      alert('Only image files are allowed!')
-    }
-  }
+  //   if (imageFiles.length > 0) {
+  //     formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
+  //   } else {
+  //     alert('Only image files are allowed!')
+  //   }
+  // }
 
-  const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files)
-      const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'))
+  // const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     const selectedFiles = Array.from(event.target.files)
+  //     const imageFiles = selectedFiles.filter(file => file.type.startsWith('image/'))
 
-      if (imageFiles.length > 0) {
-        formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
-      } else {
-        alert('Only image files are allowed!')
-      }
-    }
-  }
+  //     if (imageFiles.length > 0) {
+  //       formik.setFieldValue('files', [...formik.values.files, ...imageFiles])
+  //     } else {
+  //       alert('Only image files are allowed!')
+  //     }
+  //   }
+  // }
 
-  const handleClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click()
-    }
-  }
+  // const handleClick = () => {
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.click()
+  //   }
+  // }
 
   return (
     <div>
@@ -168,7 +196,7 @@ const SignUpPage = () => {
           )}
         </div>
 
-        <div className='space-y-1 mb-4'>
+        {/* <div className='space-y-1 mb-4'>
           <label htmlFor="email" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Email address</label>
           <input
             type="email"
@@ -179,16 +207,22 @@ const SignUpPage = () => {
           {formik.touched.email && formik.errors.email && (
             <div className="text-red-500 text-sm">{formik.errors.email}</div>
           )}
-        </div>
+        </div> */}
         {/* ================================ */}
         <div className='space-y-1 mb-4'>
           <label htmlFor="country_code" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Country</label>
-          <input
-            type="text"
+          <select
             id="country_code"
             {...formik.getFieldProps('country_code')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
-          />
+          >
+              {countries.map((ele) => (
+                          <option key={ele.id} value={ele.phone_code} >
+                            {ele.name}
+                          </option>
+                        ))}
+
+          </select>
           {formik.touched.country_code && formik.errors.country_code && (
             <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
           )}
@@ -207,7 +241,7 @@ const SignUpPage = () => {
           )}
         </div>
 
-        <div className='space-y-1 mb-4'>
+        {/* <div className='space-y-1 mb-4'>
           <label htmlFor="nationality_id" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Nationality</label>
           <input
             type="text"
@@ -218,7 +252,7 @@ const SignUpPage = () => {
           {formik.touched.nationality_id && formik.errors.nationality_id && (
             <div className="text-red-500 text-sm">{formik.errors.nationality_id}</div>
           )}
-        </div>
+        </div> */}
 
         {/* ============================================= */}
 
@@ -236,19 +270,19 @@ const SignUpPage = () => {
         </div>
 
         <div className='space-y-1 mb-4'>
-          <label htmlFor="rePassword" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Confirm Password</label>
+          <label htmlFor="password_confirmation" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Confirm Password</label>
           <input
             type="password"
-            id="rePassword"
-            {...formik.getFieldProps('rePassword')}
+            id="password_confirmation"
+            {...formik.getFieldProps('password_confirmation')}
             className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]'
           />
-          {formik.touched.rePassword && formik.errors.rePassword && (
-            <div className="text-red-500 text-sm">{formik.errors.rePassword}</div>
+          {formik.touched.password_confirmation && formik.errors.password_confirmation && (
+            <div className="text-red-500 text-sm">{formik.errors.password_confirmation}</div>
           )}
         </div>
 
-        <div className='space-y-1 mb-4'>
+        {/* <div className='space-y-1 mb-4'>
           <label htmlFor="national_id" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>National ID</label>
           <input
             type="text"
@@ -259,9 +293,9 @@ const SignUpPage = () => {
           {formik.touched.national_id && formik.errors.national_id && (
             <div className="text-red-500 text-sm">{formik.errors.national_id}</div>
           )}
-        </div>
+        </div> */}
 
-        <div className='space-y-1 mb-8'>
+        {/* <div className='space-y-1 mb-8'>
           <label htmlFor="imgId" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Image ID</label>
           <div>
             <div
@@ -297,7 +331,7 @@ const SignUpPage = () => {
               <div className="text-red-500 text-sm">{formik.errors.files.toString()}</div>
             )}
           </div>
-        </div>
+        </div> */}
 
         <Button type="submit" className='w-full mb-3' disabled={formik.isSubmitting}>
           {formik.isSubmitting ? 'Signing up...' : 'Sign Up'}

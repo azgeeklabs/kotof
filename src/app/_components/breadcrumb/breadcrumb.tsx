@@ -5,7 +5,7 @@ import Image from 'next/image';
 import breadcrumbImg from "@/media/breadcrumb_bg.png"
 
 interface BreadcrumbItem {
-    label: string | number;
+    label: string | number | undefined;
     href: string;
 }
 

@@ -10,7 +10,9 @@ interface IProject {
   title: string,
   description: string,
   image: string,
-  pdf: string,
+  pdf:string,
+  sectors_count: number,
+  total_area: number,
   created_at: string
 }
 
@@ -64,7 +66,6 @@ const OurProjectsPage = () => {
         <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
 
       </div>
-
 
     </>
   )

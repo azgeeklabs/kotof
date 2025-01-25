@@ -5,6 +5,7 @@ import Image, { StaticImageData } from 'next/image';
 
 
 
+
 interface DropdownProps {
   options: {option:string,img?:string | StaticImageData}[];
   onSelect?: (selected: {option:string,img?:string | StaticImageData}) => void;
@@ -49,7 +50,7 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <div 
-      className={`relative inline-block ltr:pr-4 rtl:pl-4 min-w-36 ${className}`} 
+      className={`relative inline-block ltr:pr-4 rtl:pl-4 min-w-28 ${className}`} 
       ref={dropdownRef}
     >
       {/* Dropdown Trigger */}

@@ -15,7 +15,6 @@ import OurValues from './_components/home_components/OurValues';
 
 
 
-
 const Home = () => {
 
     const router = useRouter();

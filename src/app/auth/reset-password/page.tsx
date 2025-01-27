@@ -25,7 +25,7 @@ const ResetPassword = () => {
     });
 
     const handleSendOTP = async (values: { password: string; password_confirmation: string }) => {
-        console.log(JSON.stringify(typeof window !== 'undefined' && localStorage.getItem('token')));
+        
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
         const myHeaders = new Headers();

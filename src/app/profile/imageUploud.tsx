@@ -8,6 +8,7 @@ interface ImageUploadProps {
     acceptedFileTypes?: string[];
     width?: number;
     height?: number;
+    profileImage?:string | null
 }
 
 type FileError = {
@@ -22,8 +23,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     maxSizeInMB = DEFAULT_MAX_SIZE_MB,
     onImageUpload,
     acceptedFileTypes = DEFAULT_ACCEPTED_TYPES,
+    profileImage
 }) => {
-    const [preview, setPreview] = useState<string | null>(null);
+    const [preview, setPreview] = useState<string | null>(profileImage?profileImage:null);
     const [error, setError] = useState<FileError | null>(null);
 
     const validateFile = (file: File): FileError | null => {

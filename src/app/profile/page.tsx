@@ -3,10 +3,9 @@ import React, { useState } from 'react'
 import coverImg from '@/media/profile cover.png'
 import UserImg from '@/media/our clients img1.png'
 import Image from 'next/image'
-import RenderPrfileInfo from './ProfileInfo/ProfileInfo'
+import RenderProfileInfo from './ProfileInfo/ProfileInfo'
 import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestments'
 import RenderTransactionManagement from './TransactionManagement/TransactionManagement'
-
 
 // ================= Profile page ===================
 
@@ -18,7 +17,7 @@ const ProfilePage = () => {
         {
             id: 'PrfileInfo',
             label: 'Profile Information',
-            content: RenderPrfileInfo
+            content: RenderProfileInfo
         },
         {
             id: 'WalletAndInvestments',

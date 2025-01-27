@@ -117,9 +117,10 @@ const SignInPage: React.FC = () => {
             <div className="text-red-500 text-sm">{formik.errors.country_code}</div>
           )}
         </div>
+        
         <div className="space-y-1 mb-4">
           <label htmlFor="phone" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">
-            phone address
+            phone
           </label>
           <input
             type="text"

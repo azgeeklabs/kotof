@@ -291,9 +291,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 // import ImageUpload from '../imageUploud';
 import Button from '../../_components/button/Button';
+import { useUser } from '@/app/_contexts/userContext';
 
 
 interface ICountry {
@@ -324,12 +325,22 @@ interface ProfileInfo {
     nationality_id: string,
     isntapay_account: string,
     national_id: string,
-    national_id_image: null,
+    national_id_image: File | null
 }
 
 const RenderProfileInfo = () => {
+        // State to manage the selected value
+        const [selectedOption, setSelectedOption] = useState('20'); // Default selected option
+    
     const [countries, setCountries] = useState<ICountry[]>([]);
     const [nationalities, setNationalities] = useState<INationality[]>([]);
+
+    const { updateUser } = useUser();
+
+            // Handle change event
+            const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+                setSelectedOption(event.target.value); // Update the selected value
+            };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -349,25 +360,25 @@ const RenderProfileInfo = () => {
         fetchData();
     }, []);
 
-    // const validationSchema = Yup.object({
-    //     email: Yup.string().email('Invalid email address'),
-    //     current_password: Yup.string().required('Current password is required'),
-    //     username: Yup.string(),
-    //     full_name: Yup.string(),
-    //     country_code: Yup.string(),
-    //     phone: Yup.string(),
-    //     country_code_2: Yup.string(),
-    //     phone_2: Yup.string(),
-    //     country_code_whatsapp: Yup.string(),
-    //     whatsapp_number: Yup.string(),
-    //     emergency_number: Yup.string(),
-    //     bank_name: Yup.string(),
-    //     bank_account_number: Yup.string(),
-    //     nationality_id: Yup.string(),
-    //     isntapay_account: Yup.string(),
-    //     national_id: Yup.string(),
-    //     national_id_image: Yup.mixed(),
-    // });
+    const validationSchema = Yup.object({
+        email: Yup.string().email('Invalid email address'),
+        current_password: Yup.string().required('Current password is required'),
+        username: Yup.string(),
+        full_name: Yup.string(),
+        country_code: Yup.string(),
+        phone: Yup.string(),
+        country_code_2: Yup.string(),
+        phone_2: Yup.string().nullable(),
+        country_code_whatsapp: Yup.string(),
+        whatsapp_number: Yup.string().nullable(),
+        emergency_number: Yup.string().nullable(),
+        bank_name: Yup.string(),
+        bank_account_number: Yup.string(),
+        nationality_id: Yup.string(),
+        isntapay_account: Yup.string().nullable(),
+        national_id: Yup.string(),
+        national_id_image: Yup.mixed(),
+    });
 
     const formik = useFormik({
         initialValues: {
@@ -387,12 +398,13 @@ const RenderProfileInfo = () => {
             nationality_id: '',
             isntapay_account: '',
             national_id: '',
-            national_id_image:null ,
+            national_id_image: null
         },
-        // validationSchema,
+        validationSchema,
         onSubmit: async (values: ProfileInfo) => {
 
             const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
             const myHeaders = new Headers();
             myHeaders.append("accept", "application/json");
             myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
@@ -400,10 +412,8 @@ const RenderProfileInfo = () => {
             const formData = new FormData();
 
             Object.entries(values).forEach(([key, value]) => {
-                if (key === 'national_id_image' && value instanceof File) {
+                if (value !== null) {
                     formData.append(key, value);
-                } else {
-                    formData.append(key, value || '');
                 }
             });
 
@@ -413,8 +423,11 @@ const RenderProfileInfo = () => {
                     headers:myHeaders,
                     body: formData,
                 });
-
+                const result = await response.json();
+                
                 if (response.ok) {
+                    localStorage.setItem('userInfo', JSON.stringify(result));
+                    updateUser(result)
                     console.log('Profile updated successfully');
                 } else {
                     console.error('Failed to update profile');
@@ -444,6 +457,7 @@ const RenderProfileInfo = () => {
 
         if (imageFiles.length > 0) {
             setFiles([...files, ...imageFiles]);
+            formik.setFieldValue('national_id_image', imageFiles[0]); // Update formik value
         } else {
             alert('Only image files are allowed!');
         }
@@ -456,6 +470,7 @@ const RenderProfileInfo = () => {
 
             if (imageFiles.length > 0) {
                 setFiles([...files, ...imageFiles]);
+                formik.setFieldValue('national_id_image', imageFiles[0]); // Update formik value
             } else {
                 alert('Only image files are allowed!');
             }
@@ -474,6 +489,18 @@ const RenderProfileInfo = () => {
 
     return (
         <form onSubmit={formik.handleSubmit} className="lg:grid lg:grid-cols-2 gap-5 p-8 bg-white rounded-[16px]">
+            {/* <div className="space-y-1 lg:col-span-2">
+                <ImageUpload
+                    maxSizeInMB={5}
+                    onImageUpload={(file) => formik.setFieldValue('image', file)}
+                    width={600}
+                    height={400}
+                    acceptedFileTypes={['image/jpeg', 'image/png']}
+                />
+                {formik.touched.national_id_image && formik.errors.national_id_image && (
+                    <p className="text-red-500 text-sm">{formik.errors.national_id_image}</p>
+                )}
+            </div> */}
 
             <div className="space-y-1">
                 <label htmlFor="email" className="text-[#656C77] text-[16px] leading-[24px] font-[500]">Email address</label>
@@ -538,10 +565,12 @@ const RenderProfileInfo = () => {
                     id="country_code"
                     {...formik.getFieldProps('country_code')}
                     className="w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px]"
+                    value={selectedOption}
+                    onChange={handleChange}
                 >
                     <option value="">Select a country</option>
                     {countries.map((country) => (
-                        <option key={country.id} value={country.phone_code}>
+                        <option key={country.id} value={country.phone_code} >
                             {country.name}
                         </option>
                     ))}
@@ -750,13 +779,14 @@ const RenderProfileInfo = () => {
                         <input
                             type="file"
                             id='national_id_image'
+                            multiple
                             accept=".jpeg, .jpg, .pdf"
                             ref={fileInputRef} // Reference to the hidden input
                             onChange={handleFileInputChange}
                             className="hidden"
                         />
                     </div>
-                    <ul className="mt-4 text-sm text-gray-70">
+                    <ul className="mt-4 text-sm text-gray-700">
                         {files.length > 0 &&
                             files.map((file, index) => (
                                 <li key={index} className="border p-2 rounded mb-2">

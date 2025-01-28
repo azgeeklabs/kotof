@@ -6,12 +6,15 @@ import Image from 'next/image'
 import RenderProfileInfo from './ProfileInfo/ProfileInfo'
 import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestments'
 import RenderTransactionManagement from './TransactionManagement/TransactionManagement'
+import { useUser } from '../_contexts/userContext'
 
 // ================= Profile page ===================
 
 const ProfilePage = () => {
 
     const [activeTab, setActiveTab] = useState("PrfileInfo");
+
+        const { user } = useUser();
 
     const MainTabs = [
         {
@@ -43,7 +46,7 @@ const ProfilePage = () => {
                     <Image src={UserImg} alt='profile cover' className='h-[120px] w-[120px] lg:h-[280px] lg:w-[280px] object-cover rounded-[50%] border-[4px] border-white' />
                     <div className='flex flex-col justify-center gap-0 lg:gap-2 h-[70px] lg:h-[140px]'>
                         <span className='text-[#656565] text-[14px] lg:text-[20px] font-[400]'>Welcome,</span>
-                        <h4 className='text-[#17181B] text-[20px] lg:text-[32px] font-[600]'>Amira Ahmed</h4>
+                        <h4 className='text-[#17181B] text-[20px] lg:text-[32px] font-[600]'>{user?.username}</h4>
                     </div>
                 </div>
             </div>

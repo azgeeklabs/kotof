@@ -1,13 +1,13 @@
 'use client'
-import Button from './_components/button/Button'
-import ProductCard from './_components/productCard/ProductCard'
+// import Button from './_components/button/Button'
+// import ProductCard from './_components/productCard/ProductCard'
 import VideoPlayer from './_components/video/video'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 import Out_team from './_components/home_components/Out_team'
 import Our_client from './_components/home_components/Our_client'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import Banner from './_components/home_components/Banner'
 import About from './_components/home_components/About'
 import Blogs from './_components/home_components/Blogs'
@@ -17,7 +17,7 @@ import OurValues from './_components/home_components/OurValues';
 
 const Home = () => {
 
-    const router = useRouter();
+    // const router = useRouter();
 
     
 
@@ -57,7 +57,7 @@ const Home = () => {
       <OurValues />
 
 
-      <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32 flex flex-col items-center">
+      {/* <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32 flex flex-col items-center">
         <div className='text-center mb-12'>
           <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Market</h6>
           <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>&quot;Explore, Invest, and Unlock <br /> New Opportunities&quot;</h2>
@@ -74,7 +74,7 @@ const Home = () => {
 
         <Button className='px-8 mx-auto'  onClick={()=> router.push("/market")} >View All</Button>
 
-      </div>
+      </div> */}
 
 
       <Out_team />

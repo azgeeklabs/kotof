@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import coverImg from '@/media/profile cover.png'
 import UserImg from '@/media/our clients img1.png'
 import Image from 'next/image'
@@ -7,14 +7,14 @@ import RenderProfileInfo from './ProfileInfo/ProfileInfo'
 import RenderWalletAndInvestments from './WalletAndInvestments/WalletAndInvestments'
 import RenderTransactionManagement from './TransactionManagement/TransactionManagement'
 import { useUser } from '../_contexts/userContext'
+import { useRouter } from 'next/navigation'
 
 // ================= Profile page ===================
 
 const ProfilePage = () => {
 
     const [activeTab, setActiveTab] = useState("PrfileInfo");
-
-        const { user } = useUser();
+    const { user } = useUser();
 
     const MainTabs = [
         {
@@ -35,6 +35,17 @@ const ProfilePage = () => {
     ];
 
 
+      const router = useRouter();
+    
+      useEffect(() => {
+    
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+    
+        // If the user is not authenticated, redirect to the login page
+        if (!token) {
+            router.push('/auth/signin');
+        }
+    },[router])
 
 
 

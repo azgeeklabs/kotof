@@ -88,7 +88,7 @@ const RenderFromCustomers = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[status_id]=5');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=2');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
@@ -129,7 +129,7 @@ const RenderFromCompany = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[status_id]=4');
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[type_id]=1');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)

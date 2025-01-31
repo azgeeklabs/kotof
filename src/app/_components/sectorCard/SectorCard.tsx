@@ -74,14 +74,14 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
             console.log(result);
 
             if (response.ok) {
-                toast.success("password updated successfully");
+                toast.success(result.message);
                 setIsOpen(true)
                 
             } else {
-                console.error("Error sending OTP:", result);
+              toast.error(result.message);
             }
         } catch (error) {
-            console.error("Network error:", error);
+            console.error(error);
         }
   }
 

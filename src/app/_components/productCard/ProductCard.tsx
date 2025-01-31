@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, {useState } from 'react'
 import Button from '../button/Button'
 import userImg from "../../../media/user img.png";
 import Image from 'next/image';
@@ -19,31 +19,44 @@ interface AppProps {
         participants: number,
         total_price: number,
         sector: {
-          id: number,
-          title: string,
-          description: string,
-          land_area: number,
-          pdf: string,
-          company_rate: number,
-          launch_start: string,
-          construction_start: string,
-          construction_end: string,
-          production_start: string,
-          media: string[],
+            id: number,
+            title: string,
+            description: string,
+            land_area: number,
+            pdf: string,
+            company_rate: number,
+            launch_start: string,
+            construction_start: string,
+            construction_end: string,
+            production_start: string,
+            media: string[],
         },
-        created_at:string
-      }
+        created_at: string
+    }
 }
 
-const ProductCard = ({ defaultPrice , ProductInfo }: AppProps) => {
+const ProductCard = ({ defaultPrice, ProductInfo }: AppProps) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const router = useRouter()
 
     const handlePriceChange = (value: number): void => {
         console.log('Price value:', value);
     };
 
-    const router = useRouter()
+    const handleOpenModal = () => {
+
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
+        // If the user is not authenticated, redirect to the login page
+        if (!token) {
+            router.push('/auth/signin');
+        } else {
+            setIsOpen(true)
+        }
+
+    }
 
     return (
         <>
@@ -58,8 +71,8 @@ const ProductCard = ({ defaultPrice , ProductInfo }: AppProps) => {
                     <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.total_price}</span></li>
                 </ul>
                 <div className='grid grid-cols-2 gap-6'>
-                    <Button variant='outline' className='w-full' onClick={()=>router.push('/sectors/1')}>Show Details</Button>
-                    <Button className='w-full' onClick={() => { setIsOpen(true) }}>Buy Now</Button>
+                    <Button variant='outline' className='w-full' onClick={() => router.push(`/sectors/${ProductInfo.sector.id}`)}>Show Details</Button>
+                    <Button className='w-full' onClick={handleOpenModal}>Buy Now</Button>
                 </div>
             </div>
 
@@ -106,9 +119,9 @@ const ProductCard = ({ defaultPrice , ProductInfo }: AppProps) => {
                     <li className='text-[18px] text-[#525252] font-[400]'>You must contact the company as soon as possible or request to send the contracts by mail.</li>
                     <li className='text-[18px] text-[#525252] font-[400]'>Contracts will be issued in the name shown on the ID, and for heirs in the event of death, they have the right to request the contracts and transfer ownership via official legal documentation.</li>
                 </ul>
-                
+
                 <div className='w-full flex justify-end items-center gap-4 px-2 pt-6 border-t border-[#F1F1F1]'>
-                    <Button variant='secondary' onClick={()=>{setIsOpen(false)}}>Cancel</Button>
+                    <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
                     <Button>Send Offer</Button>
                 </div>
             </Modal>

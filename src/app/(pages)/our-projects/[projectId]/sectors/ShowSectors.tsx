@@ -6,24 +6,34 @@ import SectorCard from '@/app/_components/sectorCard/SectorCard'
 
 
 interface ISector {
-    id: number,
-    title: string,
-    description: string,
-    land_area: number,
-    company_shares: number,
-    total_shares: number,
-    share_price: number,
-    total_shares_price: number,
-    media:string[],
-    project: {
+  id: number,
+  number_of_shares: number,
+  share_price: number,
+  status_id: 5,
+  status: string,
+  type: string,
+  type_flag: string,
+  participants: number,
+  total_price: number,
+  sector: {
       id: number,
       title: string,
       description: string,
-      image: string,
+      number_of_acres: number,
+      available_shares: number,
+      land_area: number,
+      offered_by_company: number,
       pdf: string,
+      company_rate: number,
+      launch_start: string,
+      construction_start: string,
+      construction_end: string,
+      production_start: string,
+      media: string[],
       created_at: string
-    }
-    created_at: string
+  },
+  created_at: string,
+  updated_at: string
 }
 
 const ShowSectors = ({projectId}:{projectId:number}) => {
@@ -36,7 +46,7 @@ const ShowSectors = ({projectId}:{projectId:number}) => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors?filter[project_id]=${projectId}`);
+            const response = await fetch(`https://test.jiovanilibya.org/api/user/market?filter[project_id]=${projectId}`);
             const result = await response.json();
             setData(result.data);
             setTotalPages(result?.pages)

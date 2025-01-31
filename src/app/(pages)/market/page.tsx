@@ -34,7 +34,7 @@ interface IProject {
 
 }
 
-const RenderProducts = () => {
+const RenderAllProducts = () => {
 
   const [data, setData] = useState<IProject[]>();
   const [totalPages, setTotalPages] = useState<number>();
@@ -44,17 +44,92 @@ const RenderProducts = () => {
 
   useEffect(() => {
 
-    const token = typeof window !== 'undefined' && localStorage.getItem('token');
-
-    // If the user is not authenticated, redirect to the login page
-    if (!token) {
-        router.push('/auth/signin');
-    }
-
 
     const fetchData = async () => {
       try {
         const response = await fetch('https://test.jiovanilibya.org/api/user/market');
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result?.pages)
+        setCurrentPage(result?.current_page)
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [router]); // Empty dependency array ensures this runs only once after the component mounts
+
+
+  return (
+    <>
+      <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
+
+        {data && data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />)}
+
+      </div>
+      <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
+
+    </>
+  )
+}
+
+const RenderFromCustomers = () => {
+
+  const [data, setData] = useState<IProject[]>();
+  const [totalPages, setTotalPages] = useState<number>();
+  const [CurrentPage, setCurrentPage] = useState<number>(1)
+
+  const router = useRouter();
+
+  useEffect(() => {
+
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[status_id]=5');
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result?.pages)
+        setCurrentPage(result?.current_page)
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [router]); // Empty dependency array ensures this runs only once after the component mounts
+
+
+  return (
+    <>
+      <div data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='grid grid-cols-1 md:grid-cols-3 gap-8 mb-8'>
+
+        {data && data.map(ProductInfo => <ProductCard key={ProductInfo.id} ProductInfo={ProductInfo} />)}
+
+      </div>
+      <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
+
+    </>
+  )
+}
+
+const RenderFromCompany = () => {
+
+  const [data, setData] = useState<IProject[]>();
+  const [totalPages, setTotalPages] = useState<number>();
+  const [CurrentPage, setCurrentPage] = useState<number>(1)
+
+  const router = useRouter();
+
+  useEffect(() => {
+
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://test.jiovanilibya.org/api/user/market?filter[status_id]=4');
         const result = await response.json();
         setData(result.data);
         setTotalPages(result?.pages)
@@ -88,17 +163,17 @@ const MarketPage = () => {
     {
       id: 'tab1',
       label: 'All',
-      content: RenderProducts
+      content: RenderAllProducts
     },
     {
       id: 'tab3',
       label: 'from customers',
-      content: RenderProducts
+      content: RenderFromCustomers
     },
     {
       id: 'tab4',
       label: 'from company',
-      content: RenderProducts
+      content: RenderFromCompany
     }
   ];
 

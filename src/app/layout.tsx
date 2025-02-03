@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import { DirectionProvider } from '@/app/_contexts/DirectionContext';
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./_contexts/userContext";
+import { WalletContextProvider } from "./_contexts/walletContext";
 
 
 
@@ -29,9 +30,12 @@ export default function RootLayout({
       <body>
         <DirectionProvider>
           <UserProvider>
-            {!pathname.startsWith('/auth') && <Header />}
+            <WalletContextProvider>
+              {!pathname.startsWith('/auth') && <Header />}
             {children}
             {!pathname.startsWith('/auth') && <Footer />}
+            </WalletContextProvider>
+            
             <Toaster />
           </UserProvider>
         </DirectionProvider>

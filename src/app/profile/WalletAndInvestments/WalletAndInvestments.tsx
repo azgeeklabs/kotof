@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import Button from '../../_components/button/Button';
 import Link from 'next/link';
 import RenderDepositMoney from './DepositMoney';
 import RenderwithdrawMoney from './WithdrawMoney';
+import { useWalletContext } from '@/app/_contexts/walletContext';
+
+
 
 const RenderWalletAndInvestments = () => {
 
     const [activeTab, setActiveTab] = useState("DepositMoney");
+
+    const { TransactionsFromContext, setTransactionsFromContext } = useWalletContext();
+
+
 
     const WalletTabs = [
         {
@@ -20,6 +29,36 @@ const RenderWalletAndInvestments = () => {
             content: RenderwithdrawMoney
         }
     ];
+
+
+    const fetchData = async () => {
+
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+
+        try {
+            const response = await fetch('https://test.jiovanilibya.org/api/user/wallet', {
+                headers: myHeaders,
+            });
+            const result = await response.json();
+            setTransactionsFromContext(result.data.transactions)
+            console.log(result.data.transactions);
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
+    useEffect(() => {
+
+        fetchData();
+
+    }, [])
+
 
     return (
         <>
@@ -42,7 +81,7 @@ const RenderWalletAndInvestments = () => {
                                             ? ''
                                             : 'opacity-60'
                                         }
-                    `}
+                                    `}
                                 >
                                     {tab.id === "DepositMoney" ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -70,23 +109,7 @@ const RenderWalletAndInvestments = () => {
                             {tab.content()}
                         </div>
                     ))}
-                    {/* <p className='text-[#656565] text-[18px] font-[400] mb-2'>Total Balance</p>
-                    <h4 className='pb-6 mb-6 border-b border-[#F1F1F1] text-[#17181B] text-[28px] font-[600]'>120,000 <span className=' text-[16px]'>EGP</span></h4>
-                    <div className='space-y-1 mb-4'>
-                        <label htmlFor="BankName" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Receipt Image</label>
-                        <input type="text" name="BankName" id="BankName" placeholder='Enter name' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
-                    </div>
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
-                        <div className='space-y-1'>
-                            <label htmlFor="BankName" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>InstaPay Number</label>
-                            <input type="text" name="BankName" id="BankName" placeholder='Enter name' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
-                        </div>
-                        <div className='space-y-1'>
-                            <label htmlFor="BankName" className='text-[#656C77] text-[16px] leading-[24px] font-[500]'>Amount</label>
-                            <input type="text" name="BankName" id="BankName" placeholder='Enter name' className='w-full px-3 py-2 border border-[#ECECEE] bg-white rounded-[8px] outline-none text-[16px] ' />
-                        </div>
-                    </div>
-                    <Button className='w-full h-12'>Confirm</Button> */}
+
                 </div>
                 <div className='col-span-5 lg:col-span-2 p-4 lg:p-8 bg-white rounded-[16px]'>
                     <div className='flex items-center justify-between gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
@@ -102,113 +125,38 @@ const RenderWalletAndInvestments = () => {
                             Transitions</p>
                         <Link href={""} className='text-[#009444] text-[14] font-[500]'>See All</Link>
                     </div>
-                    <div className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
-                        <span className='w-12 h-12 rounded-[50%] bg-[#007BFF0F] flex justify-center items-center'>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 7.5V16.5" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 3V7H21" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 2L17 7" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        <div className='grow '>
-                            <div className='flex items-center justify-between gap-2'>
-                                <p className='text-[#252525] text-[14px] font-[400]'>Deposit Transaction</p>
-                                <p className='text-[#007BFF] text-[14px] font-[500]'>150.00 EGP +</p>
+                    <div className='max-h-[75vh] overflow-y-auto'>
+                        {TransactionsFromContext?.map(ele => <div key={ele.id} className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
+                            <span className='w-12 h-12 rounded-[50%] bg-[#007BFF0F] flex justify-center items-center'>
+                                {ele.status == "waiting_for_deposit" || ele.status == "Deposit" ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M12 7.5V16.5" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M17 3V7H21" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M22 2L17 7" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg> : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M12 7.5V16.5" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M22 6V2H18" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M17 7L22 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>}
+                            </span>
+                            <div className='grow '>
+                                <div className='flex items-center justify-between gap-2'>
+                                    <p className='text-[#252525] text-[14px] font-[400]'>{ele.status}</p>
+                                    {ele.status == "waiting_for_deposit" || ele.status == "Deposit" ? <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + "EGP +"}</p> : <p className='text-[#007BFF] text-[14px] font-[500]'>{ele.amount + "EGP -"}</p>}
+                                </div>
+                                <div className='flex items-center justify-between gap-2'>
+                                    <span className='text-[#949494] text-[12px]'>#{ele.id}</span>
+                                    <span className='text-[#949494] text-[12px]'>{ele.created_at.split(" ")[0]}</span>
+                                </div>
                             </div>
-                            <div className='flex items-center justify-between gap-2'>
-                                <span className='text-[#949494] text-[12px]'>#2324434</span>
-                                <span className='text-[#949494] text-[12px]'>18, May, 2024</span>
-                            </div>
-                        </div>
+                        </div>)}
                     </div>
-                    <div className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
-                        <span className='w-12 h-12 rounded-[50%] bg-[#EAF5EE] flex justify-center items-center'>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 7.5V16.5" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 6V2H18" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 7L22 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        <div className='grow '>
-                            <div className='flex items-center justify-between gap-2'>
-                                <p className='text-[#252525] text-[14px] font-[400]'>Deposit Transaction</p>
-                                <p className='text-[#009444] text-[14px] font-[500]'>150.00 EGP -</p>
-                            </div>
-                            <div className='flex items-center justify-between gap-2'>
-                                <span className='text-[#949494] text-[12px]'>Amount withdrawn from your wallet.</span>
-                                <span className='text-[#949494] text-[12px]'>18, May, 2024</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
-                        <span className='w-12 h-12 rounded-[50%] bg-[#007BFF0F] flex justify-center items-center'>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 7.5V16.5" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 3V7H21" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 2L17 7" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        <div className='grow '>
-                            <div className='flex items-center justify-between gap-2'>
-                                <p className='text-[#252525] text-[14px] font-[400]'>Deposit Transaction</p>
-                                <p className='text-[#007BFF] text-[14px] font-[500]'>150.00 EGP +</p>
-                            </div>
-                            <div className='flex items-center justify-between gap-2'>
-                                <span className='text-[#949494] text-[12px]'>#2324434</span>
-                                <span className='text-[#949494] text-[12px]'>18, May, 2024</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2 pb-3 mb-3 border-b border-[#F1F1F1]'>
-                        <span className='w-12 h-12 rounded-[50%] bg-[#EAF5EE] flex justify-center items-center'>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 7.5V16.5" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 6V2H18" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 7L22 2" stroke="#009444" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        <div className='grow '>
-                            <div className='flex items-center justify-between gap-2'>
-                                <p className='text-[#252525] text-[14px] font-[400]'>Deposit Transaction</p>
-                                <p className='text-[#009444] text-[14px] font-[500]'>150.00 EGP -</p>
-                            </div>
-                            <div className='flex items-center justify-between gap-2'>
-                                <span className='text-[#949494] text-[12px]'>Amount withdrawn from your wallet.</span>
-                                <span className='text-[#949494] text-[12px]'>18, May, 2024</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2'>
-                        <span className='w-12 h-12 rounded-[50%] bg-[#007BFF0F] flex justify-center items-center'>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.5 13.75C9.5 14.72 10.25 15.5 11.17 15.5H13.05C13.85 15.5 14.5 14.82 14.5 13.97C14.5 13.06 14.1 12.73 13.51 12.52L10.5 11.47C9.91 11.26 9.51001 10.94 9.51001 10.02C9.51001 9.17999 10.16 8.48999 10.96 8.48999H12.84C13.76 8.48999 14.51 9.26999 14.51 10.24" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 7.5V16.5" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M17 3V7H21" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M22 2L17 7" stroke="#0057FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        <div className='grow '>
-                            <div className='flex items-center justify-between gap-2'>
-                                <p className='text-[#252525] text-[14px] font-[400]'>Deposit Transaction</p>
-                                <p className='text-[#007BFF] text-[14px] font-[500]'>150.00 EGP +</p>
-                            </div>
-                            <div className='flex items-center justify-between gap-2'>
-                                <span className='text-[#949494] text-[12px]'>#2324434</span>
-                                <span className='text-[#949494] text-[12px]'>18, May, 2024</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
-                <div className='col-span-5 p-4 lg:p-8 bg-white rounded-[16px]'>
+                {/*<div className='col-span-5 p-4 lg:p-8 bg-white rounded-[16px]'>
                     <p className='text-[#17181B] text-[20px] font-[500] flex items-center gap-2 pb-6 mb-6 border-b border-[#F1F1F1]'><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.74 22.75H6.26C3.77 22.75 1.75 20.73 1.75 18.24V11.51C1.75 9.02001 3.77 7 6.26 7H17.74C20.23 7 22.25 9.02001 22.25 11.51V12.95C22.25 13.36 21.91 13.7 21.5 13.7H19.48C19.13 13.7 18.81 13.83 18.58 14.07L18.57 14.08C18.29 14.35 18.16 14.72 18.19 15.1C18.25 15.76 18.88 16.29 19.6 16.29H21.5C21.91 16.29 22.25 16.63 22.25 17.04V18.23C22.25 20.73 20.23 22.75 17.74 22.75ZM6.26 8.5C4.6 8.5 3.25 9.85001 3.25 11.51V18.24C3.25 19.9 4.6 21.25 6.26 21.25H17.74C19.4 21.25 20.75 19.9 20.75 18.24V17.8H19.6C18.09 17.8 16.81 16.68 16.69 15.24C16.61 14.42 16.91 13.61 17.51 13.02C18.03 12.49 18.73 12.2 19.48 12.2H20.75V11.51C20.75 9.85001 19.4 8.5 17.74 8.5H6.26Z" fill="#252525" />
                         <path d="M2.5 13.16C2.09 13.16 1.75 12.82 1.75 12.41V7.84006C1.75 6.35006 2.69 5.00001 4.08 4.47001L12.02 1.47001C12.84 1.16001 13.75 1.27005 14.46 1.77005C15.18 2.27005 15.6 3.08005 15.6 3.95005V7.75003C15.6 8.16003 15.26 8.50003 14.85 8.50003C14.44 8.50003 14.1 8.16003 14.1 7.75003V3.95005C14.1 3.57005 13.92 3.22003 13.6 3.00003C13.28 2.78003 12.9 2.73003 12.54 2.87003L4.6 5.87003C3.79 6.18003 3.24 6.97006 3.24 7.84006V12.41C3.25 12.83 2.91 13.16 2.5 13.16Z" fill="#252525" />
@@ -231,7 +179,7 @@ const RenderWalletAndInvestments = () => {
                         </div>
                     </div>
                     <p className='flex items-center justify-end gap-6 text-[#656565] text-[18px] font-[400] text-end'>Total Amount: <span className='text-[#009444] text-[20px] font-[600]'>223,000 <span className=' text-[14px]'>EGP</span></span></p>
-                </div>
+                </div>*/}
             </div>
         </>
     )

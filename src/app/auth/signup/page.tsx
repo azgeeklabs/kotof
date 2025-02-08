@@ -218,7 +218,7 @@ const SignUpPage = () => {
           >
               {countries.map((ele) => (
                           <option key={ele.id} value={ele.phone_code} >
-                            {ele.name}
+                            {ele.name}  {`(+${ele.phone_code})`}
                           </option>
                         ))}
 

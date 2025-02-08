@@ -35,41 +35,54 @@ interface Iprops {
     sectorId: number
 }
 
-interface ISector {
+interface IMarket {
     id: number,
-    title: string,
-    description: string,
-    land_area: number,
-    company_shares: number,
-    total_shares: number,
+    number_of_shares: number,
     share_price: number,
-    total_shares_price: number,
-    company_rate: number,
-    launch_start: string,
-    construction_start: string,
-    construction_end: string,
-    production_start: string,
-    media: string[],
-    project: {
-        id: number,
+    company_evaluation: number,
+    status_id: number,
+    status: string,
+    type:string,
+    type_flag: string,
+    participants: number,
+    total_price: number,
+    sector: {
+        id: 1,
         title: string,
         description: string,
-        image: string,
+        number_of_acres: number,
+        available_shares: number,
+        land_area: number,
+        offered_by_company: number,
         pdf: string,
+        company_rate: number,
+        launch_start: string,
+        construction_start: string,
+        construction_end: string,
+        production_start: string,
+        media: string[],
         created_at: string
-    }
-    created_at: string
+    },
+    user: {
+        id: number,
+        image: string,
+        username: string,
+        whatsapp_number: string,
+        country_code: string,
+        phone: string
+    },
+    created_at: string,
 }
 
 const SectorDetails = ({ sectorId }: Iprops) => {
 
-    const [data, setData] = useState<ISector>();
+    const [data, setData] = useState<IMarket>();
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://test.jiovanilibya.org/api/user/sectors/${sectorId}`);
+                const response = await fetch(`https://test.jiovanilibya.org/api/user/market/${sectorId}`);
                 const result = await response.json();
                 setData(result.data);
                 console.log(result.data);
@@ -104,9 +117,9 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12'>
                     <ImageSlider images={images} />
                     <div>
-                        <h3 className='text-[#121212] text-[28px] font-[500] mb-2'>{data?.title}</h3>
-                        <span className='flex items-center gap-2 text-[24px] pb-6 mb-6 border-b border-[#F1F1F1]'><FaStar className='text-yellow-500' />{data?.company_rate}</span>
-                        <p className='text-[#444444] text-[14px] font-[400] leading-[28px] mb-8'>{data?.description}</p>
+                        <h3 className='text-[#121212] text-[28px] font-[500] mb-2'>{data?.sector.title}</h3>
+                        <span className='flex items-center gap-2 text-[24px] pb-6 mb-6 border-b border-[#F1F1F1]'><FaStar className='text-yellow-500' />{data?.sector.company_rate}</span>
+                        <p className='text-[#444444] text-[14px] font-[400] leading-[28px] mb-8'>{data?.sector.description}</p>
                         <ul className='grid grid-cols-1 lg:grid-cols-2 gap-4 pb-6 mb-6 border-b border-[#F1F1F1]'>
                             <li className='flex items-center gap-3'>
                                 <span className='w-14 h-14 rounded-[50%] bg-[#E6F4EC] flex items-center justify-center'>
@@ -118,7 +131,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Land area</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.land_area} m</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.sector.land_area} m</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -129,7 +142,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Number of company shares</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.company_shares}</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.number_of_shares}</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -143,7 +156,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Offered by the company</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_shares}</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.sector.offered_by_company}</p>
                                 </div>
                             </li>
                             <li className='flex items-center gap-3'>
@@ -170,14 +183,14 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                                 </span>
                                 <div className='flex flex-col'>
                                     <span className='text-[#656565] text-[14px] font-[400]'>Total price</span>
-                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_shares_price} EGP</p>
+                                    <p className='text-[#000] text-[18px] font-[500]'>{data?.total_price} EGP</p>
                                 </div>
                             </li>
                         </ul>
 
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                             <button className='space-x-6 text-[#16151C] h-14 w-full border border-[#DBDBDB] hover:bg-[#dbdbdb99] duration-300 hover:text-[#16151C] flex items-center justify-center rounded-[8px]'
-                                onClick={() => handleDownload(data ? data?.project?.pdf : "")}>
+                                onClick={() => handleDownload(data ? data?.sector?.pdf : "")}>
                                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className='ltr:mr-2 rtl:ml-2'>
                                     <path d="M24.0999 2.07227L29.6639 7.87227V29.9283H8.87891V30.0003H29.7349V7.94527L24.0999 2.07227Z" fill="#909090" />
                                     <path d="M24.0316 2H8.80859V29.928H29.6646V7.873L24.0316 2Z" fill="#F4F4F4" />
@@ -209,10 +222,10 @@ const SectorDetails = ({ sectorId }: Iprops) => {
                             content: () => {
                                 return (
                                     <ul className='list-disc w-full lg:w-2/3'>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.launch_start}</span></li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.construction_start}</span></li>
-                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction End Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.construction_end}</span></li>
-                                        <li className='flex items-center justify-between text-[#656565]'>Production Start Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.production_start}</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Launch Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.sector.launch_start}</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction Start :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.sector.construction_start}</span></li>
+                                        <li className='flex items-center justify-between pb-3 mb-3 border-b border-[#F1F1F1] text-[#656565]'>Construction End Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.sector.construction_end}</span></li>
+                                        <li className='flex items-center justify-between text-[#656565]'>Production Start Date :  <span className='text-[#121212] text-[16px] font-[400]'>{data?.sector.production_start}</span></li>
                                     </ul>
                                 )
                             }

@@ -571,7 +571,7 @@ const RenderProfileInfo = () => {
                     <option value="">Select a country</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code} >
-                            {country.name}
+                            {country.name}  {`(+${country.phone_code})`}
                         </option>
                     ))}
                 </select>
@@ -609,7 +609,7 @@ const RenderProfileInfo = () => {
                     <option value="">Select a country</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code}>
-                            {country.name}
+                            {country.name}  {`(+${country.phone_code})`}
                         </option>
                     ))}
                 </select>
@@ -647,7 +647,7 @@ const RenderProfileInfo = () => {
                     <option value="">Select a country</option>
                     {countries.map((country) => (
                         <option key={country.id} value={country.phone_code}>
-                            {country.name}
+                            {country.name}  {`(+${country.phone_code})`}
                         </option>
                     ))}
                 </select>

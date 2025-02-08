@@ -5,19 +5,21 @@ import BlogCard from '../articleCard/BlogCard'
 
 
 interface IBlog {
-    id?: number,
-    name?: string,
-    title?: string,
-    content?: string,
-    image?: string,
+    id: number,
+    name: string,
+    title: string,
+    content: string,
+    image: string,
+    video: string,
     created_at: string
-}
+  }
 
 const Blogs = () => {
 
     const [data, setData] = useState<IBlog[] | undefined>();
 
     useEffect(() => {
+
         const fetchData = async () => {
             try {
                 const response = await fetch('https://test.jiovanilibya.org/api/user/blogs');
@@ -31,11 +33,13 @@ const Blogs = () => {
         };
 
         fetchData();
+
     }, []); // Empty dependency array ensures this runs only once after the component mounts
 
 
     return (
         <div className="mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mb-20 md:mb-32">
+
             <div className='text-center mb-10'>
                 <h6 data-aos="fade-up" data-aos-duration="500" data-aos-delay="0" className='text-[#009444] font-bold text-[16px]'>Our Blog</h6>
                 <h2 data-aos="fade-zoom-in" data-aos-duration="500" data-aos-delay="0" className='text-[26px] md:text-[40px] text-[#252525] font-[500]'>Check our latest blog</h2>
@@ -58,8 +62,7 @@ const Blogs = () => {
 
                 {data && data.slice(1,3).map((blogInfo:IBlog) => <div key={blogInfo.id} data-aos="fade-left" data-aos-duration="500" data-aos-delay="0" className="w-full lg:w-1/4">
                     <BlogCard blogInfo={blogInfo} />
-                </div>)
-}
+                </div>)}
             </div>
         </div>
     )

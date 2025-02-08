@@ -1,12 +1,43 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Breadcrumb from '@/app/_components/breadcrumb/breadcrumb'
 import Pagination from '@/app/_components/pagination/Pagination'
 import BlogCard from '@/app/_components/articleCard/BlogCard'
 
 
-const NewsAndArticlesPage = () => {
-  const [First, setFirst] = useState<number>(1)
+
+interface IBlog {
+  id: number,
+  name: string,
+  title: string,
+  content: string,
+  image: string,
+  video: string,
+  created_at: string
+}
+
+const Blogs = () => {
+
+  const [data, setData] = useState<IBlog[] | undefined>();
+  const [totalPages, setTotalPages] = useState<number>();
+  const [CurrentPage, setCurrentPage] = useState<number>(1)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://test.jiovanilibya.org/api/user/blogs');
+        const result = await response.json();
+        setData(result.data);
+        setTotalPages(result?.pages)
+        setCurrentPage(result?.current_page)
+
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures this runs only once after the component mounts
 
 
   return (
@@ -26,15 +57,10 @@ const NewsAndArticlesPage = () => {
 
         <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8'>
 
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+          {data && data.map((blogInfo: IBlog) => <BlogCard key={blogInfo.id} blogInfo={blogInfo} />)}
 
         </div>
-        <Pagination currentPage={First} totalPages={3} onPageChange={(t) => setFirst(t)} />
+        <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
 
 
       </div>
@@ -43,4 +69,4 @@ const NewsAndArticlesPage = () => {
   )
 }
 
-export default NewsAndArticlesPage
+export default Blogs

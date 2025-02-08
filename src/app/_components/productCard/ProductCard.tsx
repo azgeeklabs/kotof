@@ -6,23 +6,29 @@ import Image from 'next/image';
 import Modal from '../modal/Modal';
 import PriceInput from '../amountInput/AmountInput';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 interface AppProps {
     defaultPrice?: number;
-    ProductInfo: {
+    ProductInfo :{
         id: number,
         number_of_shares: number,
-        buying_price: number,
+        share_price: number,
+        company_evaluation: number,
         status_id: number,
         status: string,
-        type: string,
+        type:string,
+        type_flag: string,
         participants: number,
         total_price: number,
         sector: {
-            id: number,
+            id: 1,
             title: string,
             description: string,
+            number_of_acres: number,
+            available_shares: number,
             land_area: number,
+            offered_by_company: number,
             pdf: string,
             company_rate: number,
             launch_start: string,
@@ -30,20 +36,70 @@ interface AppProps {
             construction_end: string,
             production_start: string,
             media: string[],
+            created_at: string
         },
-        created_at: string
+        user: {
+            id: number,
+            image: string,
+            username: string,
+            whatsapp_number: string,
+            country_code: string,
+            phone: string
+        },
+        created_at: string,
     }
 }
 
-const ProductCard = ({ defaultPrice, ProductInfo }: AppProps) => {
+const ProductCard = ({ ProductInfo }: AppProps) => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [OfferValue, setOfferValue] = useState<number | null>(null)
+
+
+
+    const handleSendOffer = async (sectorid: number | undefined , numberOfShares:number) => {
+        const token = typeof window !== 'undefined' && localStorage.getItem('token');
+
+        const myHeaders = new Headers();
+        myHeaders.append("accept", "application/json");
+        myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+
+        const formData = new FormData();
+        if (sectorid) formData.append("market_of_sector_id", sectorid.toString());
+        if (OfferValue !== null) formData.append("asking_price", OfferValue.toString());
+        if (numberOfShares !== null) formData.append("number_of_shares", numberOfShares.toString());
+
+        try {
+            const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/sell-shares", {
+                method: "POST",
+                headers: myHeaders,
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            console.log(result);
+
+            if (response.ok) {
+                toast.success(result.message);
+                setIsOpen(false)
+
+            } else {
+                toast.error(result.message);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+
+    const handleOfferPrice = (value: number): void => {
+        setOfferValue(value)
+    };
+
 
     const router = useRouter()
-
-    const handlePriceChange = (value: number): void => {
-        console.log('Price value:', value);
-    };
 
     const handleOpenModal = () => {
 
@@ -67,11 +123,11 @@ const ProductCard = ({ defaultPrice, ProductInfo }: AppProps) => {
                 <p className='text-[14px] font-[500] text-black text-center mb-4'>{ProductInfo.created_at.split(" ")[0]}</p>
                 <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>{ProductInfo.sector.title}</h6>
                 <ul className='flex flex-col gap-4 w-full mb-8'>
-                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.buying_price}</span></li>
-                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.total_price}</span></li>
+                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Asking price</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.total_price}</span></li>
+                    <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ProductInfo.company_evaluation}</span></li>
                 </ul>
                 <div className='grid grid-cols-2 gap-6'>
-                    <Button variant='outline' className='w-full' onClick={() => router.push(`/sectors/${ProductInfo.sector.id}`)}>Show Details</Button>
+                    <Button variant='outline' className='w-full' onClick={() => router.push(`/our-projects/${ProductInfo.id}/sectors/${ProductInfo.sector.id}`)}>Show Details</Button>
                     <Button className='w-full' onClick={handleOpenModal}>Buy Now</Button>
                 </div>
             </div>
@@ -85,29 +141,25 @@ const ProductCard = ({ defaultPrice, ProductInfo }: AppProps) => {
                 </ul>
 
                 <div className='mx-auto w-full lg:w-1/2 p-4 bg-gradient-to-b from-[#F4F8ED00] to-[#F4F8ED] rounded-[8px] border border-[#E5EDD3] mb-8'>
-                    <p className='text-center text-[14px] text-[#000] font-[500] mb-2'>22/4/2023</p>
+                    <p className='text-center text-[14px] text-[#000] font-[500] mb-2'>{ProductInfo.created_at.split(" ")[0]}</p>
                     <h6 className='text-center text-[26px] text-[#009444] font-[600] mb-6'>Agricultural land</h6>
                     <ul className='w-full space-y-2 mb-8'>
                         <li className='flex items-center justify-between'>
                             <span className='text-[16px] text-[#656565] font-[400]'>sector</span>
-                            <span className='text-[16px] text-[#000000] font-[400]'>20</span>
-                        </li>
-                        <li className='flex items-center justify-between'>
-                            <span className='text-[16px] text-[#656565] font-[400]'>Palm trees</span>
-                            <span className='text-[16px] text-[#000000] font-[400]'>20</span>
+                            <span className='text-[16px] text-[#000000] font-[400]'>{ProductInfo.sector.id}</span>
                         </li>
                         <li className='flex items-center justify-between'>
                             <span className='text-[16px] text-[#656565] font-[400]'>Asking price</span>
-                            <span className='text-[16px] text-[#000000] font-[400]'>20</span>
+                            <span className='text-[16px] text-[#000000] font-[400]'>{ProductInfo.total_price}</span>
                         </li>
                     </ul>
                     <PriceInput
                         maxValue={100000000}
                         minValue={0}
-                        onChange={handlePriceChange}
-                        initialValue={defaultPrice?.toString()}
+                        onChange={handleOfferPrice}
+                        initialValue={""}
                         placeholder="Enter amount"
-                        label='I present an offer'
+                        label='Number Shares'
                         currency='EGP'
                     />
 
@@ -122,7 +174,7 @@ const ProductCard = ({ defaultPrice, ProductInfo }: AppProps) => {
 
                 <div className='w-full flex justify-end items-center gap-4 px-2 pt-6 border-t border-[#F1F1F1]'>
                     <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button>Send Offer</Button>
+                    <Button onClick={()=>handleSendOffer(ProductInfo.id , ProductInfo.number_of_shares)}>Send Offer</Button>
                 </div>
             </Modal>
         </>

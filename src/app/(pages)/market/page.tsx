@@ -11,27 +11,40 @@ import { useRouter } from 'next/navigation'
 interface IProject {
   id: number,
   number_of_shares: number,
-  buying_price: number,
+  share_price: number,
+  company_evaluation: number,
   status_id: number,
   status: string,
-  type: string,
+  type:string,
+  type_flag: string,
   participants: number,
   total_price: number,
   sector: {
-    id: number,
-    title: string,
-    description: string,
-    land_area: number,
-    pdf: string,
-    company_rate: number,
-    launch_start: string,
-    construction_start: string,
-    construction_end: string,
-    production_start: string,
-    media: string[],
+      id: 1,
+      title: string,
+      description: string,
+      number_of_acres: number,
+      available_shares: number,
+      land_area: number,
+      offered_by_company: number,
+      pdf: string,
+      company_rate: number,
+      launch_start: string,
+      construction_start: string,
+      construction_end: string,
+      production_start: string,
+      media: string[],
+      created_at: string
   },
-  created_at: string
-
+  user: {
+      id: number,
+      image: string,
+      username: string,
+      whatsapp_number: string,
+      country_code: string,
+      phone: string
+  },
+  created_at: string,
 }
 
 const RenderAllProducts = () => {

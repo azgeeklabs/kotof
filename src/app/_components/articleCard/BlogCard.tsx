@@ -35,8 +35,8 @@ const BlogCard = ({blogInfo}:IBlogCardProps) => {
     <>
       <div className="w-full overflow-hidden">
         <div className="relative h-52 mb-8">
-          <Image className="w-full h-full rounded-lg object-cover" src={blogImg} alt="Card image" />
-          <div className='absolute bottom-0 left-0 w-20 h-14 bg-[#F7C35F] text-[#04000B] text-[36px] flex items-center justify-center font-bold'>{day}</div>
+        <Image src={blogInfo?.image ? blogInfo.image : blogImg} alt='user' width={100} height={100} className='w-full h-full object-cover' />
+        <div className='absolute bottom-0 left-0 w-20 h-14 bg-[#F7C35F] text-[#04000B] text-[36px] flex items-center justify-center font-bold'>{day}</div>
           <div className='absolute top-[100%] left-0 w-20 h-8 bg-[#49A760] text-[#fff] text-[14px] flex items-center justify-center'>{month}, {year}</div>
         </div>
         <div className="py-3">

@@ -14,7 +14,7 @@ export default function AuthLayout({
             <div className='w-full min-h-[90vh] lg:w-[65%] mx-auto flex flex-col justify-center'>
                 {children}
             </div>
-            <div className='fixed right-[2vw] top-[5vh] hidden lg:block w-1/2 h-[90vh]'>
+            <div className='fixed rtl:left-[2vw] ltr:right-[2vw] top-[5vh] hidden lg:block w-1/2 h-[90vh]'>
                 <Image src={bgImg} alt='welcome img' className='w-full h-full object-cover rounded-[16px]' />
                 <div className='absolute top-0 left-0 w-full h-full z-[2] flex flex-col justify-center items-center gap-12'>
                     <Image src={logo} alt='welcome img'/>

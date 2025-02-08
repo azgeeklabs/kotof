@@ -108,7 +108,7 @@ const SignInPage: React.FC = () => {
           >
               {countries.map((ele) => (
                           <option key={ele.id} value={ele.phone_code} >
-                            {ele.name}
+                            {ele.name} {`(+${ele.phone_code})`}
                           </option>
                         ))}
 
@@ -143,7 +143,7 @@ const SignInPage: React.FC = () => {
           </label>
           <div className="relative">
             <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[24px] cursor-pointer text-[#17181B]"
+              className="absolute rtl:left-3 ltr:right-3 top-1/2 -translate-y-1/2 text-[24px] cursor-pointer text-[#17181B]"
               onClick={() => setPasswordVisible((prev) => !prev)}
             >
               {passwordVisible ? <FaEye /> : <RiEyeCloseFill />}

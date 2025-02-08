@@ -1,5 +1,5 @@
 "use client"
-import React, {useState } from 'react'
+import React, { useState } from 'react'
 import Button from '../button/Button'
 import userImg from "../../../media/user img.png";
 import Image from 'next/image';
@@ -10,14 +10,14 @@ import toast from 'react-hot-toast';
 
 interface AppProps {
     defaultPrice?: number;
-    ProductInfo :{
+    ProductInfo: {
         id: number,
         number_of_shares: number,
         share_price: number,
         company_evaluation: number,
         status_id: number,
         status: string,
-        type:string,
+        type: string,
         type_flag: string,
         participants: number,
         total_price: number,
@@ -51,13 +51,16 @@ interface AppProps {
 }
 
 const ProductCard = ({ ProductInfo }: AppProps) => {
-
+    const [IsLoading, setIsLoading] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [OfferValue, setOfferValue] = useState<number | null>(null)
 
 
 
-    const handleSendOffer = async (sectorid: number | undefined , numberOfShares:number) => {
+    const handleSendOffer = async (sectorid: number | undefined, numberOfShares: number) => {
+
+        setIsLoading(true)
+
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
         const myHeaders = new Headers();
@@ -70,7 +73,7 @@ const ProductCard = ({ ProductInfo }: AppProps) => {
         if (numberOfShares !== null) formData.append("number_of_shares", numberOfShares.toString());
 
         try {
-            const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/sell-shares", {
+            const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/buy-shares", {
                 method: "POST",
                 headers: myHeaders,
                 body: formData,
@@ -82,13 +85,16 @@ const ProductCard = ({ ProductInfo }: AppProps) => {
 
             if (response.ok) {
                 toast.success(result.message);
+                setIsLoading(false)
                 setIsOpen(false)
 
             } else {
                 toast.error(result.message);
+                setIsLoading(false)
             }
         } catch (error) {
             console.error(error);
+            setIsLoading(false)
         }
     }
 
@@ -174,7 +180,7 @@ const ProductCard = ({ ProductInfo }: AppProps) => {
 
                 <div className='w-full flex justify-end items-center gap-4 px-2 pt-6 border-t border-[#F1F1F1]'>
                     <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button onClick={()=>handleSendOffer(ProductInfo.id , ProductInfo.number_of_shares)}>Send Offer</Button>
+                    <Button onClick={() => handleSendOffer(ProductInfo.id, ProductInfo.number_of_shares)} disabled={IsLoading}>{IsLoading ? "Sendding offer" : "Send Offer"}</Button>
                 </div>
             </Modal>
         </>

@@ -47,6 +47,8 @@ interface IProject {
 
 const RenderCurrentlyOwned = () => {
 
+    const [IsLoading, setIsLoading] = useState<boolean>(false)
+
     const [data, setData] = useState<IProject[]>();
     const [totalPages, setTotalPages] = useState<number>();
     const [CurrentPage, setCurrentPage] = useState<number>(1)
@@ -58,6 +60,9 @@ const RenderCurrentlyOwned = () => {
 
 
     const handleSell = async (sectorid: number | undefined) => {
+
+        setIsLoading(true)
+
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
         const myHeaders = new Headers();
@@ -76,6 +81,7 @@ const RenderCurrentlyOwned = () => {
                 body: formData,
             });
 
+
             const result = await response.json();
 
             console.log(result);
@@ -83,13 +89,17 @@ const RenderCurrentlyOwned = () => {
             if (response.ok) {
                 toast.success(result.message);
                 setIsOpen(false)
+                setIsLoading(false)
                 fetchData()
 
             } else {
                 toast.error(result.message);
+                setIsLoading(false)
             }
         } catch (error) {
             console.error(error);
+            setIsLoading(false)
+
         }
     }
 
@@ -190,7 +200,7 @@ const RenderCurrentlyOwned = () => {
 
                 <div className='w-full flex justify-end gap-4'>
                     <Button variant='ghost' className='w-28 h-12 border border-[#E4E6EA] rounded-[8px] text-[#32363D]' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >confirm</Button>
+                    <Button className='w-28 h-12' onClick={() => { handleSell(CurrentSectorId) }} >{IsLoading? "Loading...":"confirm"}</Button>
                 </div>
             </Modal>
         </>

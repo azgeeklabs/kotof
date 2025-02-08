@@ -797,7 +797,7 @@ const RenderProfileInfo = () => {
                 </div>
             </div>
 
-            <Button type="submit" className="col-span-2 w-36 ml-auto">Confirm</Button>
+            <Button type="submit" className="col-span-2 w-36 ml-auto" disabled={formik.isSubmitting}>{formik.isSubmitting ? 'Loading...' : 'Confirm'}</Button>
         </form>
     );
 };

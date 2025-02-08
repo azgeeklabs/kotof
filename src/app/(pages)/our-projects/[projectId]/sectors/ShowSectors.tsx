@@ -9,14 +9,15 @@ interface ISector {
   id: number,
   number_of_shares: number,
   share_price: number,
-  status_id: 5,
+  company_evaluation: number,
+  status_id: number,
   status: string,
-  type: string,
+  type:string,
   type_flag: string,
   participants: number,
   total_price: number,
   sector: {
-      id: number,
+      id: 1,
       title: string,
       description: string,
       number_of_acres: number,
@@ -32,8 +33,15 @@ interface ISector {
       media: string[],
       created_at: string
   },
+  user: {
+      id: number,
+      image: string,
+      username: string,
+      whatsapp_number: string,
+      country_code: string,
+      phone: string
+  },
   created_at: string,
-  updated_at: string
 }
 
 const ShowSectors = ({projectId}:{projectId:number}) => {

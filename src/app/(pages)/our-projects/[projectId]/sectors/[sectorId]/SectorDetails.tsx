@@ -9,6 +9,7 @@ import img2 from '@/media/our clients img1.png'
 import img3 from '@/media/our team img1.png'
 import img4 from '@/media/sector img 1.png'
 import Tabs from '@/app/_components/tabs/Tabs';
+import SectorCard from '@/app/_components/sectorCard/SectorCard';
 
 const images = [
     {
@@ -77,6 +78,7 @@ interface IMarket {
 const SectorDetails = ({ sectorId }: Iprops) => {
 
     const [data, setData] = useState<IMarket>();
+    const [RelatedSectors, setRelatedSectors] = useState<IMarket[]>();
 
 
     useEffect(() => {
@@ -92,7 +94,19 @@ const SectorDetails = ({ sectorId }: Iprops) => {
             }
         };
 
+        const fetchRelatedSectors = async () => {
+            try {
+                const response = await fetch(`https://test.jiovanilibya.org/api/user/related-sectors`);
+                const result = await response.json();
+                setRelatedSectors(result.data);
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         fetchData();
+        fetchRelatedSectors()
     }, [sectorId]); // Empty dependency array ensures this runs only once after the component mounts
 
 
@@ -110,7 +124,7 @@ const SectorDetails = ({ sectorId }: Iprops) => {
             <Breadcrumb
                 items={[
                     { label: 'Sectors', href: '/sectors' },
-                    { label: sectorId, href: `/sectors/${sectorId}` },
+                    { label: data?.sector.title, href: `/sectors/${sectorId}` },
                 ]}
             />
             <div className='mx-auto max-w-[90%] sm:max-w-xl md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl py-20 md:py-32'>
@@ -330,8 +344,8 @@ const SectorDetails = ({ sectorId }: Iprops) => {
 
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8'>
 
-                    {/* <SectorCard />
-                    <SectorCard /> */}
+                    {RelatedSectors?.map(SectorInfo => <SectorCard key={SectorInfo.id} SectorInfo={SectorInfo} />)}
+                    
 
                 </div>
             </div>

@@ -221,7 +221,7 @@ const ContactUsPage: React.FC = () => {
                                             />
                                         </svg>
                                         <span className="text-[16px] font-[700]">
-                                            {isSubmitting ? 'Submitting...' : 'Get in Touch'}
+                                            {isSubmitting ? 'Sendding...' : 'Get in Touch'}
                                         </span>
                                     </Button>
                                 </Form>

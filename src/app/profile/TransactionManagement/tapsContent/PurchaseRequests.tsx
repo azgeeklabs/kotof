@@ -49,7 +49,10 @@ const RenderPurchaseRequests = () => {
 
     const [data, setData] = useState<IProject[]>();
     const [totalPages, setTotalPages] = useState<number>();
-    const [CurrentPage, setCurrentPage] = useState<number>(1)
+    const [CurrentPage, setCurrentPage] = useState<number>(1);
+    const [IsLoadingAccept, setIsLoadingAccept] = useState<boolean>(false)
+    const [IsLoadingRefuse, setIsLoadingRefuse] = useState<boolean>(false)
+
 
 
     useEffect(() => {
@@ -80,8 +83,8 @@ const RenderPurchaseRequests = () => {
 
 
     const handleRefuseOffer = async (id: number | undefined) => {
+        setIsLoadingRefuse(true)
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
-
         const myHeaders = new Headers();
         myHeaders.append("accept", "application/json");
         myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
@@ -98,16 +101,20 @@ const RenderPurchaseRequests = () => {
 
             if (response.ok) {
                 toast.success(result.message);
+                setIsLoadingRefuse(false)
 
             } else {
                 toast.error(result.message);
+                setIsLoadingRefuse(false)
             }
         } catch (error) {
             console.error(error);
+            setIsLoadingRefuse(false)
         }
     }
 
     const handleAcceptOffer = async (id: number | undefined) => {
+        setIsLoadingAccept(true)
         const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
         const myHeaders = new Headers();
@@ -126,12 +133,17 @@ const RenderPurchaseRequests = () => {
 
             if (response.ok) {
                 toast.success(result.message);
+                setIsLoadingAccept(false)
 
             } else {
                 toast.error(result.message);
+                setIsLoadingAccept(false)
+
             }
         } catch (error) {
             console.error(error);
+            setIsLoadingAccept(false)
+
         }
     }
 
@@ -140,7 +152,7 @@ const RenderPurchaseRequests = () => {
         <>
             <div className='flex flex-col lg:grid grid-cols-1 lg:grid-cols-3 gap-6'>
 
-                {data?.map(ele =><div key={ele.id} className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
+                {data?.map(ele => <div key={ele.id} className='px-4 py-6 lg:px-6 lg:py-8  rounded-[20px] bg-[#fff] w-full'>
                     <p className='text-[14px] font-[500] text-black text-center mb-4'>{ele.created_at.split(" ")[0]}</p>
                     <h6 className='text-[26px] text-[#009444] text-center font-[600] mb-8'>{ele.sector.title}</h6>
                     <div className='flex items-center justify-between mb-8'>
@@ -159,14 +171,14 @@ const RenderPurchaseRequests = () => {
                         <li className='flex justify-between items-center'><span className='text-[16px] text-[#656565] font-[400]'>Company evaluation</span><span className='text-[16px] text-[#000] font-[600]'>{ele.company_evaluation}</span></li>
                     </ul>
                     <div className='grid grid-cols-2 gap-6'>
-                        <Button variant='destructive' className='w-full h-12'  onClick={()=>handleRefuseOffer(ele.id)}>Refuse</Button>
-                        <Button className='w-full h-12' onClick={()=>handleAcceptOffer(ele.id)}>Accept</Button>
+                        <Button variant='destructive' className='w-full h-12' onClick={() => handleRefuseOffer(ele.id)} disabled={IsLoadingRefuse}>{IsLoadingRefuse ? "Refusing..." : "Refuse"}</Button>
+                        <Button className='w-full h-12' onClick={() => handleAcceptOffer(ele.id)} disabled={IsLoadingAccept}>{IsLoadingAccept ? "Accepting..." : "Accept"}</Button>
                     </div>
                 </div>)}
 
                 <div className='col-span-3'>
-                        <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
-                    </div>
+                    <Pagination currentPage={CurrentPage} totalPages={totalPages ? totalPages : 1} onPageChange={(t) => setCurrentPage(t)} />
+                </div>
             </div>
         </>
     )

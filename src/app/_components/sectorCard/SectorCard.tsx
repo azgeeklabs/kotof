@@ -13,79 +13,97 @@ interface ISectorCardProps {
     id: number,
     number_of_shares: number,
     share_price: number,
-    status_id: 5,
+    company_evaluation: number,
+    status_id: number,
     status: string,
     type: string,
     type_flag: string,
     participants: number,
     total_price: number,
     sector: {
-        id: number,
-        title: string,
-        description: string,
-        number_of_acres: number,
-        available_shares: number,
-        land_area: number,
-        offered_by_company: number,
-        pdf: string,
-        company_rate: number,
-        launch_start: string,
-        construction_start: string,
-        construction_end: string,
-        production_start: string,
-        media: string[],
-        created_at: string
+      id: 1,
+      title: string,
+      description: string,
+      number_of_acres: number,
+      available_shares: number,
+      land_area: number,
+      offered_by_company: number,
+      pdf: string,
+      company_rate: number,
+      launch_start: string,
+      construction_start: string,
+      construction_end: string,
+      production_start: string,
+      media: string[],
+      created_at: string
+    },
+    user: {
+      id: number,
+      image: string,
+      username: string,
+      whatsapp_number: string,
+      country_code: string,
+      phone: string
     },
     created_at: string,
-    updated_at: string
   }
 
 }
 
 const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
 
+  const [IsLoading, setIsLoading] = useState<boolean>(false)
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [OfferValue, setOfferValue] = useState<number|null>(null)
-  const [NumberOfShares, setNumberOfShares] = useState<number|null>(null)
+  const [OfferValue, setOfferValue] = useState<number | null>(null)
+  const [NumberOfShares, setNumberOfShares] = useState<number | null>(null)
 
 
 
-  const handleSendOffer = async() => {
+  const handleSendOffer = async () => {
+
+    setIsLoading(true)
+
     const token = typeof window !== 'undefined' && localStorage.getItem('token');
 
-        const myHeaders = new Headers();
-        myHeaders.append("accept", "application/json");
-        myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
+    const myHeaders = new Headers();
+    myHeaders.append("accept", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token ? JSON.parse(token) : ''}`);
 
-        const formData = new FormData();
-        if (SectorInfo?.id) formData.append("market_of_sector_id", SectorInfo.id.toString());
-        if (OfferValue !== null) formData.append("asking_price", OfferValue.toString());
-        if (NumberOfShares !== null) formData.append("number_of_shares", NumberOfShares.toString());
+    const formData = new FormData();
+    if (SectorInfo?.id) formData.append("market_of_sector_id", SectorInfo.id.toString());
+    if (OfferValue !== null) formData.append("asking_price", OfferValue.toString());
+    if (NumberOfShares !== null) formData.append("number_of_shares", NumberOfShares.toString());
 
-        try {
-            const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/buy-shares", {
-                method: "POST",
-                headers: myHeaders,
-                body: formData,
-            });
+    try {
+      const response = await fetch("https://test.jiovanilibya.org/api/user/sectors/buy-shares", {
+        method: "POST",
+        headers: myHeaders,
+        body: formData,
+      });
 
-            const result = await response.json();
 
-            console.log(result);
+      const result = await response.json();
 
-            if (response.ok) {
-                toast.success(result.message);
-                setIsOpen(true)
-                
-            } else {
-              toast.error(result.message);
-            }
-        } catch (error) {
-            console.error(error);
-        }
+      console.log(result);
+
+      if (response.ok) {
+        toast.success(result.message);
+        setIsOpen(true)
+        setIsLoading(false)
+
+      } else {
+        toast.error(result.message);
+        setIsLoading(false)
+      }
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false)
+
+    }
   }
 
-  
+
   const router = useRouter()
 
 
@@ -194,7 +212,7 @@ const SectorCard = ({ SectorInfo }: ISectorCardProps) => {
 
         <div className='w-full flex justify-end items-center gap-2 lg:gap-4 lg:px-2 pt-6 border-t border-[#F1F1F1]'>
           <Button variant='secondary' onClick={() => { setIsOpen(false) }}>Cancel</Button>
-          <Button onClick={handleSendOffer}>Send Offer</Button>
+          <Button onClick={handleSendOffer} disabled={IsLoading}>{IsLoading ? "Sendding Offer..." : "Send Offer"}</Button>
         </div>
       </Modal>
     </>

@@ -12,8 +12,8 @@ import { WalletContextProvider } from "./_contexts/walletContext";
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
-import { headers } from 'next/headers';
-import { Locale, routing } from "../../../i18n/routing";
+// import { headers } from 'next/headers';
+import { Locale, routing, usePathname } from "../../../i18n/routing";
 
 
 
@@ -31,16 +31,13 @@ export default async function LocaleLayout({
     if (!routing.locales.includes(locale as Locale)) {
       notFound();
     }
-
       // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
 
-  const headersList = await headers();
-  const pathname = await headersList.get('x-invoke-path') || '';
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const pathname = usePathname()
   console.log(pathname);
-  
 
 
   return (
@@ -54,6 +51,7 @@ export default async function LocaleLayout({
             {children}
             {!pathname.includes('/auth') && <Footer />}
             </WalletContextProvider>
+            
             <Toaster />
           </UserProvider>
         </DirectionProvider>

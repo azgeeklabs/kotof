@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import logo from '@/media/logo.png'
 import Button from '../../_components/button/Button'
-import {Link , redirect} from '@/../i18n/routing';
+import {Link } from '@/../i18n/routing';
 import toast from 'react-hot-toast'
 import {useRouter} from '@/../i18n/routing';
 import { useUser } from '../../_contexts/userContext'

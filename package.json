@@ -10,15 +10,23 @@
   },
   "dependencies": {
     "aos": "^3.0.0-beta.6",
+    "formik": "^2.4.6",
+    "i18next": "^24.2.1",
+    "intl-tel-input": "^25.2.1",
     "my-app": "file:",
     "next": "15.1.0",
+    "next-i18next": "^15.4.1",
+    "next-intl": "^3.26.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.1",
+    "react-i18next": "^15.4.0",
     "react-icons": "^5.4.0",
     "react-player": "^2.16.0",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

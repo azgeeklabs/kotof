@@ -7,8 +7,8 @@ import logo from '@/media/logo.png';
 import { FaEye } from 'react-icons/fa';
 import { RiEyeCloseFill } from 'react-icons/ri';
 import Button from '../../_components/button/Button';
-import {Link} from '@/../i18n/routing';
-import {useRouter} from '@/../i18n/routing';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useUser } from '../../_contexts/userContext';
 

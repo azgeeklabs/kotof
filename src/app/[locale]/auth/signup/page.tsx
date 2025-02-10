@@ -5,9 +5,9 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import logo from '@/media/logo.png'
 import Button from '../../_components/button/Button'
-import {Link } from '@/../i18n/routing';
+import Link from 'next/link'
 import toast from 'react-hot-toast'
-import {useRouter} from '@/../i18n/routing';
+import { useRouter } from 'next/navigation'
 import { useUser } from '../../_contexts/userContext'
 import { useEffect, useState } from 'react'
 

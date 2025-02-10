@@ -7,6 +7,7 @@ type Direction = 'ltr' | 'rtl';
 interface DirectionContextType {
   direction: Direction;
   toggleDirection: () => void;
+  setDirection: (direction: Direction) => void;
 }
 
 const DirectionContext = createContext<DirectionContextType | undefined>(undefined);
@@ -33,7 +34,7 @@ export function DirectionProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <DirectionContext.Provider value={{ direction, toggleDirection }}>
+    <DirectionContext.Provider value={{ direction, toggleDirection, setDirection }}>
       {children}
     </DirectionContext.Provider>
   );

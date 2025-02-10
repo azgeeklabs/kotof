@@ -8,8 +8,7 @@ import OTPInput from './OTP'
 import SendOTP from './SendOTP'
 import toast from 'react-hot-toast'
 import { useUser } from '../../_contexts/userContext'
-import {useRouter} from '@/../i18n/routing';
-
+import { useRouter } from 'next/navigation'
 
 
 const ForgetPass = () => {

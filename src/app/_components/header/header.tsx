@@ -62,12 +62,12 @@ const Header = () => {
                                 <div className={`absolute w-full h-0.5 bg-white top-1/2 -rotate-45 transition-all duration-300 ${!isOpen && "-rotate-[0deg]"}`}></div>
                             </button>
                         </li>
-                        <li><Link href="/" className='text-white lg:text-[#363636]'>Home</Link></li>
-                        <li><Link href="/market" className='text-white lg:text-[#363636]'>Market</Link></li>
-                        <li><Link href="/our-projects" className='text-white lg:text-[#363636]'>Our Project</Link></li>
-                        <li><Link href="/news-articles" className='text-white lg:text-[#363636]'>News & Articles</Link></li>
-                        <li><Link href="/partners" className='text-white lg:text-[#363636]'>Partners</Link></li>
-                        <li><Link href="/contact-us" className='text-white lg:text-[#363636]'>Contact us</Link></li>
+                        <li><Link href="/" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>Home</Link></li>
+                        <li><Link href="/market" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>Market</Link></li>
+                        <li><Link href="/our-projects" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>Our Project</Link></li>
+                        <li><Link href="/news-articles" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>News & Articles</Link></li>
+                        <li><Link href="/partners" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>Partners</Link></li>
+                        <li><Link href="/contact-us" className='text-white lg:text-[#363636] lg:hover:text-[#009444] duration-200'>Contact us</Link></li>
                     </ul>
 
                     <div className='flex items-center gap-4 md:gap-8'>
